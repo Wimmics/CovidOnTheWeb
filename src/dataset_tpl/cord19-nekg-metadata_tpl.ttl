@@ -1,0 +1,135 @@
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix bibo:   <http://purl.org/ontology/bibo/> .
+@prefix dcat:   <http://www.w3.org/ns/dcat#>.
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix fabio:  <http://purl.org/spar/fabio/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix frbr:   <http://purl.org/vocab/frbr/core#>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+@prefix void:   <http://rdfs.org/ns/void#>.
+@prefix wdt:    <http://www.wikidata.org/entity/>.
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+# Template file: replace placeholders 
+# - {{dataset}}: dataset name like "dataset-1-0"
+# - {{version}}: dataset version
+# - {{date}}: date at which the dataset is generated
+
+covid:{{dataset}}
+    a               dcat:Dataset, schema:Dataset;
+    dct:title       "CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)";
+    schema:name     "CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)";
+    dct:description "This RDF dataset describes the named entities identified in the research papers of the CORD-19 corpus. To identify and disambiguate the named entities, several tools have been used: NCBO BioPortal annotator, Entity-fishing (links to Wikidata) and DBpedia Spotlight (links to DBpedia).";
+    
+    dct:licence     <https://creativecommons.org/licenses/by-nc/4.0/>;
+    schema:licence  <https://creativecommons.org/licenses/by-nc/4.0/>;
+    owl:versionInfo "{{version}}";
+    dct:issued      "{{date}}"^^xsd:gYear; schema:datePublished "{{date}}"^^xsd:gYear;
+    
+    dct:subject     "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
+    schema:keywords "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
+    
+    dct:creator      <https://team.inria.fr/wimmics/>;
+    schema:author    <https://team.inria.fr/wimmics/>;
+    dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
+    schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
+
+    schema:isBasedOn        covid:cord19v6;
+    a prov:Entity;
+    prov:wasDerivedFrom     covid:cord19v6;
+    prov:wasGeneratedBy     covid:RdfGeneration;
+    prov:wasGeneratedAtTime "{{date}}"^^xsd:dateTime;
+    .
+
+<http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
+<https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
+<https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
+
+covid:cord19v6
+    a               dcat:Dataset, schema:Dataset;
+    dct:title       "COVID-19 Open Research Dataset Challenge (CORD-19)";
+    schema:name     "COVID-19 Open Research Dataset Challenge (CORD-19)";
+    dct:issued      "2020-04-03"^^xsd:gYear; schema:datePublished "2020-04-03"^^xsd:gYear;
+    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6>;
+    owl:versionInfo "6".
+
+covid:ProvenanceEF
+    a                       prov:Activity;
+    prov:used               covid:cord19v6;
+    prov:wasAssociatedWith  <https://github.com/kermitt2/entity-fishing>.
+
+covid:ProvenanceDBpSpotlight
+    a                       prov:Activity;
+    prov:wasAssociatedWith  <https://www.dbpedia-spotlight.org/>;
+    prov:used               covid:cord19v6.
+
+covid:NCBOAnnotator
+    a                       prov:Activity;
+    prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
+    prov:used               covid:cord19v6.
+
+covid:RdfGeneration
+    a               prov:Activity;
+    dct:title       "RDF generation process"; rdfs:label "RDF generation process";
+    dct:description "Transformation of the CORD-19 annotations into RDF using the Morph-xR2RML mapping pocessing engine";
+    prov:wasAssociatedWith covid:xR2RML.
+
+covid:xR2RML
+    a               prov:SoftwareAgent;
+    foaf:homepage   <https://github.com/frmichel/morph-xr2rml/>;
+    dct:title       "Morph-xR2RML"; rdfs:label "Morph-xR2RML";
+    dct:description "Implementation of the xR2RML mapping language for MongoDB";
+    dce:creator     "Franck Michel"; schema:author "Franck Michel";
+    dct:licence     <http://www.apache.org/licenses/LICENSE-2.0>;
+    owl:versionInfo "1.1-RC2";
+    schema:subjectOf covid:hal01207828.
+
+covid:hal01207828 
+    a               <https://data.archives-ouvertes.fr/doctype/Article>, bibo:AcademicArticle, schema:ScholarlyArticle;
+    dct:title       "Translation of Relational and Non-Relational Databases into RDF with xR2RML";
+    schema:name     "Translation of Relational and Non-Relational Databases into RDF with xR2RML";
+    dct:issued      "2015"^^xsd:gYear; schema:datePublished "2015"^^xsd:gYear;
+    dct:bibliographicCitation "Franck Michel, Loïc Djimenou, Catherine Faron Zucker, Johan Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML. Proceedings of the WebIST'15 Conference, 2015, Lisbon, Portugal. pp.443-454";
+    bibo:doi        "10.5220/0005448304430454";
+    dce:creator     "Franck Michel", "Loïc Djimenou", "Catherine Faron Zucker", "Johan Montagnat";
+    schema:author   "Franck Michel", "Loïc Djimenou", "Catherine Faron Zucker", "Johan Montagnat";
+    schema:sameAs   <https://hal.archives-ouvertes.fr/hal-01207828>;
+    schema:about    covid:xR2RML.
+
+
+# Properties definition
+
+covidpr:confidence
+    a               owl:DataProperty;
+    rdfs:label      "entity confidence score";
+    dct:description "Confidence score obtained during the named entity recognition process";
+    .
+
+covidpr:hasTitle
+    a               owl:ObjectProperty;
+    rdfs:subPropertyOf frbr:part;
+    rdfs:label      "resource representing a document's title";
+    dct:description "Links a work to its title";
+    .
+
+covidpr:hasBody
+    a               owl:ObjectProperty;
+    rdfs:subPropertyOf frbr:part;
+    rdfs:label      "resource representing a document's body";
+    dct:description "Links a work to its body, e.g. the main part of a research article";
+    .
+
+covid:DocumentBody
+    a               owl:Class;
+    rdfs:subClassOf fabio:Work;
+    rdfs:label      "document body";
+    dct:description "A work's body, e.g. the main part of a research article";
+    .

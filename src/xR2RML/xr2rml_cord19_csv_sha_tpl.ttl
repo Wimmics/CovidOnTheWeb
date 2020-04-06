@@ -1,0 +1,145 @@
+@prefix xrr:    <http://i3s.unice.fr/xr2rml#> .
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix bibo:   <http://purl.org/ontology/bibo/> .
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix fabio:  <http://purl.org/spar/fabio/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix frbr:   <http://purl.org/vocab/frbr/core#>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+@prefix wdt:    <http://www.wikidata.org/entity/>.
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+# Mapping file for the CORD19 metadata CSV file 
+# The article URIs are built using the sha field.
+
+# Template file: replace placeholders
+# - {{dataset}}: RDF dataset name e.g. "dataset-1-0"
+# - {{collection}}: the MongoDB collection to query, e.g. cord19_v6_csv
+
+<#LS>
+    a           xrr:LogicalSource;
+    xrr:query   """db.{{collection}}.find( { sha: {$exists: true} } )""".
+    
+<#TM>
+    a rr:TriplesMap;
+    xrr:logicalSource <#LS>;
+    rr:subjectMap   [
+        rr:template "http://ns.inria.fr/covid19/{$.sha}";
+        rr:class    fabio:ResearchPaper, schema:ScholarlyArticle, bibo:AcademicArticle;;
+    ];
+
+    rr:predicateObjectMap [
+        rr:predicate rdfs:isDefinedBy;
+        rr:objectMap [ rr:constant covid:{{dataset}}; rr:termType rr:IRI ];
+    ];
+
+    # Publication
+    rr:predicateObjectMap [
+        rr:predicate dct:issued;
+        rr:objectMap [ xrr:reference "$.publish_time"; rr:datatype xsd:dateTime ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate schema:publication;
+        rr:objectMap [ xrr:reference "$.journal" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate dct:source;
+        rr:objectMap [ xrr:reference "$.source_x" ];
+    ];
+
+    # Identifiers
+    rr:predicateObjectMap [
+        rr:predicate foaf:sha1;
+        rr:objectMap [ xrr:reference "$.sha" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate bibo:doi;
+        rr:objectMap [ xrr:reference "$.doi" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate bibo:pmid, fabio:hasPubMedId;
+        rr:objectMap [ xrr:reference "$.pubmed_id" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate fabio:hasPubMedCentralId;
+        rr:objectMap [ xrr:reference "$.pmcid" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate schema:url;
+        rr:objectMap [ rr:template "https://doi.org/{$.doi}" ];
+    ];
+
+    # Parts title, abstract, body
+    rr:predicateObjectMap [
+        rr:predicate dct:title;
+        rr:objectMap [ xrr:reference "$.title" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate covidpr:hasTitle;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}#title"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate dct:abstract;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}#abstract"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate covidpr:hasBody;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}#body_text"; ];
+    ];
+    .
+
+
+<#TM_title>
+    a rr:TriplesMap;
+    xrr:logicalSource <#LS>;
+    rr:subjectMap    [ rr:template "http://ns.inria.fr/covid19/{$.sha}#title" ];
+    rr:predicateObjectMap [
+        rr:predicate frbr:partOf;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdf:value;
+        rr:objectMap [ xrr:reference "$.title" ];
+    ].
+
+<#TM_abstract>
+    a rr:TriplesMap;
+    xrr:logicalSource <#LS>;
+    rr:subjectMap    [
+        rr:template "http://ns.inria.fr/covid19/{$.sha}#abstract";
+        rr:class    fabio:Abstract
+    ];
+    rr:predicateObjectMap [
+        rr:predicate frbr:partOf;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}"; ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdf:value;
+        rr:objectMap [ xrr:reference "$.abstract" ];
+    ].
+
+<#TM_body>
+    a rr:TriplesMap;
+    xrr:logicalSource <#LS>;
+    rr:subjectMap   [ 
+        rr:template "http://ns.inria.fr/covid19/{$.sha}#body_text";
+        rr:class    covid:DocumentBody
+    ];
+    rr:predicateObjectMap [
+        rr:predicate frbr:partOf;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.sha}"; ];
+    ].
+    # The full body text is not given in the CORD19 csv file.
+

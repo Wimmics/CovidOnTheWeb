@@ -1,0 +1,46 @@
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix bibo:   <http://purl.org/ontology/bibo/> .
+@prefix dcat:   <http://www.w3.org/ns/dcat#>.
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix fabio:  <http://purl.org/spar/fabio/> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
+@prefix frbr:   <http://purl.org/vocab/frbr/core#>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+@prefix void:   <http://rdfs.org/ns/void#>.
+@prefix wdt:    <http://www.wikidata.org/entity/>.
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+# Template file: replace placeholders 
+# - dataset-1-0: dataset name like "dataset-1-0"
+# - 10: number of triples
+
+covid:dataset-1-0
+    a                   void:Dataset;
+    void:uriSpace       "http://ns.inria.fr/covid19/";
+    void:triples        "10"^^xsd:integer;
+    void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
+    void:dataDump       <https://github.com/frmichel/cord19-named-entity-kg/raw/master/dataset/dataset-1-0.zip>;
+    
+    void:vocabulary     <http://purl.org/ontology/bibo/>;
+    void:vocabulary     <http://www.w3.org/ns/dcat#>;
+    void:vocabulary     <http://purl.org/dc/elements/1.1/>;
+    void:vocabulary     <http://purl.org/dc/terms/>;
+    void:vocabulary     <http://purl.org/spar/fabio/>;
+    void:vocabulary     <http://xmlns.com/foaf/0.1/>;
+    void:vocabulary     <http://purl.org/vocab/frbr/core#>;
+    void:vocabulary     <http://www.w3.org/ns/oa#>;
+    void:vocabulary     <http://www.w3.org/ns/prov#>;
+    void:vocabulary     <http://schema.org/>;
+    void:vocabulary     <http://rdfs.org/ns/void#>;
+    void:vocabulary     <http://www.wikidata.org/entity/>;
+    .
+
+

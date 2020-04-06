@@ -1,0 +1,31 @@
+#!/bin/bash
+# Commands to be run from the virtuoso directory
+
+
+# Metadata graph
+graph="http://ns.inria.fr/covid19/graph/metadata"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path ../dataset_tpl \
+    cord19-nekg-metadata.ttl cord19-nekg-metadata-void.ttl
+
+
+# Articles metadata graph - generated from the CORD19 metadata.csv file
+graph="http://ns.inria.fr/covid19/graph/articles"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path ../xR2RML \
+    output_cord19_v6_csv_sha.ttl output_cord19_v6_csv_pmcid.ttl
+
+
+# Entity-fishing graph
+graph="http://ns.inria.fr/covid19/graph/entityfishing"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path ../xR2RML \
+    output_entityfishing_title.ttl output_entityfishing_abstract.ttl output_entityfishing_body_text.ttl
+
+
