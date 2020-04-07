@@ -17,7 +17,7 @@ graph="http://ns.inria.fr/covid19/graph/articles"
     --cleargraph \
     --graph $graph \
     --path ../xR2RML \
-    output_cord19_v6_csv_sha.ttl output_cord19_v6_csv_pmcid.ttl
+    output_cord19_csv_sha.ttl output_cord19_csv_pmcid.ttl
 
 
 # Entity-fishing graph
