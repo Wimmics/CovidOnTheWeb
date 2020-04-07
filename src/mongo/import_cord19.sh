@@ -9,7 +9,7 @@ DB=cord19v${VERSION}
 
 import_cord(){
 
-  COLLECTION=cord19_csv
+  COLLECTION=cord19_metadata
   mongoimport --drop --type=csv --headerline --ignoreBlanks -d $DB -c $COLLECTION $ARCHIVE/metadata_fixed.csv
   mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
 
