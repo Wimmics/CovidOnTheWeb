@@ -14,6 +14,8 @@ db.entityfishing.aggregate([
         'body_text.entities': { $filter: { input: "$body_text.entities", cond: { $ne: [ "$$this.wikidataId", undefined ] }}},
         'body_text.global_categories': 1
     }},
+
+    // Remove uneeded fields
     { $project: {
         'title.global_categories.weight': 0,
         'title.global_categories.source': 0,
@@ -35,5 +37,4 @@ db.entityfishing.aggregate([
     { $out: "entityfishing_light" }
 ])
 
-// Replace current collection with new one
 db.entityfishing_light.createIndex({paper_id: 1})
