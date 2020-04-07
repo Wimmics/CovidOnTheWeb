@@ -23,13 +23,13 @@
 
 # Template file: replace placeholders
 # - {{dataset}}: RDF dataset name e.g. "dataset-1-0"
-# - {{collection}}: the MongoDB collection to query, e.g. entityfishing
+# - {{collection}}: the MongoDB collection to query, e.g. spotlight
 # - {{articlepart}}: article part about which to produce annotations. One of title, abstract, body_text
 
 <#LS_entities>
     a               xrr:LogicalSource;
-    xrr:query       """db.{{collection}}.find( {wikidataId: {$exists: true}} )""";
-    rml:iterator    "$.{{articlepart}}.entities.*";
+    xrr:query       """db.{{collection}}.find( {} )""";
+    rml:iterator    "$.{{articlepart}}.*";
     xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ].
 
 <#TM_annotation>
@@ -38,7 +38,7 @@
     rr:subjectMap   [
         rr:termType     rr:BlankNode;
         # Template to yield a unique blank node id for each annotation
-        rr:template     "{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+        rr:template     "{$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset}";
         rr:class        oa:Annotation, prov:Entity;
     ];
     rr:predicateObjectMap [
@@ -53,16 +53,12 @@
         rr:predicate schema:about;
         rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.paper_id}" ];
     ];
-    rr:predicateObjectMap [
-        rr:predicate dct:subject;
-        rr:objectMap [ xrr:reference "$.domains.*" ];
-    ];
 
     # Annotation target
     rr:predicateObjectMap [
         rr:predicate oa:hasTarget;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_target_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+            rr:template "{$.paper_id}_{{articlepart}}_target_{$.surfaceForm}_{$.offset}";
             rr:termType rr:BlankNode;
         ];
     ];
@@ -70,19 +66,19 @@
     # Annotation body
     rr:predicateObjectMap [
         rr:predicate oa:hasBody;
-        rr:objectMap [ rr:template "http://wikidata.org/entity/{$.wikidataId}" ];
+        rr:objectMap [ xrr:reference "$.URI"; rr:termType rr:IRI ];
     ];
 
     # Annotation confidence
     rr:predicateObjectMap [
         rr:predicate covidpr:confidence;
-        rr:objectMap [ xrr:reference "$.nerd_score"; rr:datatype xsd:decimal ];
+        rr:objectMap [ xrr:reference "$.similarityScore"; rr:datatype xsd:decimal ];
     ];
 
     # Provenance
     rr:predicateObjectMap [
         rr:predicate prov:wasGeneratedBy;
-        rr:objectMap [ rr:constant covid:ProvenanceEF; rr:termType rr:IRI ];
+        rr:objectMap [ rr:constant covid:ProvenanceDBpSpotlight; rr:termType rr:IRI ];
     ];
     .
 
@@ -92,7 +88,7 @@
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
         rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_target_{$.rawName}_{$.offsetStart}_{$.offsetEnd}"
+        rr:template "{$.paper_id}_{{articlepart}}_target_{$.surfaceForm}_{$.offset}"
     ];
     rr:predicateObjectMap [
         rr:predicate oa:hasSource;
@@ -101,7 +97,7 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasSelector;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_selector_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+            rr:template "{$.paper_id}_{{articlepart}}_selector_{$.surfaceForm}_{$.offset}";
             rr:termType rr:BlankNode;
         ];
     ].
@@ -112,41 +108,15 @@
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
         rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_selector_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+        rr:template "{$.paper_id}_{{articlepart}}_selector_{$.surfaceForm}_{$.offset}";
         rr:class oa:TextPositionSelector, oa:TextQuoteSelector;
     ];
     rr:predicateObjectMap [
         rr:predicate oa:start;
-        rr:objectMap [ xrr:reference "$.offsetStart" ];
-    ];
-    rr:predicateObjectMap [
-        rr:predicate oa:end;
-        rr:objectMap [ xrr:reference "$.offsetEnd" ];
+        rr:objectMap [ xrr:reference "$.offset" ];
     ];
     rr:predicateObjectMap [
         rr:predicate oa:exact;
-        rr:objectMap [ xrr:reference "$.rawName" ];
-    ];
-    .
-
-# -------------------------------------------------------------------------------
-
-# Add global categories (dct:subject) to the article part (title, abstract or body_text
-
-<#LS_global_categories>
-    a               xrr:LogicalSource;
-    xrr:query       """db.{{collection}}.find( {} )""";
-    rml:iterator    "$.{{articlepart}}.global_categories.*";
-    xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ].
-
-<#TM_global_categories>
-    a               rr:TriplesMap;
-    xrr:logicalSource <#LS_global_categories>;
-    rr:subjectMap   [
-        rr:template "http://ns.inria.fr/covid19/{$.paper_id}#{{articlepart}}";
-    ];
-    rr:predicateObjectMap [
-        rr:predicate dct:subject;
-        rr:objectMap [ xrr:reference "$.category" ];
+        rr:objectMap [ xrr:reference "$.surfaceForm" ];
     ];
     .

@@ -1,31 +1,35 @@
 #!/bin/bash
 
+# CORD19 dataset
 VERSION=6
-DB=cord19v${VERSION}
 ARCHIVE=$HOME/public_html/CORD-19-V${VERSION}
 
+# MongoDB database
+DB=cord19v${VERSION}
+
 import_cord(){
-  COLLECTION=cord19_v${VERSION}_csv
-  mongoimport --drop --type=csv --headerline --ignoreBlanks -d $DB -c $COLLECTION ${ARCHIVE}/metadata_fixed.csv
 
+  COLLECTION=cord19_csv
+  mongoimport --drop --type=csv --headerline --ignoreBlanks -d $DB -c $COLLECTION $ARCHIVE/metadata_fixed.csv
+  mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
 
-  COLLECTION=cord19_v${VERSION}_json
+  COLLECTION=cord19_json
 
-  cat ${ARCHIVE}/biorxiv_medrxiv/*.json > ${ARCHIVE}/biorxiv_medrxiv.json
-  mongoimport --drop --type=json -d $DB -c $COLLECTION ${ARCHIVE}/biorxiv_medrxiv.json
-  rm ${ARCHIVE}/biorxiv_medrxiv.json
+  cat $ARCHIVE/biorxiv_medrxiv/*.json > $ARCHIVE/biorxiv_medrxiv.json
+  mongoimport --drop --type=json -d $DB -c $COLLECTION $ARCHIVE/biorxiv_medrxiv.json
+  rm $ARCHIVE/biorxiv_medrxiv.json
 
-  cat ${ARCHIVE}/comm_use_subset/*.json > ${ARCHIVE}/comm_use_subset.json
-  mongoimport --drop --type=json -d $DB -c $COLLECTION ${ARCHIVE}/comm_use_subset.json
-  rm ${ARCHIVE}/comm_use_subset.json
+  cat $ARCHIVE/comm_use_subset/*.json > $ARCHIVE/comm_use_subset.json
+  mongoimport --drop --type=json -d $DB -c $COLLECTION $ARCHIVE/comm_use_subset.json
+  rm $ARCHIVE/comm_use_subset.json
 
-  cat ${ARCHIVE}/noncomm_use_subset/*.json > ${ARCHIVE}/noncomm_use_subset.json
-  mongoimport --drop --type=json -d $DB -c $COLLECTION  ${ARCHIVE}/noncomm_use_subset.json
-  rm ${ARCHIVE}/noncomm_use_subset.json
+  cat $ARCHIVE/noncomm_use_subset/*.json > $ARCHIVE/noncomm_use_subset.json
+  mongoimport --drop --type=json -d $DB -c $COLLECTION  $ARCHIVE/noncomm_use_subset.json
+  rm $ARCHIVE/noncomm_use_subset.json
 
-  cat ${ARCHIVE}/pmc_custom_license/*.json > ${ARCHIVE}/pmc_custom_license.json
-  mongoimport --drop --type=json -d $DB -c $COLLECTION ${ARCHIVE}/pmc_custom_license.json
-  rm ${ARCHIVE}/pmc_custom_license.json
+  cat $ARCHIVE/pmc_custom_license/*.json > $ARCHIVE/pmc_custom_license.json
+  mongoimport --drop --type=json -d $DB -c $COLLECTION $ARCHIVE/pmc_custom_license.json
+  rm $ARCHIVE/pmc_custom_license.json
 
   mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
 }

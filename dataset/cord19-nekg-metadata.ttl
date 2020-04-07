@@ -71,7 +71,7 @@ covid:ProvenanceDBpSpotlight
     prov:wasAssociatedWith  <https://www.dbpedia-spotlight.org/>;
     prov:used               covid:cord19v6.
 
-covid:NCBOAnnotator
+covid:ProvenanceNCBOAnnotator
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
     prov:used               covid:cord19v6.

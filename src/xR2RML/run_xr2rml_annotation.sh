@@ -1,25 +1,24 @@
 #!/bin/bash
 #
 # This script instantiates an xR2RML template file and runs Morph-xR2RML
-# to produce the RDF version of the CORD19 metadata.csv file
+# to produce the RDF annotations yield by Entity-Fishing.
 #
 # Input argument:
 # - arg1: RDF dataset name e.g. "dataset-1-0"
-# - arg2: the MongoDB collection to query, e.g. cord19_v6_csv
+# - arg2: article part about which to produce annotations. One of title, abstract or body_text
+# - arg3: MongoDB collection to read data from
+# - arg4: xR2RML template mapping file
 #
 # Author: F. Michel, UCA, CNRS, Inria
 
 XR2RML=$HOME/xR2RML
 
-mappingTemplate=xr2rml_cord19_csv_pmcid_tpl.ttl
-
-
 help()
 {
   exe=$(basename $0)
-  echo "Usage: $exe <dataset name> <MongoDB collection name>"
+  echo "Usage: $exe <dataset name> <title|abstract|body_text> <collection> <xR2RML mapping template>"
   echo "Example:"
-  echo "   $exe dataset-1-0 cord19_v6_csv"
+  echo "   $exe  dataset-1-0  abstract  spotlight  xr2rml_spotlight_tpl.ttl"
   exit 1
 }
 
@@ -27,20 +26,25 @@ help()
 dataset=$1
 if [[ -z "$dataset" ]] ; then help; fi
 
-collection=$2
+articlepart=$2
+if [[ -z "$articlepart" ]] ; then help; fi
+
+collection=$3
 if [[ -z "$collection" ]] ; then help; fi
 
-
+mappingTemplate=$4
+if [[ -z "$mappingTemplate" ]] ; then help; fi
 
 
 # --- Init log file
-mkdir logs &> /dev/null
-log=logs/run_xr2rml_${collection}.log
+mkdir $XR2RML/logs &> /dev/null
+log=$XR2RML/logs/run_xr2rml_${collection}_${articlepart}.log
 echo -n "" > $log
 
 # --- Substitute placeholders in the xR2RML template file
 mappingFile=/tmp/xr2rml_$$.ttl
 awk "{ gsub(/{{dataset}}/, \"$dataset\"); \
+       gsub(/{{articlepart}}/, \"$articlepart\"); \
        gsub(/{{collection}}/, \"$collection\"); \
        print }" \
     $XR2RML/${mappingTemplate} > $mappingFile
@@ -50,13 +54,13 @@ cat $mappingFile >> $log
 
 echo "--------------------------------------------------------------------------------------" >> $log
 date  >> $log
-java -Xmx4g \
+java -Xmx16g \
      -Dlog4j.configuration=file:$XR2RML/log4j.properties \
      -jar "$XR2RML/morph-xr2rml-dist-1.1-RC2-jar-with-dependencies.jar" \
-     --configDir . \
+     --configDir $XR2RML \
      --configFile xr2rml.properties \
      --mappingFile $mappingFile \
-     --output output_${collection}_pmcid.ttl \
+     --output $XR2RML/output_${collection}_${articlepart}.ttl \
      >> $log
 date >> $log
 

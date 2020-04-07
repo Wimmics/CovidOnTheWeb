@@ -26,7 +26,7 @@
 
 # Template file: replace placeholders
 # - {{dataset}}: RDF dataset name e.g. "dataset-1-0"
-# - {{collection}}: the MongoDB collection to query, e.g. cord19_v6_csv
+# - {{collection}}: the MongoDB collection to query, e.g. cord19_csv
 
 <#LS>
     a           xrr:LogicalSource;

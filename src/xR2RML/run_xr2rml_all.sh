@@ -3,9 +3,17 @@
 
 dataset=dataset-1-0
 
-./run_xr2rml_entityfishing.sh       $dataset title
-./run_xr2rml_entityfishing.sh       $dataset abstract
-./run_xr2rml_entityfishing.sh       $dataset body_text
+# Generate articles metadata
+./run_xr2rml_metadata.sh   $dataset cord19_csv sha   xr2rml_metadata_sha_tpl.ttl
+./run_xr2rml_metadata.sh   $dataset cord19_csv pmcid xr2rml_metadata_pmcid_tpl.ttl
 
-./run_xr2rml_cord19_csv_sha.sh      $dataset cord19_v6_csv
-./run_xr2rml_cord19_csv_pmcid.sh    $dataset cord19_v6_csv
+
+# Generate annotations
+
+./run_xr2rml_annotation.sh $dataset title     spotlight_biorxiv_medrxiv     xr2rml_spotlight_tpl.ttl
+./run_xr2rml_annotation.sh $dataset abstract  spotlight_biorxiv_medrxiv     xr2rml_spotlight_tpl.ttl
+./run_xr2rml_annotation.sh $dataset body_text spotlight_biorxiv_medrxiv     xr2rml_spotlight_tpl.ttl
+
+
+
+
