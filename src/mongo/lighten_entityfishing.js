@@ -15,7 +15,7 @@ db.entityfishing.aggregate([
         'body_text.global_categories': 1
     }},
 
-    // Remove uneeded fields
+    // Remove un-needed fields
     { $project: {
         'title.global_categories.weight': 0,
         'title.global_categories.source': 0,

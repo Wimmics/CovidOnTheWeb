@@ -12,11 +12,13 @@ DB=cord19v${VERSION}
 #   $1: directory where to find the JSON files
 #   $2: prefix of the collection names: prefix_0, prefix_1, ...
 import_mongo() {
-    DIR=$1
-    COLLECTION=$2
-    for jsonfile in `ls $DIR/*.json`; do
-        echo "Importing file $jsonfile"
-        mongoimport --type=json -d $DB -c $COLLECTION $jsonfile
+    dir=$1
+    collection=$2
+
+    cd $dir
+    for jsonfile in `ls *.json`; do
+        echo "Importing file $dir/$jsonfile"
+        mongoimport --type=json -d $DB -c $collection $jsonfile
     done
 }
 
@@ -25,31 +27,32 @@ import_mongo() {
 #   $1: directory where to find the JSON files
 #   $2: prefix of the collection names: prefix_0, prefix_1, ...
 drop_import_mongo() {
-    DIR=$1
-    COLLECTION=$2
-    mongo --eval "db.${COLLECTION}.drop()" localhost/$db
+    dir=$1
+    collection=$2
+    mongo --eval "db.${collection}.drop()" localhost/$DB
 
-    for jsonfile in `ls $DIR/*.json`; do
-        echo "Importing file $jsonfile"
-        mongoimport --type=json -d $DB -c $COLLECTION $jsonfile
+    cd $dir
+    for jsonfile in `ls *.json`; do
+        echo "Importing file $dir/$jsonfile"
+        mongoimport --type=json -d $DB -c $collection $jsonfile
     done
 
-    mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
+    mongo --eval "db.${collection}.createIndex({paper_id: 1})" localhost/$DB
 }
 
-# Import JSON files one by one into MongoDB collections with a max number of files per collection
-# and create as many collections as needed.
+# Import JSON files one by one into MongoDB collections with a max number 
+# of files per collection, and create as many collections as needed.
 #   $1: directory where to find the JSON files
 #   $2: prefix of the collection names: prefix_0, prefix_1, ...
 #   $3: max number of files per collection
 drop_import_mongo_split(){
-    DIR=$1
-    COLLECTION=$2
+    dir=$1
+    collection=$2
     MAXFILES=$3
 
     # Get the whole list of files to import into MongoDB
     filelist=/tmp/filelist-$$.txt
-    ls -1 $DIR/*.json > $filelist
+    ls -1 $dir/*.json > $filelist
 
     # Split the list of files into multiple pieces of $MAXFILES files
     prefix=/tmp/filelist-$$-
@@ -60,9 +63,9 @@ drop_import_mongo_split(){
     colIndex=0
     for filelist in `ls ${prefix}*`; do
 
-        col=${COLLECTION}_${colIndex}
+        col=${collection}_${colIndex}
         echo "----- Creating collection $col"
-        mongo --eval "db.${col}.drop()" localhost/$db
+        mongo --eval "db.${col}.drop()" localhost/$DB
 
         # Import each json file in the current collection
         for jsonfile in `cat $filelist`; do
@@ -91,7 +94,7 @@ import_cord_metadata() {
 import_cord_json() {
     # Importing the set of JSON files is not necessary to generate CORD19-NEKG
     COLLECTION=cord19_json
-    mongo --eval "db.${COLLECTION}.drop()" localhost/$db
+    mongo --eval "db.${COLLECTION}.drop()" localhost/$DB
 
     import_mongo $ARCHIVE/biorxiv_medrxiv     $COLLECTION
     import_mongo $ARCHIVE/comm_use_subset     $COLLECTION
@@ -105,15 +108,15 @@ import_cord_json() {
 # Import the CORD19 DBpedia-Spotlight annotations
 import_spotlight_single() {
     COLLECTION=spotlight
-    mongo --eval "db.${COLLECTION}.drop()" localhost/$db
+    mongo --eval "db.${COLLECTION}.drop()" localhost/$DB
 
     import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/biorxiv_medrxiv/pdf_json    ${COLLECTION}
     import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pdf_json    ${COLLECTION}
     import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pmc_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pdf_json     ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pmc_json     ${COLLECTION}
     import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pdf_json ${COLLECTION}
     import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pmc_json ${COLLECTION}
-    import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/pmc_custom_license/pdf_json ${COLLECTION}
-    import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/pmc_custom_license/pmc_json ${COLLECTION}
 
     mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
 }
@@ -125,10 +128,10 @@ import_spotlight_separate() {
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/biorxiv_medrxiv/pdf_json    ${COLLECTION}_biorxiv_medrxiv
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pdf_json    ${COLLECTION}_comm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pmc_json    ${COLLECTION}_comm_use_subset
+    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pdf_json     ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pmc_json     ${COLLECTION}_pmc_custom_license
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pdf_json ${COLLECTION}_noncomm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pmc_json ${COLLECTION}_noncomm_use_subset
-    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/pmc_custom_license/pdf_json ${COLLECTION}_pmc_custom_license
-    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/pmc_custom_license/pmc_json ${COLLECTION}_pmc_custom_license
 }
 
 
@@ -136,19 +139,19 @@ import_spotlight_separate() {
 import_entityfishing_separate(){
     COLLECTION=entityfishing
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/biorxiv_medrxiv/pdf_json    ${COLLECTION}_biorxiv_medrxiv
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pdf_json    ${COLLECTION}_comm_use_subset
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pmc_json    ${COLLECTION}_comm_use_subset
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pdf_json ${COLLECTION}_noncomm_use_subset
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pmc_json ${COLLECTION}_noncomm_use_subset
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/pmc_custom_license/pdf_json ${COLLECTION}_pmc_custom_license
-    #drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/pmc_custom_license/pmc_json ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pdf_json    ${COLLECTION}_comm_use_subset
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pmc_json    ${COLLECTION}_comm_use_subset
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pdf_json     ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pmc_json     ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pdf_json ${COLLECTION}_noncomm_use_subset
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pmc_json ${COLLECTION}_noncomm_use_subset
 }
 
 #import_cord_metadata
 #import_cord_json
 #import_spotlight_separate
-import_spotlight_single
-import_entityfishing_separate
+#import_spotlight_single
+#import_entityfishing_separate
 
 
 # -----------------------------------------------------------
