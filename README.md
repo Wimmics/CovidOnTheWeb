@@ -39,11 +39,13 @@ Parts of an article (title, abstract and body) are also identified by URIs so th
 - `http://ns.inria.fr/covid19/paper_id#body_text`.
 
 
-## Downloading and Querying
+## Downloading and SPARQL Querying
+
 The dataset is available either as a Turtle dump in the [dataset](/dataset) directory, or through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
 
 You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
 As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Ff74923b3ce82c984a7ae3e0c2754c9e33c60554f&sid=50&urilookup=1).
+Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
 The following **named graphs** can be queried from our SPARQL endpoint:
 - `http://ns.inria.fr/covid19/graph/metadata`: dataset descripton + definition of a few properties
@@ -51,7 +53,7 @@ The following **named graphs** can be queried from our SPARQL endpoint:
 - `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight
 - `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing
 
-The example query below retrieves two articles that have been annotated with at least one common Wikidata entity. Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
+The example query below retrieves two articles that have been annotated with at least one common Wikidata entity.
 ```sparql
 select ?uri ?title1 ?title2
 where {
