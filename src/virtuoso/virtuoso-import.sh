@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# This script requires alias isql_dba like this:
-#   alias isql_dba='$VIRTUOSO/bin/isql -H localhost -U dba -P ...
+# This script requires an $isql_dba variable set like this:
+isql_dba="$VIRTUOSO/bin/isql -H localhost -U dba -P your_password"
 
 help()
 {
@@ -58,6 +58,6 @@ echo "rdf_loader_run();"  >> $tempfile
 cat $tempfile
 
 #--- Run file against isql
-cat $tempfile | isql_dba
+cat $tempfile | $isql_dba
 
 rm -f $tempfile

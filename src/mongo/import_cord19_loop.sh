@@ -96,10 +96,13 @@ import_cord_json() {
     COLLECTION=cord19_json
     mongo --eval "db.${COLLECTION}.drop()" localhost/$DB
 
-    import_mongo $ARCHIVE/biorxiv_medrxiv     $COLLECTION
-    import_mongo $ARCHIVE/comm_use_subset     $COLLECTION
-    import_mongo $ARCHIVE/noncomm_use_subset  $COLLECTION
-    import_mongo $ARCHIVE/pmc_custom_license  $COLLECTION
+    import_mongo ${ARCHIVE}/biorxiv_medrxiv/pdf_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}/comm_use_subset/pdf_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}/comm_use_subset/pmc_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}/custom_license/pdf_json     ${COLLECTION}
+    import_mongo ${ARCHIVE}/custom_license/pmc_json     ${COLLECTION}
+    import_mongo ${ARCHIVE}/noncomm_use_subset/pdf_json ${COLLECTION}
+    import_mongo ${ARCHIVE}/noncomm_use_subset/pmc_json ${COLLECTION}
 
     mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
 }
@@ -128,8 +131,8 @@ import_spotlight_separate() {
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/biorxiv_medrxiv/pdf_json    ${COLLECTION}_biorxiv_medrxiv
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pdf_json    ${COLLECTION}_comm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset/pmc_json    ${COLLECTION}_comm_use_subset
-    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pdf_json     ${COLLECTION}_pmc_custom_license
-    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pmc_json     ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pdf_json     ${COLLECTION}_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license/pmc_json     ${COLLECTION}_custom_license
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pdf_json ${COLLECTION}_noncomm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset/pmc_json ${COLLECTION}_noncomm_use_subset
 }
@@ -158,8 +161,8 @@ import_entityfishing_separate(){
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/biorxiv_medrxiv/pdf_json    ${COLLECTION}_biorxiv_medrxiv
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pdf_json    ${COLLECTION}_comm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pmc_json    ${COLLECTION}_comm_use_subset
-    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pdf_json     ${COLLECTION}_pmc_custom_license
-    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pmc_json     ${COLLECTION}_pmc_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pdf_json     ${COLLECTION}_custom_license
+    drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pmc_json     ${COLLECTION}_custom_license
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pdf_json ${COLLECTION}_noncomm_use_subset
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pmc_json ${COLLECTION}_noncomm_use_subset
 }
@@ -189,4 +192,5 @@ import_entityfishing_separate(){
 # custom_license/pmc_json       4774
 # noncomm_use_subset/pdf_json   2378
 # noncomm_use_subset/pmc_json   2094
+# ==> 52097
 # -----------------------------------------------------------

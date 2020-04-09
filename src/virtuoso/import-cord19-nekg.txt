@@ -18,7 +18,7 @@ graph="http://ns.inria.fr/covid19/graph/articles"
     --cleargraph \
     --graph $graph \
     --path $CURRENT_DIR/../xR2RML \
-    output_cord19_csv_sha.ttl output_cord19_csv_pmcid.ttl
+    output_cord19_metadata_sha.ttl output_cord19_metadata_pmcid.ttl
 
 
 # DBpedia Spotlight graph

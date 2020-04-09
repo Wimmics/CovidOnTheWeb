@@ -70,11 +70,11 @@
     ];
     rr:predicateObjectMap [
         rr:predicate bibo:pmid, fabio:hasPubMedId;
-        rr:objectMap [ xrr:reference "$.pubmed_id" ];
+        rr:objectMap [ xrr:reference "$.pubmed_id"; rr:datatype xsd:string ];
     ];
     rr:predicateObjectMap [
         rr:predicate fabio:hasPubMedCentralId;
-        rr:objectMap [ xrr:reference "$.pmcid" ];
+        rr:objectMap [ xrr:reference "$.pmcid"; rr:datatype xsd:string ];
     ];
     rr:predicateObjectMap [
         rr:predicate schema:url;
