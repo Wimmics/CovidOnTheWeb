@@ -13,7 +13,7 @@ db.spotlight.aggregate([
     { $project: {
         paper_id: 1,
 
-        'title': {$filter: { input: "$title",  cond: { $and: [
+        'title': { $filter: { input: "$title",  cond: { $and: [
             // Keep only entites with a URI (should be all of them)
             { $ne: ["$$this.URI", undefined] },
 
@@ -24,7 +24,7 @@ db.spotlight.aggregate([
             { $gte: [{$strLenCP: "$$this.surfaceForm"}, 4] }
         ]}}},
         
-        'abstract': {$filter: { input: "$abstract",  cond: { $and: [
+        'abstract': { $filter: { input: "$abstract",  cond: { $and: [
             // Keep only entites with a URI (should be all of them)
             { $ne: ["$$this.URI", undefined] },
 

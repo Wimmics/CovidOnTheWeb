@@ -1,18 +1,23 @@
 db.entityfishing_light.drop()
-db.entityfishing.aggregate([
+db.entityfishing_biorxiv_medrxiv.aggregate([
 
-    // Keep only entities with a wikidataId field
     { $project: {
         'paper_id': 1,
 
-        'title.entities': {$filter: { input: "$title.entities", cond: { $ne: [ "$$this.wikidataId", undefined ] }}},
+        // Keep only named entities that
+        // (1) are at least 4 characters long
+        // (2) have a wikidataId field
+        'title.entities': { $filter: { input: "$title.entities",  cond: { $and: [
+            { $ne:  ["$$this.wikidataId", undefined] },
+            { $gte: [{$strLenCP: "$$this.rawName"}, 3] }
+        ]}}},
+        'abstract.entities': { $filter: { input: "$abstract.entities",  cond: { $and: [
+            { $ne:  ["$$this.wikidataId", undefined] },
+            { $gte: [{$strLenCP: "$$this.rawName"}, 3] }
+        ]}}},
+
         'title.global_categories': 1,
-
-        'abstract.entities': { $filter: { input: "$abstract.entities", cond: { $ne: [ "$$this.wikidataId", undefined ] }}},
         'abstract.global_categories': 1,
-
-        'body_text.entities': { $filter: { input: "$body_text.entities", cond: { $ne: [ "$$this.wikidataId", undefined ] }}},
-        'body_text.global_categories': 1
     }},
 
     // Remove un-needed fields
@@ -27,10 +32,7 @@ db.entityfishing.aggregate([
         'abstract.entities.nerd_selection_score': 0,
         'abstract.entities.wikipediaExternalRef': 0,
 
-        'body_text.global_categories.weight': 0,
-        'body_text.global_categories.source': 0,
-        'body_text.entities.nerd_selection_score': 0,
-        'body_text.entities.wikipediaExternalRef': 0
+        'body_text': 0
         }
     },
 

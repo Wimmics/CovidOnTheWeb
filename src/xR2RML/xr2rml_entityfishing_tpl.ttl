@@ -28,7 +28,7 @@
 
 <#LS_entities>
     a               xrr:LogicalSource;
-    xrr:query       """db.{{collection}}.find( {wikidataId: {$exists: true}} )""";
+    xrr:query       """db.{{collection}}.find( {} )""";
     rml:iterator    "$.{{articlepart}}.entities.*";
     xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ].
 

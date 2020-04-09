@@ -136,6 +136,23 @@ import_spotlight_separate() {
 
 
 # Import the CORD19 Entity-fishing annotations
+import_entityfishing_single() {
+    COLLECTION=entityfishing
+    mongo --eval "db.${COLLECTION}.drop()" localhost/$DB
+
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/biorxiv_medrxiv/pdf_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pdf_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset/pmc_json    ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pdf_json     ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/custom_license/pmc_json     ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pdf_json ${COLLECTION}
+    import_mongo ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset/pmc_json ${COLLECTION}
+
+    mongo --eval "db.${COLLECTION}.createIndex({paper_id: 1})" localhost/$DB
+}
+
+
+# Import the CORD19 Entity-fishing annotations into separate collections
 import_entityfishing_separate(){
     COLLECTION=entityfishing
     drop_import_mongo ${ARCHIVE}-Annotation/entity-fishing/biorxiv_medrxiv/pdf_json    ${COLLECTION}_biorxiv_medrxiv
@@ -152,6 +169,7 @@ import_entityfishing_separate(){
 #import_spotlight_separate
 #import_spotlight_single
 #import_entityfishing_separate
+#import_entityfishing_single
 
 
 # -----------------------------------------------------------

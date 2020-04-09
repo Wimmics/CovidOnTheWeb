@@ -55,8 +55,8 @@ covid:{{dataset}}
 
 covid:cord19v6
     a               dcat:Dataset, schema:Dataset;
-    dct:title       "COVID-19 Open Research Dataset Challenge (CORD-19)";
-    schema:name     "COVID-19 Open Research Dataset Challenge (CORD-19)";
+    dct:title       "COVID-19 Open Research Dataset (CORD-19)";
+    schema:name     "COVID-19 Open Research Dataset (CORD-19)";
     dct:issued      "2020-04-03"^^xsd:gYear; schema:datePublished "2020-04-03"^^xsd:gYear;
     schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6>;
     owl:versionInfo "6".
