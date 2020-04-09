@@ -20,8 +20,8 @@ db.spotlight.aggregate([
             // Keep only entites with a similarityScore higher than 0.75
             { $gte: ["$$this.similarityScore", 0.75] },
             
-            // Keep only named entites that are at least 4 characters long
-            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 4] }
+            // Keep only named entites that are at least 3 characters long
+            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 3] }
         ]}}},
         
         'abstract': { $filter: { input: "$abstract",  cond: { $and: [

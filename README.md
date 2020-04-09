@@ -6,8 +6,8 @@ CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics
 
 #### Documentation
 
-- [Data Modeling](/doc/01-data-modeling.md)
-- [Generation Pipeline](/doc/02-generation-pipeline.md)
+- [Data Modeling](doc/01-data-modeling.md)
+- [Generation Pipeline](doc/02-generation-pipeline.md)
 
 
 ## Named Entities
@@ -18,30 +18,61 @@ CORD19-NEKG **v1.0** is based on [CORD-19 v6](https://www.kaggle.com/dataset/08d
 - No. named entities linked to DBpedia resources: 
     - titles: 277,783
     - abstracts: 1,558,119
+    - **total: 1,835,902**
 - No. named entities linked to Wikidata resources: 
-    - titles: nnn
-    - abstracts: nnn
-
-
-## Downloading and Querying
-The dataset is available either as a Turtle dump in directory [dataset](/dataset), or through our Virtuoso SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
-
-You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
+    - titles: 145,706
+    - abstracts: 645,216
+    - **total: 790,922**
 
 
 ## URIs
 
-CORD-19 namespace is `http://ns.inria.fr/covid19/`.
+CORD19-NEKG namespace is `http://ns.inria.fr/covid19/`.
 
-The dataset itslef is identified by URI [`http://ns.inria.fr/covid19/dataset-1-0`](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Fdataset-1-0). It comes with DCAT and VOID descriptions.
+The dataset itslef is identified by URI `http://ns.inria.fr/covid19/dataset-1-0` ([describe](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Fdataset-1-0)). It comes with DCAT and VOID descriptions.
 All articles and annotations about named entities are linked back to the dataset with property `rdfs:isDefinedBy`.
 
 Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
-Parts of an article (title, abstract and body) are also identified by URIs so that named entities can link back to the part they belong to. These URIs are formatted as 
+Parts of an article (title, abstract and body) are also identified by URIs so that annotations of named entities can link back to the part they belong to. These URIs are formatted as 
 - `http://ns.inria.fr/covid19/paper_id#title`
 - `http://ns.inria.fr/covid19/paper_id#abstract`
 - `http://ns.inria.fr/covid19/paper_id#body_text`.
 
 
+## Downloading and Querying
+The dataset is available either as a Turtle dump in the [dataset](/dataset) directory, or through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
+
+You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
+As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Ff74923b3ce82c984a7ae3e0c2754c9e33c60554f&sid=50&urilookup=1).
+
+The following **named graphs** can be queried from our SPARQL endpoint:
+- `http://ns.inria.fr/covid19/graph/metadata`: dataset descripton + definition of a few properties
+- `http://ns.inria.fr/covid19/graph/articles`: articles metadata (title, authors, DOIs, journal etc.)
+- `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight
+- `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing
+
+The example query below retrieves two articles that have been annotated with at least one common Wikidata entity. Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
+```sparql
+select ?uri ?title1 ?title2
+where {
+  graph <http://ns.inria.fr/covid19/graph/articles> {
+    ?paper1 a fabio:ResearchPaper; dct:title ?title1.
+    ?paper2 a fabio:ResearchPaper; dct:title ?title2.
+    filter (?paper1 != ?paper2)
+  }
+  
+  graph <http://ns.inria.fr/covid19/graph/entityfishing> {
+    ?a1 a oa:Annotation;
+        schema:about ?paper1;
+        oa:hasBody ?uri.
+    ?a2 a oa:Annotation;
+        schema:about ?paper2;
+        oa:hasBody ?uri.
+  }
+} limit 10
+```
+
+
 ## License
 
+TBC.

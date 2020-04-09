@@ -1,11 +1,11 @@
 db.entityfishing_light.drop()
-db.entityfishing_biorxiv_medrxiv.aggregate([
+db.entityfishing.aggregate([
 
     { $project: {
         'paper_id': 1,
 
         // Keep only named entities that
-        // (1) are at least 4 characters long
+        // (1) are at least 3 characters long
         // (2) have a wikidataId field
         'title.entities': { $filter: { input: "$title.entities",  cond: { $and: [
             { $ne:  ["$$this.wikidataId", undefined] },
