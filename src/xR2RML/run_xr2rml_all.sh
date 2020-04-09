@@ -7,6 +7,8 @@ dataset=dataset-1-0
 ./run_xr2rml_metadata.sh   $dataset cord19_metadata sha   xr2rml_metadata_sha_tpl.ttl
 ./run_xr2rml_metadata.sh   $dataset cord19_metadata pmcid xr2rml_metadata_pmcid_tpl.ttl
 
+./run_xr2rml_metadata_authors.sh cord19_json_light xr2rml_metadata_authors_tpl.ttl
+
 
 # Generate annotations DBpedia Spotlight
 ./run_xr2rml_annotation.sh $dataset title     spotlight_light     xr2rml_spotlight_tpl.ttl

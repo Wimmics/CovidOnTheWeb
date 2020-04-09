@@ -11,7 +11,7 @@
 #
 # Author: F. Michel, UCA, CNRS, Inria
 
-XR2RML=$HOME/xR2RML
+XR2RML=.
 
 help()
 {

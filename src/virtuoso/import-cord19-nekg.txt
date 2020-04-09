@@ -12,13 +12,13 @@ graph="http://ns.inria.fr/covid19/graph/metadata"
     cord19-nekg-metadata.ttl cord19-nekg-metadata-void.ttl
 
 
-# Articles metadata graph - generated from the CORD19 metadata.csv file
+# Articles metadata graph - generated from the CORD19 metadata.csv and json files
 graph="http://ns.inria.fr/covid19/graph/articles"
 ./virtuoso-import.sh \
     --cleargraph \
     --graph $graph \
     --path $CURRENT_DIR/../xR2RML \
-    output_cord19_metadata_sha.ttl output_cord19_metadata_pmcid.ttl
+    output_cord19_metadata_sha.ttl output_cord19_metadata_pmcid.ttl output_cord19_json_light_authors.ttl
 
 
 # DBpedia Spotlight graph

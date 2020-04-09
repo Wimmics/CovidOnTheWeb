@@ -20,8 +20,9 @@
     rdfs:isDefinedBy    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f/dataset-1-0>;
     dct:title           "A real-time PCR for SARS-coronavirus incorporating target gene pre-amplification";
     schema:publication  "Biochemical and Biophysical Research Communications";
+    dc:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
     dct:source          "Elsevier";
-
+        
     dct:issued          "2003-12-26"^^xsd:dateTime;
     bibo:doi            "10.1016/j.bbrc.2003.11.064";
     bibo:pmid           "14652014";

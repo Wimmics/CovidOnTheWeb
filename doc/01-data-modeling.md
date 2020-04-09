@@ -35,6 +35,7 @@ Article metadata such as the title, authors, journal, DOI, PCM identifer etc. ar
     rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
     dct:title           "A real-time PCR for SARS-coronavirus incorporating target gene pre-amplification";
     schema:publication  "Biochemical and Biophysical Research Communications";
+    dc:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
     dct:source          "Elsevier";
 
     dct:issued          "2003-12-26"^^xsd:dateTime;
