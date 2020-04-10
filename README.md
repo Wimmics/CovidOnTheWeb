@@ -79,14 +79,25 @@ where {
 
 ## License
 
-The CORD-19 Named Entities Knowlegde Graph dataset is made available under the Open Data Commons Attribution License: http://opendatacommons.org/licenses/by/1.0. 
+This CORD-19 Named Entities Knowlegde Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
+It consists of two subsets:
+- the CORD-19 dataset itself, translated into the Turtle RDF syntax, subject to the CORD-19 license; and
+- the result of a text mining process meant to extract named entities.
 
-Specific licensing information for individual articles in the dataset is available (see property `dct:license`).
-Additional licensing information is available on the PMC website, medRxiv website and bioRxiv website.
+The CORD19-NEKG dataset is therefore licensed under two licenses, each applying to the aforementioned subsets:
+- The CORD-19 license (https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/2020-03-13/COVID.DATA.LIC.AGMT.pdf) applies to the CORD-19 dataset that is contained in the CORD19-NEKG dataset (as a subset translated into the Turtle RDF syntax).   
+- The Open Data Commons Attribution License (http://opendatacommons.org/licenses/by/1.0) applies to the subset of the CORD19-NEKG dataset that results of a text mining process, that does not contain the aforementioned CORD-19 subset.
+
+
+## Cite this work
+
+When including CORD19-NEKG data in a publication or redistribution, please cite the dataset as follows:
+
+> R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG). 2020. Version 1.0. Retrieved from https://github.com/Wimmics/cord19-nekg.
 
 
 ## References
 
-[1] COVID-19 Open Research Dataset (CORD-19). 2020. Version 2020-03-20. Retrieved from https://pages.semanticscholar.org/coronavirus-research. Accessed 2020-04-06. doi:10.5281/zenodo.3715505
+[1] COVID-19 Open Research Dataset (CORD-19). 2020. Version 2020-04-03. Retrieved from https://pages.semanticscholar.org/coronavirus-research. Accessed 2020-04-06. doi:10.5281/zenodo.3715505
 
 [2] F. Michel, L. Djimenou, C. Faron-Zucker, and J. Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML. In Proceedings of the *11th International Confenrence on Web Information Systems and Technologies (WEBIST 2015)*, Lisbon, Portugal, 2015.
