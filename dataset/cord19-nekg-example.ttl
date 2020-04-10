@@ -15,9 +15,14 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
+# This files exemplifies the description of an article of the CORD-19 corpus, 
+# along with two named entities identified whithin the article's abstract, and represented
+# as annotations of the article: one Wikidata resource identified by entity-fishing and 
+# one DBpedia resource identified by DBpedia postlight.
+
 <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>
     a                   fabio:ResearchPaper, bibo:AcademicArticle, schema:ScholarlyArticle;
-    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f/dataset-1-0>;
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
     dct:title           "A real-time PCR for SARS-coronavirus incorporating target gene pre-amplification";
     schema:publication  "Biochemical and Biophysical Research Communications";
     dc:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
@@ -33,14 +38,15 @@
     dct:abstract        <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#abstract>;
     covidpr:hasTitle    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#title>;
     covidpr:hasBody     <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#body_text>.
-    
-    
+
+
+# Annotations of a named entity identified by entity-fishing
 _:b24095433
     a                   oa:Annotation, prov:Entity;
-    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f/dataset-1-0>;
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
     schema:about        <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>;
-    dct:creator         <https://team.inria.fr/wimmics/>;
 
+    covidpr:confidence  1^^xsd:decimal;
     oa:hasBody          <http://dbpedia.org/resource/SARS_coronavirus>;
     oa:hasTarget [
         oa:hasSource    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#abstract>;
@@ -50,18 +56,28 @@ _:b24095433
             oa:start    "446"
         ]
     ];
-    covidpr:confidence  1^^xsd:decimal;
+    dct:creator         <https://team.inria.fr/wimmics/>;
+    prov:wasGeneratedBy	<http://ns.inria.fr/covid19/ProvenanceDBpSpotlight>.
 
-    prov:wasGeneratedBy    [
-        a               prov:Activity;
-        prov:used       <http://ns.inria.fr/covid19/cord19v6>;
-        prov:wasAssociatedWith <https://www.dbpedia-spotlight.org/>.
-    ].
 
-<http://ns.inria.fr/covid19/cord19v6>
-    a                   schema:Dataset dcat:Dataset;
-    owl:versionInfo     "6" .
-    dct:title           "COVID-19 Open Research Dataset Challenge (CORD-19)" ;
-    dct:issued          "2020-04-03"^^xsd:gYear ;
-    schema:url          <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6> .
+# Annotations of a named entity identified by DBpedia Spotlight
+_:b40150806	
+    a                   oa:Annotation, prov:Entity;
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
+    schema:about        <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>;
+    dct:subject         "Engineering", "Biology";
     
+    covidpr:confidence	"1"^^xsd:decimal;
+    oa:hasBody          <http://wikidata.org/entity/Q176996>;
+    oa:hasTarget [
+        oa:hasSource    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#abstract>;
+        oa:hasSelector  [
+            a           oa:TextPositionSelector, oa:TextQuoteSelector;
+            oa:exact    "PCR";
+            oa:start    "235";
+            oa:end      "238"
+        ]
+    ];
+
+    dct:creator         <https://team.inria.fr/wimmics/>;
+    prov:wasGeneratedBy	<http://ns.inria.fr/covid19/ProvenanceEF>.

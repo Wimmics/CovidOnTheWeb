@@ -6,7 +6,7 @@ CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics
 
 #### Documentation
 
-- [Data Modeling](doc/01-data-modeling.md)
+- [RDF Data Modeling](doc/01-data-modeling.md)
 - [Generation Pipeline](doc/02-generation-pipeline.md)
 
 
@@ -25,7 +25,7 @@ CORD19-NEKG **v1.0** is based on [CORD-19 v6](https://www.kaggle.com/dataset/08d
     - **total: 790,922**
 
 
-## URIs
+## URIs to name things
 
 CORD19-NEKG namespace is `http://ns.inria.fr/covid19/`.
 

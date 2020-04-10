@@ -1,6 +1,6 @@
 # CORD19-NEKG Data Modeling
 
-The description of each article comes in two parts: (1) metadata and (2) annotations about named entities. These are exemplified below.
+The description of each article comes in two parts: (1) metadata such as title and authors, and (2) annotations about named entities. Below we exemplify and described these parts.
 
 ## Namespaces
 
@@ -27,15 +27,34 @@ Below we use the following namespaces:
 
 ## Article metadata
 
-Article metadata such as the title, authors, journal, DOI, PCM identifer etc. are represented as exemplified:
+Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
 
+Article metadata includes the following items:
+- title (`dct:title`)
+- authors (`dce:creator`)
+- publication date (`dct:issued`)
+- journal (`schema:publication`)
+- identifiers
+    - DOI (`bibo:doi`)
+    - Pubmed identifer (`bibo:pmid` and `fabio:hasPubMedId`)
+    - PMC identifer (`fabio:hasPubMedCentralId`)
+- source of the metadata information (`dct:source`)
+- DOI-based URL (`schema:url`)
+- SHA hash (`foaf:sha1`)
+
+Furthermore, each article is linked to its parts (title, abstract, body) as follows:
+- `dct:abstract     <http://ns.inria.fr/covid19/paper_id#title>`
+- `covidpr:hasTitle <http://ns.inria.fr/covid19/paper_id#abstract>`
+- `covidpr:hasBody  <http://ns.inria.fr/covid19/paper_id#body_text>`.
+
+Here is an example of article metadata:
 ```turtle
 <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>
     a                   fabio:ResearchPaper, bibo:AcademicArticle, schema:ScholarlyArticle;
     rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
     dct:title           "A real-time PCR for SARS-coronavirus incorporating target gene pre-amplification";
     schema:publication  "Biochemical and Biophysical Research Communications";
-    dc:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
+    dce:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
     dct:source          "Elsevier";
 
     dct:issued          "2003-12-26"^^xsd:dateTime;
@@ -52,41 +71,47 @@ Article metadata such as the title, authors, journal, DOI, PCM identifer etc. ar
 
 ## Article named entities
 
-The named entities identified in an article are described as annotations using the [Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/).
+The named entities identified in an article are described as **annotations** using the **[Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/)**.
+Each annotation is a blank node consisting of the following information:
+- the article it is about (`schema:about`)
+- the annotation target (`oa:hasTarget`) describes the piece of text identified as a named entity as follows:
+    - the source (`oa:hasSource`) is the part of the article where the named entity was detected
+    - the selecor (`oa:hasSelector`) gives the named entity raw text (`oa:exact`) and its location whithin the source (`oa:start` and `oa:end`)
+- the annotation body (`oa:hasBody`) gives the URI of the resource identified as representing the named entity (e.g. a Wikidata URI)
+- domains related to the named entity (`dct:subject`)
 
-Each annotation is a blank node related to the article in two ways:
-- it is about (schema:about) the article URI
-- the annotation's target (`oa:hasTarget`) has as a source (`oa:hasSource`) the article title URI
-
+Example:
 ```turtle
-_:b24095433
+_:b40150806	
     a                   oa:Annotation, prov:Entity;
-    rdfs:isDefinedBy    <http://ns.inria.fr/covid19//dataset-1-0>;
     schema:about        <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>;
-    dct:creator         <https://team.inria.fr/wimmics/>;
-
-    oa:hasBody          <http://dbpedia.org/resource/SARS_coronavirus>;
-    oa:hasTarget        [
+    dct:subject         "Engineering", "Biology";
+    
+    covidpr:confidence	"1"^^xsd:decimal;
+    oa:hasBody          <http://wikidata.org/entity/Q176996>;
+    oa:hasTarget [
         oa:hasSource    <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#abstract>;
         oa:hasSelector  [
             a           oa:TextPositionSelector, oa:TextQuoteSelector;
-            oa:exact    "comorbidities";
-            oa:start    "446"
+            oa:exact    "PCR";
+            oa:start    "235";
+            oa:end      "238"
         ]
     ];
-    covidpr:confidence  1^^xsd:decimal.
 ```
 
 ## Provenance information
 
-Provenance information about each annotation consists of the source dataset and version (CORD-19 v6 in the example below), and the tool used to identify the named entity (DBpedia Spotlight in the example below).
+Provenance information about each annotation provides the annotation author (`dct:creator`), source dataset and version (`prov:used`, CORD-19 v6 in the example below), and the tool used to identify the named entity (`prov:wasAssociatedWith`, entity-fishing in the example below).
 
 ```turtle
-_:b24095433
-    prov:wasGeneratedBy    [
+_:b40150806
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
+    dct:creator         <https://team.inria.fr/wimmics/>;
+    prov:wasGeneratedBy [
         a               prov:Activity;
         prov:used       <http://ns.inria.fr/covid19/cord19v6>;
-        prov:wasAssociatedWith <https://www.dbpedia-spotlight.org/>.
+        prov:wasAssociatedWith <https://github.com/kermitt2/entity-fishing>.
     ].
 
 <http://ns.inria.fr/covid19/cord19v6>
