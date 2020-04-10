@@ -34,6 +34,7 @@ Article metadata includes the following items:
 - authors (`dce:creator`)
 - publication date (`dct:issued`)
 - journal (`schema:publication`)
+- license (`dct:license`)
 - identifiers
     - DOI (`bibo:doi`)
     - Pubmed identifer (`bibo:pmid` and `fabio:hasPubMedId`)
@@ -56,6 +57,7 @@ Here is an example of article metadata:
     schema:publication  "Biochemical and Biophysical Research Communications";
     dce:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
     dct:source          "Elsevier";
+    dct:license         "els-covid";
 
     dct:issued          "2003-12-26"^^xsd:dateTime;
     bibo:doi            "10.1016/j.bbrc.2003.11.064";

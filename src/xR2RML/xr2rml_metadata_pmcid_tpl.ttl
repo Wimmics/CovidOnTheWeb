@@ -58,6 +58,10 @@
         rr:predicate dct:source;
         rr:objectMap [ xrr:reference "$.source_x" ];
     ];
+    rr:predicateObjectMap [
+        rr:predicate dct:license;
+        rr:objectMap [ xrr:reference "$.license" ];
+    ];
 
     # Identifiers
     rr:predicateObjectMap [

@@ -1,8 +1,10 @@
 # CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG)
 
-CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research), a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
+CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
 
 CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), Université Côte d'Azur, CNRS, Inria.
+RDF files are generated using [Morph-xR2RML](https://github.com/frmichel/morph-xr2rml/), an implementation of the [xR2RML mapping language](http://i3s.unice.fr/~fmichel/xr2rml_specification.html) [2].
+
 
 #### Documentation
 
@@ -48,7 +50,7 @@ As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c
 Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
 The following **named graphs** can be queried from our SPARQL endpoint:
-- `http://ns.inria.fr/covid19/graph/metadata`: dataset descripton + definition of a few properties
+- `http://ns.inria.fr/covid19/graph/metadata`: dataset description + definition of a few properties
 - `http://ns.inria.fr/covid19/graph/articles`: articles metadata (title, authors, DOIs, journal etc.)
 - `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight
 - `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing
@@ -77,4 +79,14 @@ where {
 
 ## License
 
-TBC.
+The CORD-19 Named Entities Knowlegde Graph dataset is made available under the Open Data Commons Attribution License: http://opendatacommons.org/licenses/by/1.0. 
+
+Specific licensing information for individual articles in the dataset is available (see property `dct:license`).
+Additional licensing information is available on the PMC website, medRxiv website and bioRxiv website.
+
+
+## References
+
+[1] COVID-19 Open Research Dataset (CORD-19). 2020. Version 2020-03-20. Retrieved from https://pages.semanticscholar.org/coronavirus-research. Accessed 2020-04-06. doi:10.5281/zenodo.3715505
+
+[2] F. Michel, L. Djimenou, C. Faron-Zucker, and J. Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML. In Proceedings of the *11th International Confenrence on Web Information Systems and Technologies (WEBIST 2015)*, Lisbon, Portugal, 2015.
