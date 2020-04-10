@@ -25,7 +25,7 @@
 covid:dataset-1-0
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
-    void:triples        "0"^^xsd:integer;
+    void:triples        "43645222"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
     void:dataDump       <https://github.com/frmichel/cord19-named-entity-kg/raw/master/dataset/dataset-1-0.zip>;
     
