@@ -93,7 +93,7 @@ The CORD19-NEKG dataset is therefore licensed under two licenses, each applying 
 
 When including CORD19-NEKG data in a publication or redistribution, please cite the dataset as follows:
 
-> R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG). 2020. Version 1.0. Retrieved from https://github.com/Wimmics/cord19-nekg.
+*R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG). University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/cord19-nekg.*
 
 
 ## References
