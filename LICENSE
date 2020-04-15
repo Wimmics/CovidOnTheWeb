@@ -1,0 +1,8 @@
+This CORD-19 Named Entities Knowlegde Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
+It consists of two subsets:
+- the CORD-19 dataset itself, translated into the Turtle RDF syntax, subject to the CORD-19 license; and
+- the result of a text mining process meant to extract named entities.
+
+The CORD19-NEKG dataset is therefore licensed under two licenses, each applying to the aforementioned subsets:
+- The CORD-19 license (https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/2020-03-13/COVID.DATA.LIC.AGMT.pdf) applies to the CORD-19 dataset that is contained in the CORD19-NEKG dataset (as a subset translated into the Turtle RDF syntax).   
+- The Open Data Commons Attribution License (http://opendatacommons.org/licenses/by/1.0) applies to the subset of the CORD19-NEKG dataset that results of a text mining process, that does not contain the aforementioned CORD-19 subset.
