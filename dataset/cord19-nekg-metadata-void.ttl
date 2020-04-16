@@ -27,7 +27,7 @@ covid:dataset-1-0
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "43645222"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
-    void:dataDump       <https://github.com/frmichel/cord19-named-entity-kg/raw/master/dataset/dataset-1-0.zip>;
+    void:dataDump       <https://github.com/wimmics/cord19-nekg/tree/master/dataset>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
