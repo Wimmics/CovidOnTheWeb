@@ -29,8 +29,8 @@ covid:{{dataset}}
     schema:name     "CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)";
     dct:description "This RDF dataset describes the named entities identified in the research papers of the CORD-19 corpus. To identify and disambiguate the named entities, several tools have been used: NCBO BioPortal annotator, Entity-fishing (links to Wikidata) and DBpedia Spotlight (links to DBpedia).";
     
-    dct:licence     <https://creativecommons.org/licenses/by-nc/4.0/>;
-    schema:licence  <https://creativecommons.org/licenses/by-nc/4.0/>;
+    dct:licence     <http://opendatacommons.org/licenses/by/1.0>;
+    schema:licence  <http://opendatacommons.org/licenses/by/1.0>;
     owl:versionInfo "{{version}}";
     dct:issued      "{{date}}"^^xsd:gYear; schema:datePublished "{{date}}"^^xsd:gYear;
     
