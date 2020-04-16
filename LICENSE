@@ -1,4 +1,4 @@
-This CORD-19 Named Entities Knowlegde Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
+This CORD-19 Named Entities Knowledge Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
 It consists of two subsets:
 - the CORD-19 dataset itself, translated into the Turtle RDF syntax, subject to the CORD-19 license; and
 - the result of a text mining process meant to extract named entities.

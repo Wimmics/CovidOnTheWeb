@@ -1,6 +1,6 @@
-# CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG)
+# CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)
 
-CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
+CORD-19 Named Entities Knowledge Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
 
 CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), Université Côte d'Azur, CNRS, Inria.
 RDF files are generated using [Morph-xR2RML](https://github.com/frmichel/morph-xr2rml/), an implementation of the [xR2RML mapping language](http://i3s.unice.fr/~fmichel/xr2rml_specification.html) [2].
@@ -79,7 +79,7 @@ where {
 
 ## License
 
-This CORD-19 Named Entities Knowlegde Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
+This CORD-19 Named Entities Knowledge Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
 It consists of two subsets:
 - the CORD-19 dataset itself, translated into the Turtle RDF syntax, subject to the CORD-19 license; and
 - the result of a text mining process meant to extract named entities.
@@ -93,7 +93,7 @@ The CORD19-NEKG dataset is therefore licensed under two licenses, each applying 
 
 When including CORD19-NEKG data in a publication or redistribution, please cite the dataset as follows:
 
-*R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowlegde Graph (CORD19-NEKG). University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/cord19-nekg.*
+*R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowledge Graph (CORD19-NEKG). University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/cord19-nekg.*
 
 
 ## References
