@@ -70,7 +70,7 @@
     # Annotation body
     rr:predicateObjectMap [
         rr:predicate oa:hasBody;
-        rr:objectMap [ rr:template "http://wikidata.org/entity/{$.wikidataId}" ];
+        rr:objectMap [ rr:template "http://www.wikidata.org/entity/{$.wikidataId}" ];
     ];
 
     # Annotation confidence
