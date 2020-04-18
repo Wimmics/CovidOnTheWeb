@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 # This script requires an $isql_dba variable set like this:
 isql_dba="$VIRTUOSO/bin/isql -H localhost -U dba -P your_password"

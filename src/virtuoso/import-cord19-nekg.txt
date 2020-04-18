@@ -1,5 +1,8 @@
 #!/bin/bash
-# Commands to be run from the virtuoso directory
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+# Commands to be run from the Virtuoso directory
 
 CURRENT_DIR=$(pwd)
 

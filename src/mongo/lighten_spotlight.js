@@ -1,6 +1,11 @@
+// Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+//
+// Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
 db.spotlight_light.drop()
 db.spotlight.aggregate([
 
+    // Remove the body and other un-needed fields
     { $project: {
         'body_text': 0,
         'title.percentageOfSecondRank': 0,
@@ -10,28 +15,22 @@ db.spotlight.aggregate([
         }
     },
 
+    // Keep only named entities:
+    // (1) with a URI (should be all of them)
+    // (2) with a similarityScore higher than 0.75
+    // (3) that are at least 3 characters long
     { $project: {
         paper_id: 1,
 
         'title': { $filter: { input: "$title",  cond: { $and: [
-            // Keep only entites with a URI (should be all of them)
             { $ne: ["$$this.URI", undefined] },
-
-            // Keep only entites with a similarityScore higher than 0.75
             { $gte: ["$$this.similarityScore", 0.75] },
-            
-            // Keep only named entites that are at least 3 characters long
             { $gte: [{$strLenCP: "$$this.surfaceForm"}, 3] }
         ]}}},
         
         'abstract': { $filter: { input: "$abstract",  cond: { $and: [
-            // Keep only entites with a URI (should be all of them)
             { $ne: ["$$this.URI", undefined] },
-
-            // Keep only entites with a similarityScore higher than 0.75
             { $gte: ["$$this.similarityScore", 0.75] },
-            
-            // Keep only named entites that are at least 4 characters long
             { $gte: [{$strLenCP: "$$this.surfaceForm"}, 4] }
         ]}}}
     }},

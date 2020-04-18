@@ -9,7 +9,9 @@
 # - arg3: MongoDB collection to read data from
 # - arg4: xR2RML template mapping file
 #
-# Author: F. Michel, UCA, CNRS, Inria
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+#
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 XR2RML=.
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: F. Michel, UCA, CNRS, Inria
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 
 dataset=dataset-1-0
 

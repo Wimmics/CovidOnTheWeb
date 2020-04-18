@@ -1,3 +1,9 @@
+# Mapping file generating the annotations for the named entities found by DBpedia Spotliht.
+#
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+#
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
 @prefix xrr:    <http://i3s.unice.fr/xr2rml#> .
 @prefix rr:     <http://www.w3.org/ns/r2rml#> .
 @prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
@@ -16,7 +22,7 @@
 @prefix oa:     <http://www.w3.org/ns/oa#>.
 @prefix prov:   <http://www.w3.org/ns/prov#>.
 @prefix schema: <http://schema.org/>.
-@prefix wdt:    <http://www.wikidata.org/entity/>.
+@prefix wd:     <http://www.wikidata.org/entity/>.
 
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.

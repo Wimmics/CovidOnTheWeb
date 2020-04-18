@@ -13,7 +13,7 @@
 @prefix prov:   <http://www.w3.org/ns/prov#>.
 @prefix schema: <http://schema.org/>.
 @prefix void:   <http://rdfs.org/ns/void#>.
-@prefix wdt:    <http://www.wikidata.org/entity/>.
+@prefix wd:     <http://www.wikidata.org/entity/>.
 
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.

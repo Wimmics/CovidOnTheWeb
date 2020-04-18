@@ -1,6 +1,11 @@
+// Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+//
+// Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
 db.cord19_json_light.drop()
 db.cord19_json.aggregate([
 
+    // Keep only paper_id and authors
     { $project: {
         paper_id: 1,
         
