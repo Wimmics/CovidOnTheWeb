@@ -119,7 +119,7 @@
     ];
     rr:predicateObjectMap [
         rr:predicate oa:start;
-        rr:objectMap [ xrr:reference "$.offset" ];
+        rr:objectMap [ xrr:reference "$.offset"; rr:datatype xsd:integer ];
     ];
     rr:predicateObjectMap [
         rr:predicate oa:exact;
