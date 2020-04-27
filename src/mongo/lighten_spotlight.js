@@ -31,7 +31,7 @@ db.spotlight.aggregate([
         'abstract': { $filter: { input: "$abstract",  cond: { $and: [
             { $ne: ["$$this.URI", undefined] },
             { $gte: ["$$this.similarityScore", 0.75] },
-            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 4] }
+            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 3] }
         ]}}}
     }},
 
