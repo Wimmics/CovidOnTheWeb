@@ -32,7 +32,7 @@ covid:{{dataset}}
     dct:licence     <http://opendatacommons.org/licenses/by/1.0>;
     schema:licence  <http://opendatacommons.org/licenses/by/1.0>;
     owl:versionInfo "{{version}}";
-    dct:issued      "{{date}}"^^xsd:gYear; schema:datePublished "{{date}}"^^xsd:gYear;
+    dct:issued      "{{date}}"^^xsd:date; schema:datePublished "{{date}}"^^xsd:date;
     
     dct:subject     "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
     schema:keywords "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
@@ -42,39 +42,47 @@ covid:{{dataset}}
     dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
     schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
 
-    schema:isBasedOn        covid:cord19v6;
+    schema:isBasedOn        covid:cord19v7;
     a prov:Entity;
-    prov:wasDerivedFrom     covid:cord19v6;
+    prov:wasDerivedFrom     covid:cord19v7;
     prov:wasGeneratedBy     covid:RdfGeneration;
-    prov:wasGeneratedAtTime "{{date}}"^^xsd:dateTime;
+    prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
     .
 
 <http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
 <https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
 <https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
 
+covid:cord19v7
+    a               dcat:Dataset, schema:Dataset;
+    dct:title       "COVID-19 Open Research Dataset (CORD-19)";
+    schema:name     "COVID-19 Open Research Dataset (CORD-19)";
+    dct:issued      "2020-04-10"^^xsd:date; schema:datePublished "2020-04-10"^^xsd:date;
+    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7>;
+    owl:versionInfo "7".
+
 covid:cord19v6
     a               dcat:Dataset, schema:Dataset;
     dct:title       "COVID-19 Open Research Dataset (CORD-19)";
     schema:name     "COVID-19 Open Research Dataset (CORD-19)";
-    dct:issued      "2020-04-03"^^xsd:gYear; schema:datePublished "2020-04-03"^^xsd:gYear;
+    dct:issued      "2020-04-03"^^xsd:date; schema:datePublished "2020-04-03"^^xsd:date;
     schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6>;
     owl:versionInfo "6".
 
 covid:ProvenanceEF
     a                       prov:Activity;
-    prov:used               covid:cord19v6;
+    prov:used               covid:cord19v7;
     prov:wasAssociatedWith  <https://github.com/kermitt2/entity-fishing>.
 
 covid:ProvenanceDBpSpotlight
     a                       prov:Activity;
     prov:wasAssociatedWith  <https://www.dbpedia-spotlight.org/>;
-    prov:used               covid:cord19v6.
+    prov:used               covid:cord19v7.
 
 covid:NCBOAnnotator
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
-    prov:used               covid:cord19v6.
+    prov:used               covid:cord19v7.
 
 covid:RdfGeneration
     a               prov:Activity;

@@ -51,7 +51,7 @@
     # Publication
     rr:predicateObjectMap [
         rr:predicate dct:issued;
-        rr:objectMap [ xrr:reference "$.publish_time"; rr:datatype xsd:dateTime ];
+        rr:objectMap [ xrr:reference "$.publish_time"; rr:datatype xsd:date ];
     ];
     rr:predicateObjectMap [
         rr:predicate schema:publication;
