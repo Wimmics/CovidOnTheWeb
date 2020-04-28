@@ -43,7 +43,7 @@ import_spotlight_single() {
     mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight ${collection}
 
     # Create collection spotlight_light
-    mongo localhost/$DB lighten_cord19json.js
+    mongo localhost/$DB lighten_spotlight.js
 }
 
 

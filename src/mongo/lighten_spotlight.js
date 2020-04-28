@@ -2,7 +2,7 @@
 //
 // Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
-db.spotlight_light.drop()
+db.spotlight_abstract.drop()
 db.spotlight.aggregate([
 
     // Remove the body and other un-needed fields
@@ -35,7 +35,7 @@ db.spotlight.aggregate([
         ]}}}
     }},
 
-    { $out: "spotlight_light" }
+    { $out: "spotlight_abstract" }
 ])
 
-db.spotlight_light.createIndex({paper_id: 1})
+db.spotlight_abstract.createIndex({paper_id: 1})

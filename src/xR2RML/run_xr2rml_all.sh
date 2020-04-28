@@ -12,10 +12,11 @@ dataset=dataset-1-1
 
 
 # Generate annotations DBpedia Spotlight
-./run_xr2rml_annotation.sh $dataset title     spotlight_light     xr2rml_spotlight_tpl.ttl
-./run_xr2rml_annotation.sh $dataset abstract  spotlight_light     xr2rml_spotlight_tpl.ttl
+./run_xr2rml_annotation.sh $dataset title     spotlight_abstract     xr2rml_spotlight_tpl.ttl
+./run_xr2rml_annotation.sh $dataset abstract  spotlight_abstract     xr2rml_spotlight_tpl.ttl
+
 
 # Generate annotations Entity-fishing
 ./run_xr2rml_annotation.sh $dataset title     entityfishing_abstract xr2rml_entityfishing_tpl.ttl
 ./run_xr2rml_annotation.sh $dataset abstract  entityfishing_abstract xr2rml_entityfishing_tpl.ttl
-./run_xr2rml_annotation.sh $dataset body_text entityfishing_abody    xr2rml_entityfishing_tpl.ttl
+./run_xr2rml_annotation.sh $dataset body_text entityfishing_body     xr2rml_entityfishing_tpl.ttl

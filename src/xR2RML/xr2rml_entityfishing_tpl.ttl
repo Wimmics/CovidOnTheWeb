@@ -42,9 +42,7 @@
     a               rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap   [
-        rr:termType     rr:BlankNode;
-        # Template to yield a unique blank node id for each annotation
-        rr:template     "{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+        rr:template     "http://ns.inria.fr/covid19/ann/sha1({$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
         rr:class        oa:Annotation, prov:Entity;
     ];
     rr:predicateObjectMap [
@@ -72,8 +70,8 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasTarget;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_target_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
-            rr:termType rr:BlankNode;
+            rr:template "http://ns.inria.fr/covid19/ann/target/sha1({$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+            rr:termType rr:IRI;
         ];
     ];
 
@@ -101,8 +99,7 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_target_{$.rawName}_{$.offsetStart}_{$.offsetEnd}"
+        rr:template "http://ns.inria.fr/covid19/ann/target/sha1({$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})"
     ];
     rr:predicateObjectMap [
         rr:predicate oa:hasSource;
@@ -111,8 +108,8 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasSelector;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_selector_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
-            rr:termType rr:BlankNode;
+            rr:template "http://ns.inria.fr/covid19/ann/selector/sha1({$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+            rr:termType rr:IRI;
         ];
     ].
 
@@ -121,8 +118,7 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_selector_{$.rawName}_{$.offsetStart}_{$.offsetEnd}";
+        rr:template "http://ns.inria.fr/covid19/ann/selector/sha1({$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
         rr:class oa:TextPositionSelector, oa:TextQuoteSelector;
     ];
     rr:predicateObjectMap [
