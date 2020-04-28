@@ -13,6 +13,7 @@
 # Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 XR2RML=.
+JAR=$XR2RML/morph-xr2rml-dist-1.3-SNAPSHOT-jar-with-dependencies.jar
 
 help()
 {
@@ -56,7 +57,7 @@ echo "--------------------------------------------------------------------------
 date  >> $log
 java -Xmx4g \
      -Dlog4j.configuration=file:$XR2RML/log4j.properties \
-     -jar "$XR2RML/morph-xr2rml-dist-1.1-RC2-jar-with-dependencies.jar" \
+     -jar "$JAR" \
      --configDir $XR2RML \
      --configFile xr2rml.properties \
      --mappingFile $mappingFile \
