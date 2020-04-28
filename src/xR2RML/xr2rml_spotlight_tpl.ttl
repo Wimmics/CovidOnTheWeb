@@ -44,12 +44,16 @@
     rr:subjectMap   [
         rr:termType     rr:BlankNode;
         # Template to yield a unique blank node id for each annotation
-        rr:template     "{$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset}";
+        rr:template     "http://ns.inria.fr/covid19/ann/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})";
         rr:class        oa:Annotation, prov:Entity;
     ];
     rr:predicateObjectMap [
         rr:predicate rdfs:isDefinedBy;
         rr:objectMap [ rr:constant covid:{{dataset}}; rr:termType rr:IRI ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:label;
+        rr:objectMap [ rr:template "named entity '{$.surfaceForm}'"; rr:termType rr:Literal ];
     ];
     rr:predicateObjectMap [
         rr:predicate dct:creator;
@@ -64,8 +68,8 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasTarget;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_target_{$.surfaceForm}_{$.offset}";
-            rr:termType rr:BlankNode;
+            rr:template "http://ns.inria.fr/covid19/ann/target/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})";
+            rr:termType rr:IRI;
         ];
     ];
 
@@ -93,8 +97,7 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_target_{$.surfaceForm}_{$.offset}"
+        rr:template "http://ns.inria.fr/covid19/ann/target/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})"
     ];
     rr:predicateObjectMap [
         rr:predicate oa:hasSource;
@@ -103,8 +106,8 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasSelector;
         rr:objectMap [
-            rr:template "{$.paper_id}_{{articlepart}}_selector_{$.surfaceForm}_{$.offset}";
-            rr:termType rr:BlankNode;
+            rr:template "http://ns.inria.fr/covid19/ann/selector/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})";
+            rr:termType rr:IRI;
         ];
     ].
 
@@ -113,8 +116,7 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:termType rr:BlankNode;
-        rr:template "{$.paper_id}_{{articlepart}}_selector_{$.surfaceForm}_{$.offset}";
+        rr:template "http://ns.inria.fr/covid19/ann/selector/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})";
         rr:class oa:TextPositionSelector, oa:TextQuoteSelector;
     ];
     rr:predicateObjectMap [

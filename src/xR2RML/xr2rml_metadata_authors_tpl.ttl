@@ -43,4 +43,4 @@
     rr:predicateObjectMap [
         rr:predicate dce:creator;
         rr:objectMap [ rr:template "{$.last}, {$.first}"; rr:termType rr:Literal ];
-    ];
+    ].
