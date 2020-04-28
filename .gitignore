@@ -1,0 +1,8 @@
+log/
+
+# Eclipse:
+.cache
+.classpath
+.project
+.settings/
+.metadata/
