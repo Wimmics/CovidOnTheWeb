@@ -42,7 +42,6 @@
     a               rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap   [
-        rr:termType     rr:BlankNode;
         # Template to yield a unique blank node id for each annotation
         rr:template     "http://ns.inria.fr/covid19/ann/sha1({$.paper_id}_{{articlepart}}_{$.surfaceForm}_{$.offset})";
         rr:class        oa:Annotation, prov:Entity;
