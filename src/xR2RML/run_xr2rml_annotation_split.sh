@@ -8,6 +8,7 @@
 # - arg2: article part about which to produce annotations. One of title, abstract or body_text
 # - arg3: MongoDB collection to read data from
 # - arg4: xR2RML template mapping file
+# - arg5: maximum number of triples per output file
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 #
@@ -20,9 +21,9 @@ JAR=$XR2RML/morph-xr2rml-dist-1.3-SNAPSHOT-jar-with-dependencies.jar
 help()
 {
   exe=$(basename $0)
-  echo "Usage: $exe <dataset name> <title|abstract|body_text> <collection> <xR2RML mapping template>"
+  echo "Usage: $exe <dataset name> <title|abstract|body_text> <collection> <xR2RML mapping template> <max triples>"
   echo "Example:"
-  echo "   $exe  dataset-1-0  abstract  spotlight  xr2rml_spotlight_tpl.ttl"
+  echo "   $exe  dataset-1-0  abstract  spotlight  xr2rml_spotlight_tpl.ttl 10000000"
   exit 1
 }
 
@@ -38,6 +39,9 @@ if [[ -z "$collection" ]] ; then help; fi
 
 mappingTemplate=$4
 if [[ -z "$mappingTemplate" ]] ; then help; fi
+
+maxTriples=$5
+if [[ -z "$maxTriples" ]] ; then help; fi
 
 
 # --- Init log file
@@ -65,6 +69,7 @@ java -Xmx20g \
      --configFile xr2rml.properties \
      --mappingFile $mappingFile \
      --output $XR2RML/output_${collection}_${articlepart}.ttl \
+     --outputMaxTriples $maxTriples \
      >> $log
 date >> $log
 

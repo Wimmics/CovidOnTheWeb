@@ -56,6 +56,15 @@ import_entityfishing_single() {
     mongo localhost/$DB lighten_entityfishing.js
 }
 
+
+# Import CORD19 NCBO Annotator annotations in a single collection
+import_ncbo_single() {
+    collection=ncbo
+    mongo_drop_import_dir ${ARCHIVE}-Annotation/ncbo-light ${collection}
+
+    #mongo localhost/$DB lighten_entityfishing.js
+}
+
 # ------------------------------------------------------------------------------
 
 # Import the CORD19 DBpedia-Spotlight annotations into separate collections
@@ -85,6 +94,7 @@ import_entityfishing_separate(){
 #import_cord_json
 #import_entityfishing_single
 #import_spotlight_single
+#import_ncbo_single
 
 #import_entityfishing_separate
 #import_spotlight_separate

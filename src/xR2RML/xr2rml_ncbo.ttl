@@ -1,4 +1,4 @@
-# Mapping file generating the annotations for the named entities found by entity-fishing.
+# Mapping file generating the annotations for the named entities found by NCBO Bioportal Annotator.
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 #
@@ -29,20 +29,20 @@
 
 # Template file: replace placeholders
 # - {{dataset}}: RDF dataset name e.g. "dataset-1-0"
-# - {{collection}}: the MongoDB collection to query, e.g. entityfishing
+# - {{collection}}: the MongoDB collection to query, e.g. ncbo
 # - {{articlepart}}: article part about which to produce annotations. One of title, abstract, body_text
 
 <#LS_entities>
     a               xrr:LogicalSource;
     xrr:query       """db.{{collection}}.find( {} )""";
-    rml:iterator    "$.{{articlepart}}.entities.*";
+    rml:iterator    "$.{{articlepart}}.*";
     xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ].
 
 <#TM_annotation>
     a               rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap   [
-        rr:template     "http://ns.inria.fr/covid19/ann/sha1(ef_{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+        rr:template     "http://ns.inria.fr/covid19/ann/sha1(ncbo_{$.paper_id}_{{articlepart}}_{$.annotations[0]text}_{$.annotations[0]from}_{$.annotations[0]to})";
         rr:class        oa:Annotation, prov:Entity;
     ];
     rr:predicateObjectMap [
@@ -51,7 +51,7 @@
     ];
     rr:predicateObjectMap [
         rr:predicate rdfs:label;
-        rr:objectMap [ rr:template "named entity '{$.rawName}'"; rr:termType rr:Literal ];
+        rr:objectMap [ rr:template "named entity '{$.annotations[0]text}'"; rr:termType rr:Literal ];
     ];
     rr:predicateObjectMap [
         rr:predicate dct:creator;
@@ -61,16 +61,12 @@
         rr:predicate schema:about;
         rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.paper_id}" ];
     ];
-    rr:predicateObjectMap [
-        rr:predicate dct:subject;
-        rr:objectMap [ xrr:reference "$.domains.*" ];
-    ];
 
     # Annotation target
     rr:predicateObjectMap [
         rr:predicate oa:hasTarget;
         rr:objectMap [
-            rr:template "http://ns.inria.fr/covid19/ann/target/sha1(ef_{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+            rr:template "http://ns.inria.fr/covid19/ann/target/sha1(ncbo_{$.paper_id}_{{articlepart}}_{$.annotations[0]text}_{$.annotations[0]from}_{$.annotations[0]to})";
             rr:termType rr:IRI;
         ];
     ];
@@ -78,19 +74,13 @@
     # Annotation body
     rr:predicateObjectMap [
         rr:predicate oa:hasBody;
-        rr:objectMap [ rr:template "http://www.wikidata.org/entity/{$.wikidataId}" ];
-    ];
-
-    # Annotation confidence
-    rr:predicateObjectMap [
-        rr:predicate covidpr:confidence;
-        rr:objectMap [ xrr:reference "$.nerd_score"; rr:datatype xsd:decimal ];
+        rr:objectMap [ xrr:reference "$.annotatedClass.@id"; rr:termType rr:IRI ];
     ];
 
     # Provenance
     rr:predicateObjectMap [
         rr:predicate prov:wasGeneratedBy;
-        rr:objectMap [ rr:constant covid:ProvenanceEF; rr:termType rr:IRI ];
+        rr:objectMap [ rr:constant covid:ProvenanceNCBOAnnotator; rr:termType rr:IRI ];
     ];
     .
 
@@ -99,7 +89,7 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:template "http://ns.inria.fr/covid19/ann/target/sha1(ef_{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})"
+        rr:template "http://ns.inria.fr/covid19/ann/target/sha1(ncbo_{$.paper_id}_{{articlepart}}_{$.annotations[0]text}_{$.annotations[0]from}_{$.annotations[0]to})"
     ];
     rr:predicateObjectMap [
         rr:predicate oa:hasSource;
@@ -108,7 +98,7 @@
     rr:predicateObjectMap [
         rr:predicate oa:hasSelector;
         rr:objectMap [
-            rr:template "http://ns.inria.fr/covid19/ann/selector/sha1(ef_{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+            rr:template "http://ns.inria.fr/covid19/ann/selector/sha1(ncbo_{$.paper_id}_{{articlepart}}_{$.annotations[0]text}_{$.annotations[0]from}_{$.annotations[0]to})";
             rr:termType rr:IRI;
         ];
     ].
@@ -118,41 +108,19 @@
     a rr:TriplesMap;
     xrr:logicalSource <#LS_entities>;
     rr:subjectMap [
-        rr:template "http://ns.inria.fr/covid19/ann/selector/sha1(ef_{$.paper_id}_{{articlepart}}_{$.rawName}_{$.offsetStart}_{$.offsetEnd})";
+        rr:template "http://ns.inria.fr/covid19/ann/selector/sha1(ncbo_{$.paper_id}_{{articlepart}}_{$.annotations[0]text}_{$.annotations[0]from}_{$.annotations[0]to})";
         rr:class oa:TextPositionSelector, oa:TextQuoteSelector;
     ];
     rr:predicateObjectMap [
         rr:predicate oa:start;
-        rr:objectMap [ xrr:reference "$.offsetStart"; rr:datatype xsd:integer ];
+        rr:objectMap [ xrr:reference "$.annotations[0]from"; rr:datatype xsd:integer ];
     ];
     rr:predicateObjectMap [
         rr:predicate oa:end;
-        rr:objectMap [ xrr:reference "$.offsetEnd"; rr:datatype xsd:integer ];
+        rr:objectMap [ xrr:reference "$.annotations[0]to"; rr:datatype xsd:integer ];
     ];
     rr:predicateObjectMap [
         rr:predicate oa:exact;
-        rr:objectMap [ xrr:reference "$.rawName" ];
-    ];
-    .
-
-# -------------------------------------------------------------------------------
-
-# Add global categories (dct:subject) to the article part (title, abstract or body_text
-
-<#LS_global_categories>
-    a               xrr:LogicalSource;
-    xrr:query       """db.{{collection}}.find( {} )""";
-    rml:iterator    "$.{{articlepart}}.global_categories.*";
-    xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ].
-
-<#TM_global_categories>
-    a               rr:TriplesMap;
-    xrr:logicalSource <#LS_global_categories>;
-    rr:subjectMap   [
-        rr:template "http://ns.inria.fr/covid19/{$.paper_id}#{{articlepart}}";
-    ];
-    rr:predicateObjectMap [
-        rr:predicate dct:subject;
-        rr:objectMap [ xrr:reference "$.category" ];
+        rr:objectMap [ xrr:reference "$.annotations[0]text" ];
     ];
     .
