@@ -57,12 +57,10 @@ import_entityfishing_single() {
 }
 
 
-# Import CORD19 NCBO Annotator annotations in a single collection
+# Import CORD19 NCBO Annotator annotations in a multiple collections
 import_ncbo_single() {
     collection=ncbo
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/ncbo-light ${collection}
-
-    #mongo localhost/$DB lighten_entityfishing.js
+    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/ncbo-light ${collection} 5000
 }
 
 # ------------------------------------------------------------------------------

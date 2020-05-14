@@ -2,20 +2,20 @@
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 
-dataset=dataset-1-0
-version=1.0
-date=2020-04-06
-triples=43645222
+dataset=dataset-1-1
+version=1.1
+date=2020-05-07
+triples=671262000
 
 temp=/tmp/temp_$$.ttl
 awk "{ gsub(/{{dataset}}/, \"$dataset\"); \
        gsub(/{{version}}/, \"$version\"); \
        gsub(/{{date}}/, \"$date\"); \
        print }" \
-    cord19-nekg-metadata_tpl.ttl > cord19-nekg-metadata.ttl
+    cord19-nekg-metadata-dataset_tpl.ttl > cord19-nekg-metadata-dataset.ttl
 
 temp=/tmp/temp_$$.ttl
 awk "{ gsub(/{{dataset}}/, \"$dataset\"); \
        gsub(/{{triples}}/, \"$triples\"); \
        print }" \
-    cord19-nekg-metadata-void_tpl.ttl > cord19-nekg-metadata-void.ttl
+    cord19-nekg-metadata-dataset-void_tpl.ttl > cord19-nekg-metadata-dataset-void.ttl

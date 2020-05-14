@@ -1,9 +1,8 @@
 # CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)
 
-CORD-19 Named Entities Knowledge Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://pages.semanticscholar.org/coronavirus-research) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
+CORD-19 Named Entities Knowledge Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://www.semanticscholar.org/cord19) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
 
-CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), Université Côte d'Azur, CNRS, Inria.
-RDF files are generated using [Morph-xR2RML](https://github.com/frmichel/morph-xr2rml/), an implementation of the [xR2RML mapping language](http://i3s.unice.fr/~fmichel/xr2rml_specification.html) [2].
+CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
 
 
 #### Documentation
@@ -52,8 +51,10 @@ Further details about how named entities are represented in RDF are given in the
 The following **named graphs** can be queried from our SPARQL endpoint:
 - `http://ns.inria.fr/covid19/graph/metadata`: dataset description + definition of a few properties
 - `http://ns.inria.fr/covid19/graph/articles`: articles metadata (title, authors, DOIs, journal etc.)
-- `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight
-- `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing
+- `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight in articles titles/abstracts
+- `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing in articles titles/abstracts
+- `http://ns.inria.fr/covid19/graph/entityfishing/body`: named entities identified by Entity-fishing in articles bodies
+- `http://ns.inria.fr/covid19/graph/bioportal-annotator`: named entities identified by Bioportal Annotator in articles titles/abstracts
 
 The example query below retrieves two articles that have been annotated with at least one common Wikidata entity.
 ```sparql
@@ -98,6 +99,6 @@ When including CORD19-NEKG data in a publication or redistribution, please cite 
 
 ## References
 
-[1] COVID-19 Open Research Dataset (CORD-19). 2020. Version 2020-04-03. Retrieved from https://pages.semanticscholar.org/coronavirus-research. Accessed 2020-04-06. doi:10.5281/zenodo.3715505
+[1] Wang, L.L., Lo, K., Chandrasekhar, Y., Reas, R., Yang, J., Eide, D., Funk, K., Kinney, R.M., Liu, Z., Merrill, W., Mooney, P., Murdick, D.A., Rishi, D., Sheehan, J., Shen, Z., Stilson, B., Wade, A.D., Wang, K., Wilhelm, C., Xie, B., Raymond, D.M., Weld, D.S., Etzioni, O., & Kohlmeier, S. (2020). CORD-19: The Covid-19 Open Research Dataset. ArXiv, abs/2004.10706.
 
 [2] F. Michel, L. Djimenou, C. Faron-Zucker, and J. Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML. In Proceedings of the *11th International Confenrence on Web Information Systems and Technologies (WEBIST 2015)*, Lisbon, Portugal, 2015.

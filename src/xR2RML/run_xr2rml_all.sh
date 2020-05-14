@@ -19,4 +19,15 @@ dataset=dataset-1-1
 
 # Generate annotations for NCBO Bioportal Annotator
 ./run_xr2rml_annotation.sh       $dataset title     ncbo     xr2rml_ncbo.ttl
-./run_xr2rml_annotation_split.sh $dataset abstract  ncbo     xr2rml_ncbo.ttl 10000000
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_0   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_1   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_2   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_3   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_4   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_5   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_6   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_7   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_8   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_9   xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_10  xr2rml_ncbo.ttl
+./run_xr2rml_annotation.sh       $dataset abstract  ncbo_11  xr2rml_ncbo.ttl

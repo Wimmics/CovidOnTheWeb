@@ -52,14 +52,14 @@ Here is an example of article metadata:
 ```turtle
 <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f>
     a                   fabio:ResearchPaper, bibo:AcademicArticle, schema:ScholarlyArticle;
-    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-1>;
     dct:title           "A real-time PCR for SARS-coronavirus incorporating target gene pre-amplification";
     schema:publication  "Biochemical and Biophysical Research Communications";
     dce:creator	        "Wong, Freda Pui-Fan", "Tam, Siu-Lun", "Fung, Yin-Wan", "Li, Hui", "Cheung, Albert", "Chan, Paul", "Lin, Sau-Wah", "Collins, Richard", "Dillon, Natalie";
     dct:source          "Elsevier";
     dct:license         "els-covid";
 
-    dct:issued          "2003-12-26"^^xsd:dateTime;
+    dct:issued          "2003-12-26"^^xsd:date;
     bibo:doi            "10.1016/j.bbrc.2003.11.064";
     bibo:pmid           "14652014";
     fabio:hasPubMedId   "14652014";
@@ -108,18 +108,18 @@ Provenance information about each annotation provides the annotation author (`dc
 
 ```turtle
 _:b40150806
-    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-0>;
+    rdfs:isDefinedBy    <http://ns.inria.fr/covid19/dataset-1-1>;
     dct:creator         <https://team.inria.fr/wimmics/>;
     prov:wasGeneratedBy [
         a               prov:Activity;
-        prov:used       <http://ns.inria.fr/covid19/cord19v6>;
+        prov:used       <http://ns.inria.fr/covid19/cord19v7>;
         prov:wasAssociatedWith <https://github.com/kermitt2/entity-fishing>.
     ].
 
-<http://ns.inria.fr/covid19/cord19v6>
+<http://ns.inria.fr/covid19/cord19v7>
     a                    schema:Dataset dcat:Dataset;
-    owl:versionInfo      "6";
+    owl:versionInfo      "7";
     dct:title            "COVID-19 Open Research Dataset (CORD-19)";
-    dct:issued           "2020-04-03"^^xsd:gYear;
-    schema:url           <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6>.
+    dct:issued           "2020-04-10"^^xsd:date;
+    schema:url           <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7>.
 ```

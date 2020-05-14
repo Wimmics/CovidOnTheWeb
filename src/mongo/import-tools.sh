@@ -2,7 +2,8 @@
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 #
 # Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
-
+#
+# Variable $DB must be defined when calling functions of this file.
 
 # Max number of files to import at once into MongoDB
 MONGO_IMPORT_MAXFILE=1000
@@ -90,6 +91,7 @@ mongo_drop_import_dir_split(){
 
         col=${_collection_c}_${colIndex}
         echo "----- Creating collection $col"
+        mongo --eval "db.${col}.drop()" localhost/$DB
         mongo_import_filelist $col $_filelist_c $MONGO_IMPORT_MAXFILE
 
         # Next collection
