@@ -15,22 +15,17 @@ CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics
 
 To identify and disambiguate named entities, we used [DBpedia Spotlight](https://www.dbpedia-spotlight.org/) (links to DBpedia), [entity-fishing](https://github.com/kermitt2/entity-fishing) (links to Wikidata), and [NCBO BioPortal annotator](http://bioportal.bioontology.org/annotatorplus) (links to ontologies in Bioportal).
 
-CORD19-NEKG **v1.0** is based on [CORD-19 v6](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/6). It provides named entities identified by DBpedia Spotlight and entity-fishing in articles titles and abstracts, and only named entities of at least 3 characters are considered.
-- No. named entities linked to DBpedia resources: 
-    - titles: 277,783
-    - abstracts: 1,558,119
-    - **total: 1,835,902**
-- No. named entities linked to Wikidata resources: 
-    - titles: 145,706
-    - abstracts: 645,216
-    - **total: 790,922**
+CORD19-NEKG **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). It provides named entities identified by DBpedia Spotlight and BioPortal Annotator in articles titles and abstracts, and by Entity-fishing in articles titles, abstracts and bodies.
+- No. named entities linked to DBpedia resources:  1,792,748
+- No. named entities linked to Wikidata resources: 30,863,349
+- No. named entities linked to BioPortal ontologies: 21,874,798
 
 
 ## URIs to name things
 
 CORD19-NEKG namespace is `http://ns.inria.fr/covid19/`.
 
-The dataset itslef is identified by URI `http://ns.inria.fr/covid19/dataset-1-0` ([describe](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Fdataset-1-0)). It comes with DCAT and VOID descriptions.
+The dataset itslef is identified by URI `http://ns.inria.fr/covid19/dataset-1-1`. It comes with DCAT and VOID descriptions.
 All articles and annotations about named entities are linked back to the dataset with property `rdfs:isDefinedBy`.
 
 Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
@@ -100,5 +95,3 @@ When including CORD19-NEKG data in a publication or redistribution, please cite 
 ## References
 
 [1] Wang, L.L., Lo, K., Chandrasekhar, Y., Reas, R., Yang, J., Eide, D., Funk, K., Kinney, R.M., Liu, Z., Merrill, W., Mooney, P., Murdick, D.A., Rishi, D., Sheehan, J., Shen, Z., Stilson, B., Wade, A.D., Wang, K., Wilhelm, C., Xie, B., Raymond, D.M., Weld, D.S., Etzioni, O., & Kohlmeier, S. (2020). CORD-19: The Covid-19 Open Research Dataset. ArXiv, abs/2004.10706.
-
-[2] F. Michel, L. Djimenou, C. Faron-Zucker, and J. Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML. In Proceedings of the *11th International Confenrence on Web Information Systems and Technologies (WEBIST 2015)*, Lisbon, Portugal, 2015.
