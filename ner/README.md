@@ -2,7 +2,7 @@
 
 Command to launch DBpedia Spotlight ([models and jar available](https://sourceforge.net/projects/dbpedia-spotlight/files/)):
 - java -Xmx{size}m -jar dbpedia-spotlight.jar en http://localhost:2222/rest
-or java -Xmx{size}m -jar dbpedia-spotlight-nightly-build.jar en http://localhost:2222/rest
+- or java -Xmx{size}m -jar dbpedia-spotlight-nightly-build.jar en http://localhost:2222/rest
 
 Command to launch Entity-fishing ([installation guide](https://nerd.readthedocs.io/en/latest/build.html)):
 - mvn clean jetty:run
