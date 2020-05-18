@@ -2,7 +2,7 @@
 # Commands to be run from the virtuoso directory
 
 CURRENT_DIR=$(pwd)
-DATASET_DIR=$CURRENT_DIR/../xR2RML/cord19-nekg-dataset-1.1
+DATASET_DIR=$CURRENT_DIR/../xR2RML/cord19-dataset-1.1
 
 # Metadata graph
 graph="http://ns.inria.fr/covid19/graph/metadata"
@@ -10,7 +10,7 @@ graph="http://ns.inria.fr/covid19/graph/metadata"
     --cleargraph \
     --graph $graph \
     --path $CURRENT_DIR/../dataset_tpl \
-    cord19-nekg-metadata-dataset.ttl cord19-nekg-metadata-dataset-void.ttl
+    cord19-metadata-dataset.ttl cord19-metadata-dataset-void.ttl
 
 
 # Articles metadata graph - generated from the CORD19 metadata.csv and json files
@@ -19,7 +19,7 @@ graph="http://ns.inria.fr/covid19/graph/articles"
     --cleargraph \
     --graph $graph \
     --path $DATASET_DIR \
-    cord19-nekg-metadata-articles-authors.ttl cord19-nekg-metadata-articles-pmcid.ttl cord19-nekg-metadata-articles-sha.ttl
+    cord19-metadata-articles-authors.ttl cord19-metadata-articles-pmcid.ttl cord19-metadata-articles-sha.ttl
 
 
 # DBpedia Spotlight graph
@@ -42,7 +42,10 @@ graph="http://ns.inria.fr/covid19/graph/entityfishing"
 
 # Bioportal Annotator graph
 graph="http://ns.inria.fr/covid19/graph/bioportal-annotator"
-./virtuoso-import.sh --graph $graph --path $DATASET_DIR \
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path $DATASET_DIR \
     cord19-nekg-ncbo-title.ttl       cord19-nekg-ncbo-abstract.ttl.0  cord19-nekg-ncbo-abstract.ttl.1 \
     cord19-nekg-ncbo-abstract.ttl.10 cord19-nekg-ncbo-abstract.ttl.11 cord19-nekg-ncbo-abstract.ttl.2 \
     cord19-nekg-ncbo-abstract.ttl.3  cord19-nekg-ncbo-abstract.ttl.4  cord19-nekg-ncbo-abstract.ttl.5 \
@@ -55,7 +58,7 @@ graph="http://ns.inria.fr/covid19/graph/entityfishing/body"
 ./virtuoso-import.sh \
     --cleargraph \
     --graph $graph \
-    --path $DATASET_DIR/cord19-nekg-dataset-1.1 \
+    --path $DATASET_DIR \
     cord19-nekg-entityfishing-body-ann-sel.ttl.0 \
     cord19-nekg-entityfishing-body-ann-sel.ttl.1 \
     cord19-nekg-entityfishing-body-ann-sel.ttl.10 \
@@ -121,3 +124,11 @@ graph="http://ns.inria.fr/covid19/graph/entityfishing/body"
     cord19-nekg-entityfishing-body-target.ttl.7 \
     cord19-nekg-entityfishing-body-target.ttl.8 \
     cord19-nekg-entityfishing-body-target.ttl.9
+
+# ACTA graph
+graph="http://ns.inria.fr/covid19/graph/acta"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path $DATASET_DIR \
+    cord19-akg.ttl cord19-akg-outcome.ttl cord19-akg-intervention.ttl cord19-akg-participant.ttl

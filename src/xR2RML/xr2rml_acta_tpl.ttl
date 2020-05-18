@@ -1,0 +1,156 @@
+# Mapping file generating the graph of arguments found by ACTA
+#
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+#
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+# Template file: replace placeholders
+# - {{dataset}}: RDF dataset name e.g. "dataset-1-1"
+# - {{collection}}: DB collection containing the PICO elements
+
+@prefix xrr:    <http://i3s.unice.fr/xr2rml#> .
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#>.
+
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+
+@prefix aif:    <http://www.arg.dundee.ac.uk/aif#>.    # Argument Interchange Format
+@prefix amo:    <http://purl.org/spar/amo/>.           # Argument Model Ontology (Toulmin)
+@prefix sioca:  <http://rdfs.org/sioc/argument#>.      # SIOC Argumentation Module
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+
+# ---------------------------------
+# One amo:Argument per article
+
+<#TM_argument>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.{{collection}}.find()""";
+    ];
+    rr:subjectMap   [
+        rr:template     "http://ns.inria.fr/covid19/arg/{$.paper_id}";
+        rr:class        amo:Argument;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:isDefinedBy;
+        rr:objectMap [ rr:constant covid:{{dataset}}; rr:termType rr:IRI ];
+    ];
+
+    # Provenance
+    rr:predicateObjectMap [
+        rr:predicate schema:about;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/{$.paper_id}" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate dct:creator;
+        rr:objectMap [ rr:constant "https://team.inria.fr/wimmics/"; rr:termType rr:IRI ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:wasGeneratedBy;
+        rr:objectMap [ rr:constant covid:ProvenanceActa; rr:termType rr:IRI ];
+    ].
+
+
+<#TM_argument_has_evid>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.{{collection}}.find( {$where: 'this.type == "evidence"'} )""";
+    ];
+    rr:subjectMap       [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}" ];
+    rr:predicateObjectMap [
+        rr:predicate amo:hasEvidence;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.id}" ]
+    ].
+
+
+<#TM_argument_has_claim>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.{{collection}}.find( {$where: 'this.type == "claim"'} )""";
+    ];
+    rr:subjectMap       [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}" ];
+    rr:predicateObjectMap [
+        rr:predicate amo:hasClaim;
+        rr:objectMap [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.id}" ]
+    ].
+
+# --------------------------------- Evidences and claims
+
+<#TM_evid>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.{{collection}}.find( {$where: 'this.type == "evidence"'} )""";
+    ];
+    rr:subjectMap       [
+        rr:template     "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.id}";
+        rr:class        amo:Evidence, sioca:Justification, aif:I-node;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:wasQuotedFrom;
+        rr:objectMap [ rr:template  "http://ns.inria.fr/covid19/{$.paper_id}" ]
+    ];
+    rr:predicateObjectMap [
+        rr:predicate aif:formDescription;
+        rr:objectMap [ xrr:reference "$.text" ]
+    ].
+
+
+<#TM_claim>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.{{collection}}.find( {$where: 'this.type == "claim"'} )""";
+    ];
+    rr:subjectMap       [
+        rr:template     "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.id}";
+        rr:class        amo:Claim, sioca:Idea, aif:I-node, aif:KnowledgePosition_Statement;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate prov:wasQuotedFrom;
+        rr:objectMap [ rr:template  "http://ns.inria.fr/covid19/{$.paper_id}" ]
+    ];
+    rr:predicateObjectMap [
+        rr:predicate aif:claimText;
+        rr:objectMap [ xrr:reference "$.text" ]
+    ].
+
+
+# --------------------------------- Support/attack relations
+
+<#TM_support>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.acta_support.find()""";
+        rml:iterator    "$.relations.*";
+        xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ];
+    ];
+    rr:subjectMap       [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.from}" ];
+    rr:predicateObjectMap [
+        rr:predicate sioca:supports, amo:proves;
+        rr:objectMap    [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.to}" ]
+    ].
+
+
+<#TM_attack>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   [
+        xrr:query       """db.acta_attack.find()""";
+        rml:iterator    "$.relations.*";
+        xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ];
+    ];
+    rr:subjectMap       [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.from}" ];
+    rr:predicateObjectMap [
+        rr:predicate sioca:challenges;
+        rr:objectMap    [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.to}" ]
+    ].
