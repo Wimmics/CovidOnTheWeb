@@ -1,0 +1,112 @@
+# Mapping file generating the annotations about the PICO elements 
+# extracted from the arguments by ACTA
+#
+# Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
+#
+# Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+# Template file: replace placeholders
+# - {{dataset}}: RDF dataset name e.g. "dataset-1-1"
+# - {{collection}}: DB collection containing the PICO elements
+
+@prefix xrr:    <http://i3s.unice.fr/xr2rml#> .
+@prefix rr:     <http://www.w3.org/ns/r2rml#> .
+@prefix rml:    <http://semweb.mmlab.be/ns/rml#> .
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#>.
+
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+
+@prefix aif:    <http://www.arg.dundee.ac.uk/aif#>.    # Argument Interchange Format
+@prefix amo:    <http://purl.org/spar/amo/>.           # Argument Model Ontology (Toulmin)
+@prefix sioca:  <http://rdfs.org/sioc/argument#>.      # SIOC Argumentation Module
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+# --------------------------------- PICO elements
+# One annotation for each element of "outcome", "intervention", "partitipants"
+
+<#LS_comp>
+    a               xrr:LogicalSource;
+    xrr:query       """db.{{collection}}.find()""";
+    rml:iterator    "$.linked_to";
+    xrr:pushDown    [ xrr:reference "$.paper_id"; xrr:as "paper_id" ];
+    xrr:pushDown    [ xrr:reference "$.id"; xrr:as "id" ].
+
+<#TM_annotation>
+    a                   rr:TriplesMap;
+    xrr:logicalSource   <#LS_comp>;
+    rr:subjectMap [
+        rr:template    "annotation_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+        rr:termType     rr:BlankNode;
+        rr:class        oa:Annotation;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    schema:about;
+        rr:objectMap    [ rr:template "http://ns.inria.fr/covid19/{$.paper_id}" ];
+    ];
+
+    # Annotation confidence
+    rr:predicateObjectMap [
+        rr:predicate    covidpr:confidence;
+        rr:objectMap    [ xrr:reference "$.confidence"; rr:datatype xsd:decimal ];
+    ];
+
+    # Annotation body
+    rr:predicateObjectMap [
+        rr:predicate    oa:hasBody;
+        rr:objectMap    [ rr:template "https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/{$.concept_id}" ];
+    ];
+
+    # Annotation target
+    rr:predicateObjectMap [
+        rr:predicate    oa:hasTarget;
+        rr:objectMap [
+            rr:template "target_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+            rr:termType rr:BlankNode;
+        ];
+    ];
+    .
+
+# Annotation target
+<#TM_target>
+    a rr:TriplesMap;
+    xrr:logicalSource   <#LS_comp>;
+    rr:subjectMap [
+        rr:template    "target_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+        rr:termType     rr:BlankNode;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    oa:hasSource;
+        rr:objectMap    [ rr:template "http://ns.inria.fr/covid19/arg/{$.paper_id}/{$.id}" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    oa:hasSelector;
+        rr:objectMap [
+            rr:template "offset_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+            rr:termType rr:BlankNode;
+        ];
+    ].
+
+# Annotation target selector
+<#TM_selector>
+    a rr:TriplesMap;
+    xrr:logicalSource   <#LS_comp>;
+    rr:subjectMap [
+        rr:template     "offset_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+        rr:termType     rr:BlankNode;
+        rr:class        oa:TextQuoteSelector;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    oa:exact;
+        rr:objectMap    [ xrr:reference "$.name" ];
+    ];
+    .

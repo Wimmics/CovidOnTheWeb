@@ -58,30 +58,20 @@ import_entityfishing_single() {
 
 
 # Import CORD19 NCBO Annotator annotations in a multiple collections
-import_ncbo_single() {
+import_ncbo() {
     collection=ncbo
     mongo_drop_import_dir_split ${ARCHIVE}-Annotation/ncbo-light ${collection} 5000
 }
 
 # ------------------------------------------------------------------------------
 
-# Import the CORD19 DBpedia-Spotlight annotations into separate collections
-import_spotlight_separate() {
-    collection=spotlight
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight/biorxiv_medrxiv    ${collection}_biorxiv_medrxiv
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight/comm_use_subset    ${collection}_comm_use_subset
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight/custom_license     ${collection}_custom_license
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight/noncomm_use_subset ${collection}_noncomm_use_subset
-}
+# Import CORD19 ACTA annotations in a multiple collection
+import_acta() {
+    collection=acta
+    mongo_drop_import_dir ${ARCHIVE}-ACTA/output ${collection}
 
-
-# Import the CORD19 Entity-fishing annotations into separate collections
-import_entityfishing_separate(){
-    collection=entityfishing
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing/biorxiv_medrxiv    ${collection}_biorxiv_medrxiv
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing/comm_use_subset    ${collection}_comm_use_subset
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing/custom_license     ${collection}_custom_license
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing/noncomm_use_subset ${collection}_noncomm_use_subset
+    # Create collection acta_claim & acta_evid
+    mongo localhost/$DB filter-acta.js
 }
 
 # ------------------------------------------------------------------------------
@@ -92,10 +82,9 @@ import_entityfishing_separate(){
 #import_cord_json
 #import_entityfishing_single
 #import_spotlight_single
-#import_ncbo_single
+#import_ncbo
+#import_acta
 
-#import_entityfishing_separate
-#import_spotlight_separate
 
 
 # -----------------------------------------------------------

@@ -31,3 +31,9 @@ dataset=dataset-1-1
 ./run_xr2rml_annotation.sh       $dataset abstract  ncbo_9   xr2rml_ncbo.ttl
 ./run_xr2rml_annotation.sh       $dataset abstract  ncbo_10  xr2rml_ncbo.ttl
 ./run_xr2rml_annotation.sh       $dataset abstract  ncbo_11  xr2rml_ncbo.ttl
+
+# Generate arguments from ACTA
+./run_xr2rml_acta.sh  $dataset  acta_components               xr2rml_acta_tpl.ttl
+./run_xr2rml_acta.sh  $dataset  acta_components_participants  xr2rml_acta_pico_tpl.ttl
+./run_xr2rml_acta.sh  $dataset  acta_components_outcomes      xr2rml_acta_pico_tpl.ttl
+./run_xr2rml_acta.sh  $dataset  acta_components_intervention  xr2rml_acta_pico_tpl.ttl
