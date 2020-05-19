@@ -13,8 +13,8 @@ Covid-on-the-Web Dataset **v1.1** is based on [CORD-19 v7](https://www.kaggle.co
 
 #### Documentation
 
-- [RDF Data Modeling](doc/01-data-modeling.md)
-- [Generation Pipeline](doc/02-generation-pipeline.md)
+- [RDF data modeling](doc/01-data-modeling.md)
+- [Generation pipeline](src/README.md)
 
 
 ## CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)

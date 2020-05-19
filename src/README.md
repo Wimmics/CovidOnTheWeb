@@ -1,12 +1,44 @@
-# Generation of the CORD19-NEKG dataset
+# Covid-on-the-Web dataset generation pipeline
 
-This folder provides the scripts and mappings files needed to translate into RDF the following datasets:
-- CORD-19 (metadat.csv + per-article JSON files)
-- Named entities computed by DBpedia Spotligt on CORD-19
-- Named entities computed by entity-fishing on CORD-19
+Several steps are involved in the generation the Covid-On-The-Web RDF dataset.
 
-The following steps are involved in the generation the CORD19-NEKG RDF dataset:
-- datasets are loaded into a MongoDB as collections (see [mongo](mongo))
-- collections are translated to RDF using Morph-xR2RLM (see [xR2RML](xR2RML))
-- the files produced are loaded into a Virtuoso triple store as named graphs (see [virtuoso](virtuoso))
+This folder provides various tools, scripts and mappings files involved in carrying out these steps.
+
+
+### Articles mining
+
+**Extraction of named entities from CORD-19**: directory [ner](ner) provides the tools required to run [DBpedia Spotlight](https://www.dbpedia-spotlight.org/), [Entity-fishing](https://github.com/kermitt2/entity-fishing) and [NCBO BioPortal annotator](http://bioportal.bioontology.org/annotatorplus).
+
+**Extraction of arguments from CORD-19**: directory [acta](acta) provides the tools required to run
+ [ACTA](http://ns.inria.fr/acta/).
+
+In both cases, one result JSON file is produced per article from the CORD-19 corpus processed.
+Directory [mongo](mongo) provides the scrips used to import these different sets of JSON files into MongoDB, and pre-process them with MongoDB aggregation queries to clean up the data and prepare prepare the JSON format for the next stage.
+
+### CORD-19 loading and prep-processing
+
+In addition to the extraction of named entities and arguements from the CORD-19 corpus, we also need the source files to generate the artcicles metadata in RDF.
+
+CORD-19 provides metadata about articles as a large CSV file, plus one JSON file for each article in the corpus.
+
+Again, directory [mongo](mongo) provides the scrips used to import these CORD-19 CSV and JSON files into MongoDB and pre-process them.
+
+
+### RDF files generation
+
+The translation in RDF of the three sources (CORD-19, named entities, arguments) is carried out using [Morph-xR2RML](https://github.com/frmichel/morph-xr2rml/), an implementation of the [xR2RML mapping language](http://i3s.unice.fr/~fmichel/xr2rml_specification.html) [1] for MongoDB databases.
+
+The scripts, configuration and mapping files are provided in directory [xR2RML](xR2RML).
+
+
+### RDF files import into Virtuoso
+
+RDF files generated at the previou stage are imported into a Virtuoso OS instance as separate named graphs. 
+Scripts are provided in directory [virtuoso](virtuoso).
+
+
+### References
+
+[1] F. Michel, L. Djimenou, C. Faron-Zucker, and J. Montagnat. Translation of Relational and Non-Relational Databases into RDF with xR2RML.
+In Proceedings of the *11th International Confenrence on Web Information Systems and Technologies (WEBIST 2015)*, Lisbon, Portugal, 2015.
 
