@@ -1,13 +1,16 @@
 # Covid-on-the-Web Dataset
 
 *Covid-on-the-Web Dataset* is an RDF dataset that provides two main knowledge graphs produced by analyzing the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://www.semanticscholar.org/cord19) [1], a resource of articles about COVID-19 and the coronavirus family of viruses:
-- the *CORD-19 Named Entities Knowledge Graph* provides named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. 
-- the *CORD-19 Argumentative Knowledge Graph* provides argumentative components and PICO elements extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
+- the *CORD-19 Named Entities Knowledge Graph* describes named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. 
+- the *CORD-19 Argumentative Knowledge Graph* describes argumentative components and PICO elements extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
 
 Covid-on-the-Web Dataset is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
 
 Covid-on-the-Web Dataset **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). 
  
+### I want it now: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
+
+
 #### Documentation
 
 - [RDF Data Modeling](doc/01-data-modeling.md)
@@ -31,8 +34,8 @@ To extract argumentative components (claims and evidences) and PICO elements, we
 
 Argumentative components and PICO elements were extracted from the articles' abstracts.
 
-- Nb. of argumentative components:  20,123
-- Nb. of PICO elements linked to UMLS concept IDs:  229,408
+- Nb. of argumentative components: 53,871
+- Nb. of PICO elements linked to UMLS concept IDs: 229,408
 
 
 ## URIs naming scheme
@@ -51,7 +54,7 @@ Parts of an article (title, abstract and body) are also identified by URIs so th
 
 ## Downloading and SPARQL Querying
 
-The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [TBC]
+The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
 
 It can also be queried through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
 

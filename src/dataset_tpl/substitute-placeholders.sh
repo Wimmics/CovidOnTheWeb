@@ -4,8 +4,8 @@
 
 dataset=dataset-1-1
 version=1.1
-date=2020-05-07
-triples=671262000
+date=2020-05-19
+triples=674351000
 
 temp=/tmp/temp_$$.ttl
 awk "{ gsub(/{{dataset}}/, \"$dataset\"); \
