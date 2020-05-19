@@ -1,0 +1,71 @@
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#>.
+
+@prefix dce:    <http://purl.org/dc/elements/1.1/>.
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix oa:     <http://www.w3.org/ns/oa#>.
+@prefix prov:   <http://www.w3.org/ns/prov#>.
+@prefix schema: <http://schema.org/>.
+@prefix wdt:    <http://www.wikidata.org/prop/direct/> .
+
+@prefix aif:    <http://www.arg.dundee.ac.uk/aif#>.    # Argument Interchange Format
+@prefix amo:    <http://purl.org/spar/amo/>.           # Argument Model Ontology (Toulmin)
+@prefix sioca:  <http://rdfs.org/sioc/argument#>.      # SIOC Argumentation Module
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b>
+    a                   amo:Argument;
+    schema:about        covid:f74923b3ce82c984a7ae3e0c2754c9e33c60554f;
+    dct:creator         <https://team.inria.fr/wimmics/>;
+    prov:wasGeneratedBy	covid:ProvenanceActa.
+
+    # Argumentative components
+    amo:hasEvidence     <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/0>;
+    amo:hasEvidence     <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/123>;
+    amo:hasClaim        <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+   .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/0>
+    a                   amo:Evidence, sioca:Justification, aif:I-node;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:formDescription "17 patients discharged in recovered condition and 10 patients died in hospital."^^xsd:string;
+    # evidence 0 supports claim 6
+    sioca:supports      <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+    amo:proves          <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>.
+    .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/123>
+    a                   amo:Evidence, sioca:Justification, aif:I-node;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:formDescription "some other evidence"^^xsd:string;
+    # evidence 123 attacks claim 6
+    sioca:challenges <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>.
+    .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>
+    a                   amo:Claim, sioca:Idea, aif:I-node, aif:KnowledgePosition_Statement;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:claimText       "a simple ct scoring method was capable to predict mortality."^^xsd:string;
+    .
+
+
+# One PICO element of annotation 6
+[]  a                   oa:Annotation;
+    schema:about        <http://ns.inria.fr/covid19/4f8d24c531d2c334969e09e4b5aed66dcc925c4b>;
+    covidpr:confidence  1^^xsd:decimal;
+
+    # link to the ULMS concept URI
+    oa:hasBody          <https://uts-ws.nlm.nih.gov/rest/content/2015AB/CUI/C0026565>,
+                        [ wdt:P2892 "C0026565" ];   # wdt:P2892 = UMLS concept id
+    oa:hasTarget [
+        # the source is the claim/evidence
+        oa:hasSource    <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+        oa:hasSelector  [
+            a           oa:TextQuoteSelector;
+            oa:exact    "mortality";
+        ]
+    ].
