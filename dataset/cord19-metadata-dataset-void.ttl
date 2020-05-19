@@ -20,14 +20,13 @@
 
 # Template file: replace placeholders 
 # - dataset-1-1: dataset name like "dataset-1-0"
-# - 669700000: number of triples
+# - 671262000: number of triples
 
 covid:dataset-1-1
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
-    void:triples        "669700000"^^xsd:integer;
+    void:triples        "671262000"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
-    void:dataDump       <https://github.com/wimmics/cord19-nekg/raw/master/dataset/>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
@@ -41,6 +40,9 @@ covid:dataset-1-1
     void:vocabulary     <http://schema.org/>;
     void:vocabulary     <http://rdfs.org/ns/void#>;
     void:vocabulary     <http://www.wikidata.org/entity/>;
+    void:vocabulary     <http://www.arg.dundee.ac.uk/aif#>.  # Argument Interchange Format
+    void:vocabulary     <http://purl.org/spar/amo>.          # Argument Model Ontology (Toulmin)
+    void:vocabulary     <http://rdfs.org/sioc/argument#>.    # SIOC Argumentation Module
     .
 
 # === Size in triples - v1.1:
@@ -49,7 +51,7 @@ covid:dataset-1-1
 # Entity-fishing bodies:    571,395,000
 # DBpedia Spotlight:         28,683,968
 # NCBO Annotator:            52,856,923
-
+# ACTA:                       2,613,610
 
 # --- Linksets
 
@@ -58,7 +60,7 @@ covid:Wikidata
    a void:Dataset;
    foaf:homepage <https://wikidata.org>.
 
-covid:cord19nekg2wikidata
+covid:cotw2wikidata
    a void:Linkset;
    void:linkPredicate oa:hasBody;
    void:subjectsTarget covid:dataset-1-1;
@@ -71,10 +73,23 @@ covid:DBpedia
    a void:Dataset;
    foaf:homepage <http://dbpedia.org>.
 
-covid:cord19nekg2dbpedia
+covid:cotw2dbpedia
    a void:Linkset;
    void:linkPredicate oa:hasBody;
    void:subjectsTarget covid:dataset-1-1;
    void:objectsTarget covid:DBpedia;
    void:triples "1792748"^^xsd:integer;
    .
+
+covid:UMLS
+   dct:title "UMLS"@en;
+   a void:Dataset;
+   foaf:homepage <https://www.nlm.nih.gov/research/umls/>.
+
+covid:cotw2umls
+   a void:Linkset;
+   void:linkPredicate oa:hasBody;
+   void:subjectsTarget covid:dataset-1-1;
+   void:objectsTarget covid:UMLS;
+   void:triples "2613610"^^xsd:integer;
+

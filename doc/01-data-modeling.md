@@ -1,6 +1,6 @@
-# CORD19-NEKG Data Modeling
+# Covid-On-The-Web RDF Data Modeling
 
-The description of each article comes in two parts: (1) metadata such as title and authors, and (2) annotations about named entities. Below we exemplify and described these parts.
+The description of each article from the CORD-19 corpus comes in three parts: (1) metadata such as title and authors, (2) annotations about named entities, and (3) argumentative components and PICO elements. Below we exemplify and described these parts.
 
 ## Namespaces
 
@@ -20,6 +20,10 @@ Below we use the following namespaces:
 @prefix oa:     <http://www.w3.org/ns/oa#>.
 @prefix prov:   <http://www.w3.org/ns/prov#>.
 @prefix schema: <http://schema.org/>.
+
+@prefix aif:    <http://www.arg.dundee.ac.uk/aif#>.    # Argument Interchange Format
+@prefix amo:    <http://purl.org/spar/amo/>.           # Argument Model Ontology (Toulmin)
+@prefix sioca:  <http://rdfs.org/sioc/argument#>.      # SIOC Argumentation Module
 
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
@@ -71,10 +75,10 @@ Here is an example of article metadata:
     covidpr:hasBody     <http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f#body_text>.
 ```
 
-## Article named entities
+## Named entities
 
 The named entities identified in an article are described as **annotations** using the **[Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/)**.
-Each annotation is a blank node consisting of the following information:
+Each annotation consists of the following information:
 - the article it is about (`schema:about`)
 - the annotation target (`oa:hasTarget`) describes the piece of text identified as a named entity as follows:
     - the source (`oa:hasSource`) is the part of the article where the named entity was detected
@@ -101,6 +105,71 @@ _:b40150806
         ]
     ];
 ```
+
+## Argumentative components and PICO elements
+
+The arguments extracted from an article are described using the [Argument Model Ontology](http://purl.org/spar/amo/), [SIOC Argumentation Module](http://rdfs.org/sioc/argument#) and [Argument Interchange Format](http://www.arg.dundee.ac.uk/aif#).
+
+In the example below, an argument is defined that consits of 3 components: 2 evidences and a claim, with support/attack relations between the components:
+```turtle
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b>
+    a                   amo:Argument;
+    schema:about        covid:f74923b3ce82c984a7ae3e0c2754c9e33c60554f;
+    dct:creator         <https://team.inria.fr/wimmics/>;
+    prov:wasGeneratedBy	covid:ProvenanceActa.
+
+    # Argumentative components
+    amo:hasEvidence     <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/0>;
+    amo:hasEvidence     <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/123>;
+    amo:hasClaim        <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+   .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/0>
+    a                   amo:Evidence, sioca:Justification, aif:I-node;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:formDescription "17 patients discharged in recovered condition and 10 patients died in hospital."^^xsd:string;
+    # evidence 0 supports claim 6
+    sioca:supports      <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+    amo:proves          <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>.
+    .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/123>
+    a                   amo:Evidence, sioca:Justification, aif:I-node;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:formDescription "some other evidence"^^xsd:string;
+    # evidence 123 attacks claim 6
+    sioca:challenges <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>.
+    .
+
+<http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>
+    a                   amo:Claim, sioca:Idea, aif:I-node, aif:KnowledgePosition_Statement;
+    prov:wasQuotedFrom  covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
+    aif:claimText       "a simple ct scoring method was capable to predict mortality."^^xsd:string;
+    .
+```
+
+
+PICO elements identified in an argumentative component are described in a way very similar to the named entites, using the **[Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/)**. The annotation bodies are URI of UMLS concepts.
+
+Example:
+```turtle
+[]  a                   oa:Annotation;
+    schema:about        <http://ns.inria.fr/covid19/4f8d24c531d2c334969e09e4b5aed66dcc925c4b>;
+    covidpr:confidence  1^^xsd:decimal;
+
+    # link to the ULMS concept URI
+    oa:hasBody          <https://uts-ws.nlm.nih.gov/rest/content/2015AB/CUI/C0026565>;
+    oa:hasTarget [
+        # the source is the claim/evidence
+        oa:hasSource    <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;
+        oa:hasSelector  [
+            a           oa:TextQuoteSelector;
+            oa:exact    "mortality";
+        ]
+    ].
+```
+
+
 
 ## Provenance information
 

@@ -1,32 +1,46 @@
-# CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)
+# Covid-on-the-Web Dataset
 
-CORD-19 Named Entities Knowledge Graph (CORD19-NEKG) is an RDF dataset describing named entities identified in the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://www.semanticscholar.org/cord19) [1], a resource of over 47,000 articles about COVID-19 and the coronavirus family of viruses.
+*Covid-on-the-Web Dataset* is an RDF dataset that provides two main knowledge graphs produced by analyzing the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://www.semanticscholar.org/cord19) [1], a resource of articles about COVID-19 and the coronavirus family of viruses:
+- the *CORD-19 Named Entities Knowledge Graph* provides named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. 
+- the *CORD-19 Argumentative Knowledge Graph* provides argumentative components and PICO elements extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
 
-CORD19-NEKG is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
+Covid-on-the-Web Dataset is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
 
-
+Covid-on-the-Web Dataset **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). 
+ 
 #### Documentation
 
 - [RDF Data Modeling](doc/01-data-modeling.md)
 - [Generation Pipeline](doc/02-generation-pipeline.md)
 
 
-## Named Entities
+## CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)
 
-To identify and disambiguate named entities, we used [DBpedia Spotlight](https://www.dbpedia-spotlight.org/) (links to DBpedia), [entity-fishing](https://github.com/kermitt2/entity-fishing) (links to Wikidata), and [NCBO BioPortal annotator](http://bioportal.bioontology.org/annotatorplus) (links to ontologies in Bioportal).
+To identify and disambiguate named entities, we used [DBpedia Spotlight](https://www.dbpedia-spotlight.org/) (links to DBpedia), [Entity-fishing](https://github.com/kermitt2/entity-fishing) (links to Wikidata), and [NCBO BioPortal annotator](http://bioportal.bioontology.org/annotatorplus) (links to ontologies in Bioportal).
 
-CORD19-NEKG **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). It provides named entities identified by DBpedia Spotlight and BioPortal Annotator in articles titles and abstracts, and by Entity-fishing in articles titles, abstracts and bodies.
-- No. named entities linked to DBpedia resources:  1,792,748
-- No. named entities linked to Wikidata resources: 30,863,349
-- No. named entities linked to BioPortal ontologies: 21,874,798
+Named entities were identified primarily in the articles' titles and abstracts. Entity-fishing was also used to process the articles' bodies.
+
+- Nb. of named entities linked to DBpedia resources:  1,792,748
+- Nb. of named entities linked to Wikidata resources: 30,863,349
+- Nb. of named entities linked to BioPortal ontologies: 21,874,798
 
 
-## URIs to name things
+## CORD-19 Argumentative Knowledge Graph (CORD19-AKG)
 
-CORD19-NEKG namespace is `http://ns.inria.fr/covid19/`.
+To extract argumentative components (claims and evidences) and PICO elements, we used the [Argumentative Clinical Trial Analysis](http://ns.inria.fr/acta/) platform (ACTA) [2].
+
+Argumentative components and PICO elements were extracted from the articles' abstracts.
+
+- Nb. of argumentative components:  20,123
+- Nb. of PICO elements linked to UMLS concept IDs:  229,408
+
+
+## URIs naming scheme
+
+Covid-on-the-Web namespace is `http://ns.inria.fr/covid19/`. All URIs are dereferenceable.
 
 The dataset itslef is identified by URI `http://ns.inria.fr/covid19/dataset-1-1`. It comes with DCAT and VOID descriptions.
-All articles and annotations about named entities are linked back to the dataset with property `rdfs:isDefinedBy`.
+All articles, annotations and arguments are linked back to the dataset with property `rdfs:isDefinedBy`.
 
 Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
 Parts of an article (title, abstract and body) are also identified by URIs so that annotations of named entities can link back to the part they belong to. These URIs are formatted as 
@@ -37,10 +51,12 @@ Parts of an article (title, abstract and body) are also identified by URIs so th
 
 ## Downloading and SPARQL Querying
 
-The dataset is available either as a Turtle dump in the [dataset](/dataset) directory, or through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
+The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [TBC]
+
+It can also be queried through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
 
 You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
-As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://covid19.i3s.unice.fr:8890/describe/?url=http%3A%2F%2Fns.inria.fr%2Fcovid19%2Ff74923b3ce82c984a7ae3e0c2754c9e33c60554f&sid=50&urilookup=1).
+As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f).
 Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
 The following **named graphs** can be queried from our SPARQL endpoint:
@@ -50,6 +66,7 @@ The following **named graphs** can be queried from our SPARQL endpoint:
 - `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing in articles titles/abstracts
 - `http://ns.inria.fr/covid19/graph/entityfishing/body`: named entities identified by Entity-fishing in articles bodies
 - `http://ns.inria.fr/covid19/graph/bioportal-annotator`: named entities identified by Bioportal Annotator in articles titles/abstracts
+- `http://ns.inria.fr/covid19/graph/acta`: argumentative components and PICO elements extracted by ACTA from articles titles/abstracts
 
 The example query below retrieves two articles that have been annotated with at least one common Wikidata entity.
 ```sparql
@@ -75,23 +92,18 @@ where {
 
 ## License
 
-This CORD-19 Named Entities Knowledge Graph dataset (CORD19-NEKG) was derived from the CORD-19 dataset.
-It consists of two subsets:
-- the CORD-19 dataset itself, translated into the Turtle RDF syntax, subject to the CORD-19 license; and
-- the result of a text mining process meant to extract named entities.
-
-The CORD19-NEKG dataset is therefore licensed under two licenses, each applying to the aforementioned subsets:
-- The CORD-19 license (https://ai2-semanticscholar-cord-19.s3-us-west-2.amazonaws.com/2020-03-13/COVID.DATA.LIC.AGMT.pdf) applies to the CORD-19 dataset that is contained in the CORD19-NEKG dataset (as a subset translated into the Turtle RDF syntax).   
-- The Open Data Commons Attribution License (http://opendatacommons.org/licenses/by/1.0) applies to the subset of the CORD19-NEKG dataset that results of a text mining process, that does not contain the aforementioned CORD-19 subset.
-
+See the [LICENSE file](LICENSE).
 
 ## Cite this work
 
-When including CORD19-NEKG data in a publication or redistribution, please cite the dataset as follows:
+When including Covid-on-the-Web data in a publication or redistribution, please cite the dataset as follows:
 
-*R. Gazzotti, F. Michel, F. Gandon. CORD-19 Named Entities Knowledge Graph (CORD19-NEKG). University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/cord19-nekg.*
+*Wimmics Research Team. Covid-on-the-Web Dataset. University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/CovidOnTheWeb.*
 
 
 ## References
 
 [1] Wang, L.L., Lo, K., Chandrasekhar, Y., Reas, R., Yang, J., Eide, D., Funk, K., Kinney, R.M., Liu, Z., Merrill, W., Mooney, P., Murdick, D.A., Rishi, D., Sheehan, J., Shen, Z., Stilson, B., Wade, A.D., Wang, K., Wilhelm, C., Xie, B., Raymond, D.M., Weld, D.S., Etzioni, O., & Kohlmeier, S. (2020). CORD-19: The Covid-19 Open Research Dataset. ArXiv, abs/2004.10706.
+
+[2] T. Mayer, E. Cabrio, and S. Villata. ACTA a tool for argumentative clinical trialanalysis. In Proceedings of the 28th International Joint Conference on  ArtificialIntelligence (IJCAI), pages 6551–6553, 2019.
+

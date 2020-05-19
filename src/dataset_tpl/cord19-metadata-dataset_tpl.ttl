@@ -26,17 +26,17 @@
 
 covid:{{dataset}}
     a               dcat:Dataset, schema:Dataset;
-    dct:title       "CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)";
-    schema:name     "CORD-19 Named Entities Knowledge Graph (CORD19-NEKG)";
-    dct:description "This RDF dataset describes the named entities identified in the research papers of the CORD-19 corpus. To identify and disambiguate the named entities, several tools have been used: NCBO BioPortal annotator, Entity-fishing (links to Wikidata) and DBpedia Spotlight (links to DBpedia).";
+    dct:title       "Covid-on-the-Web dataset";
+    schema:name     "Covid-on-the-Web dataset";
+    dct:description "This RDF dataset provides two main knowledge graphs produced by processing the Covid-19 Open Research Dataset (CORD-19). The CORD-19 Named Entities Knowledge Graph provides named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. The CORD-19 Argumentative Knowledge Graph provides argumentative components extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).";
     
     dct:licence     <http://opendatacommons.org/licenses/by/1.0>;
     schema:licence  <http://opendatacommons.org/licenses/by/1.0>;
     owl:versionInfo "{{version}}";
     dct:issued      "{{date}}"^^xsd:date; schema:datePublished "{{date}}"^^xsd:date;
     
-    dct:subject     "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
-    schema:keywords "covid19", "corona", "virus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER";
+    dct:subject     "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
+    schema:keywords "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
     
     dct:creator      <https://team.inria.fr/wimmics/>;
     schema:author    <https://team.inria.fr/wimmics/>;
@@ -50,9 +50,11 @@ covid:{{dataset}}
     prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
     .
 
+
 <http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
 <https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
 <https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
+
 
 covid:cord19v7
     a               dcat:Dataset, schema:Dataset;
@@ -61,6 +63,7 @@ covid:cord19v7
     dct:issued      "2020-04-10"^^xsd:date; schema:datePublished "2020-04-10"^^xsd:date;
     schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7>;
     owl:versionInfo "7".
+
 
 covid:ProvenanceEF
     a                       prov:Activity;
@@ -76,6 +79,12 @@ covid:ProvenanceNCBOAnnotator
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
     prov:used               covid:cord19v7.
+
+covid:ProvenanceActa
+    a                       prov:Activity;
+    prov:wasAssociatedWith  <http://ns.inria.fr/acta/>;
+    prov:used               covid:cord19v7.
+
 
 covid:RdfGeneration
     a               prov:Activity;
