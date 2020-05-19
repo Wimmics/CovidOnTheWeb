@@ -51,7 +51,7 @@ covid:{{dataset}}
 # Entity-fishing bodies:    571,395,000
 # DBpedia Spotlight:         28,683,968
 # NCBO Annotator:            52,856,923
-# ACTA:                       2,613,610
+# ACTA:                       3,072,426
 
 # --- Linksets
 
