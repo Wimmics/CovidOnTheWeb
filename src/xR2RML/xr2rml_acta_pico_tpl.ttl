@@ -27,6 +27,7 @@
 @prefix aif:    <http://www.arg.dundee.ac.uk/aif#>.    # Argument Interchange Format
 @prefix amo:    <http://purl.org/spar/amo/>.           # Argument Model Ontology (Toulmin)
 @prefix sioca:  <http://rdfs.org/sioc/argument#>.      # SIOC Argumentation Module
+@prefix umls:   <http://bioportal.bioontology.org/ontologies/umls/>.
 
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
@@ -63,7 +64,10 @@
     # Annotation body
     rr:predicateObjectMap [
         rr:predicate    oa:hasBody;
-        rr:objectMap    [ rr:template "https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/{$.concept_id}" ];
+        rr:objectMap [
+            rr:template "body_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+            rr:termType rr:BlankNode;
+        ];
     ];
 
     # Annotation target
@@ -75,6 +79,23 @@
         ];
     ];
     .
+
+# Annotation body
+<#TM_body>
+    a rr:TriplesMap;
+    xrr:logicalSource   <#LS_comp>;
+    rr:subjectMap [
+        rr:template    "body_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
+        rr:termType     rr:BlankNode;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    umls:cui;
+        rr:objectMap    [ xrr:reference "$.concept_id" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate    umls:tui;
+        rr:objectMap    [ xrr:reference "$.tui.*" ];
+    ].
 
 # Annotation target
 <#TM_target>
