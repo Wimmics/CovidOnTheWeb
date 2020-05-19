@@ -20,12 +20,12 @@
 
 # Template file: replace placeholders 
 # - dataset-1-1: dataset name like "dataset-1-0"
-# - 671262000: number of triples
+# - 674351000: number of triples
 
 covid:dataset-1-1
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
-    void:triples        "671262000"^^xsd:integer;
+    void:triples        "674351000"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
@@ -51,7 +51,7 @@ covid:dataset-1-1
 # Entity-fishing bodies:    571,395,000
 # DBpedia Spotlight:         28,683,968
 # NCBO Annotator:            52,856,923
-# ACTA:                       2,613,610
+# ACTA:                       3,072,426
 
 # --- Linksets
 

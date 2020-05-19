@@ -22,7 +22,7 @@
 # Template file: replace placeholders 
 # - dataset-1-1: dataset name like "dataset-1-0"
 # - 1.1: dataset version
-# - 2020-05-07: date at which the dataset is generated
+# - 2020-05-19: date at which the dataset is generated
 
 covid:dataset-1-1
     a               dcat:Dataset, schema:Dataset;
@@ -33,7 +33,7 @@ covid:dataset-1-1
     dct:licence     <http://opendatacommons.org/licenses/by/1.0>;
     schema:licence  <http://opendatacommons.org/licenses/by/1.0>;
     owl:versionInfo "1.1";
-    dct:issued      "2020-05-07"^^xsd:date; schema:datePublished "2020-05-07"^^xsd:date;
+    dct:issued      "2020-05-19"^^xsd:date; schema:datePublished "2020-05-19"^^xsd:date;
     
     dct:subject     "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
     schema:keywords "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
@@ -47,7 +47,7 @@ covid:dataset-1-1
     a prov:Entity;
     prov:wasDerivedFrom     covid:cord19v7;
     prov:wasGeneratedBy     covid:RdfGeneration;
-    prov:wasGeneratedAtTime "2020-05-07"^^xsd:date;
+    prov:wasGeneratedAtTime "2020-05-19"^^xsd:date;
     .
 
 
