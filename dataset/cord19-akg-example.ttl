@@ -20,7 +20,7 @@
 
 <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b>
     a                   amo:Argument;
-    schema:about        covid:f74923b3ce82c984a7ae3e0c2754c9e33c60554f;
+    schema:about        covid:4f8d24c531d2c334969e09e4b5aed66dcc925c4b;
     dct:creator         <https://team.inria.fr/wimmics/>;
     prov:wasGeneratedBy	covid:ProvenanceActa.
 
