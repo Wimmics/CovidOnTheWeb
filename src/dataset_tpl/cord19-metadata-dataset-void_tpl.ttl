@@ -18,8 +18,8 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
-# Template file: replace placeholders 
-# - {{dataset}}: dataset name like "dataset-1-0"
+# Template file: replace placeholders
+# - {{dataset}}: dataset name like "covidontheweb-1-1"
 # - {{triples}}: number of triples
 
 covid:{{dataset}}
@@ -27,6 +27,7 @@ covid:{{dataset}}
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "{{triples}}"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
+    void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
@@ -40,9 +41,9 @@ covid:{{dataset}}
     void:vocabulary     <http://schema.org/>;
     void:vocabulary     <http://rdfs.org/ns/void#>;
     void:vocabulary     <http://www.wikidata.org/entity/>;
-    void:vocabulary     <http://www.arg.dundee.ac.uk/aif#>.  # Argument Interchange Format
-    void:vocabulary     <http://purl.org/spar/amo>.          # Argument Model Ontology (Toulmin)
-    void:vocabulary     <http://rdfs.org/sioc/argument#>.    # SIOC Argumentation Module
+    void:vocabulary     <http://www.arg.dundee.ac.uk/aif#>;  # Argument Interchange Format
+    void:vocabulary     <http://purl.org/spar/amo>;          # Argument Model Ontology (Toulmin)
+    void:vocabulary     <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
 
 # === Size in triples - v1.1:
@@ -91,5 +92,5 @@ covid:cotw2umls
    void:linkPredicate oa:hasBody;
    void:subjectsTarget covid:{{dataset}};
    void:objectsTarget covid:UMLS;
-   void:triples "2613610"^^xsd:integer;
+   void:triples "458800"^^xsd:integer;
 

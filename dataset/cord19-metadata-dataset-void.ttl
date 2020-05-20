@@ -18,16 +18,17 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
-# Template file: replace placeholders 
-# - dataset-1-1: dataset name like "dataset-1-0"
+# Template file: replace placeholders
+# - covidontheweb-1-1: dataset name like "covidontheweb-1-1"
 # - 674351000: number of triples
 
-covid:dataset-1-1
+covid:covidontheweb-1-1
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "674351000"^^xsd:integer;
     void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
-    
+    void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
+
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
     void:vocabulary     <http://purl.org/dc/elements/1.1/>;
@@ -40,9 +41,9 @@ covid:dataset-1-1
     void:vocabulary     <http://schema.org/>;
     void:vocabulary     <http://rdfs.org/ns/void#>;
     void:vocabulary     <http://www.wikidata.org/entity/>;
-    void:vocabulary     <http://www.arg.dundee.ac.uk/aif#>.  # Argument Interchange Format
-    void:vocabulary     <http://purl.org/spar/amo>.          # Argument Model Ontology (Toulmin)
-    void:vocabulary     <http://rdfs.org/sioc/argument#>.    # SIOC Argumentation Module
+    void:vocabulary     <http://www.arg.dundee.ac.uk/aif#>;  # Argument Interchange Format
+    void:vocabulary     <http://purl.org/spar/amo>;          # Argument Model Ontology (Toulmin)
+    void:vocabulary     <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
 
 # === Size in triples - v1.1:
@@ -63,7 +64,7 @@ covid:Wikidata
 covid:cotw2wikidata
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:dataset-1-1;
+   void:subjectsTarget covid:covidontheweb-1-1;
    void:objectsTarget covid:Wikidata;
    void:triples "30863349"^^xsd:integer;
    .
@@ -76,7 +77,7 @@ covid:DBpedia
 covid:cotw2dbpedia
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:dataset-1-1;
+   void:subjectsTarget covid:covidontheweb-1-1;
    void:objectsTarget covid:DBpedia;
    void:triples "1792748"^^xsd:integer;
    .
@@ -89,7 +90,7 @@ covid:UMLS
 covid:cotw2umls
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:dataset-1-1;
+   void:subjectsTarget covid:covidontheweb-1-1;
    void:objectsTarget covid:UMLS;
-   void:triples "2613610"^^xsd:integer;
+   void:triples "458800"^^xsd:integer;
 

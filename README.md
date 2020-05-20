@@ -42,7 +42,7 @@ Argumentative components and PICO elements were extracted from the articles' abs
 
 Covid-on-the-Web namespace is `http://ns.inria.fr/covid19/`. All URIs are dereferenceable.
 
-The dataset itslef is identified by URI `http://ns.inria.fr/covid19/dataset-1-1`. It comes with DCAT and VOID descriptions.
+The dataset itslef is identified by URI [`http://ns.inria.fr/covid19/covidontheweb-1-1`](http://ns.inria.fr/covid19/covidontheweb-1-1). It comes with DCAT and VOID descriptions.
 All articles, annotations and arguments are linked back to the dataset with property `rdfs:isDefinedBy`.
 
 Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
@@ -59,7 +59,7 @@ The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo
 It can also be queried through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
 
 You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
-As an example, you can [look up article http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f).
+As an example, you can look up article [http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f).
 Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
 The following **named graphs** can be queried from our SPARQL endpoint:
