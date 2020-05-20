@@ -150,7 +150,7 @@ In the example below, an argument is defined that consits of 3 components: 2 evi
 ```
 
 
-PICO elements identified in an argumentative component are described in a way very similar to the named entites, using the **[Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/)**. The annotation bodies are URI of UMLS concepts.
+PICO elements identified in an argumentative component are described in a way very similar to the named entities, using the **[Web Annotations Vocabulary](https://www.w3.org/TR/annotation-vocab/)**. The annotation bodies provide UMLS concepts and term ids.
 
 Example:
 ```turtle
