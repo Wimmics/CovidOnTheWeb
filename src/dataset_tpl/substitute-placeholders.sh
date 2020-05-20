@@ -2,7 +2,7 @@
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 
-dataset=dataset-1-1
+dataset=covidontheweb-1-1
 version=1.1
 date=2020-05-19
 triples=674351000
