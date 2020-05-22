@@ -18,7 +18,7 @@ Install the requirements in a Python 3.7 environment:
 $ pip install -r requirements.txt
 ```
 
-Download and extract the models into the model directory. You can download the pre-trained models[here](https://covid19.i3s.unice.fr/~team/acta_models.zip).
+Download and extract the models into the model directory. You can download the pre-trained models [here](https://covid19.i3s.unice.fr/~team/acta_models.zip).
 
 
 Run the pipeline:

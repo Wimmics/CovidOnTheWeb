@@ -15,7 +15,7 @@ This folder provides various tools, scripts and mappings files involved in carry
 In both cases, one result JSON file is produced per article from the CORD-19 corpus processed.
 Directory [mongo](mongo) provides the scrips used to import these different sets of JSON files into MongoDB, and pre-process them with MongoDB aggregation queries to clean up the data and prepare prepare the JSON format for the next stage.
 
-### CORD-19 loading and prep-processing
+### CORD-19 loading and pre-processing
 
 In addition to the extraction of named entities and arguements from the CORD-19 corpus, we also need the source files to generate the artcicles metadata in RDF.
 
