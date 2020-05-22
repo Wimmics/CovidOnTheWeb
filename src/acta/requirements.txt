@@ -1,0 +1,12 @@
+hyperopt==0.2.3
+nltk==3.4.5
+numpy==1.18.1
+pytorch-crf==0.7.2
+pytorch-pretrained-bert==0.6.2
+scikit-learn==0.22.1
+scipy==1.4.1
+scispacy==0.2.4
+spacy==2.2.4
+torch==1.4.0
+torchvision==0.5.0
+transformers==2.3.0
