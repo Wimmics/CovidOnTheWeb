@@ -4,14 +4,16 @@
 - the *CORD-19 Named Entities Knowledge Graph* describes named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. 
 - the *CORD-19 Argumentative Knowledge Graph* describes argumentative components and PICO elements extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
 
+A description of the dataset, in the Turtle format, as well as examples are provided in the [dataset](dataset) directory.
+
 Covid-on-the-Web Dataset is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
 
 Covid-on-the-Web Dataset **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). 
  
-### I want it now: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
+#### I want it now: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
 
 
-#### Documentation
+### Documentation
 
 - [RDF data modeling](doc/01-data-modeling.md)
 - [Generation pipeline](src/README.md)
