@@ -1,0 +1,13 @@
+construct {
+  ?uri       rdfs:label ?uriLabel.
+  ?uriParent rdfs:label ?uriParentLabel.
+  ?uriClass  rdfs:label ?uriClassLabel.
+
+  ?uri wdt:P279 ?uriParent;
+       wdt:P31 ?uriClass.
+}
+where {
+    {{pattern}}
+
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+}
