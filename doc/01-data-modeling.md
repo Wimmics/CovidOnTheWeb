@@ -49,8 +49,8 @@ Article metadata includes the following items:
 - SHA hash (`foaf:sha1`)
 
 Furthermore, each article is linked to its parts (title, abstract, body) as follows:
-- `dct:abstract     <http://ns.inria.fr/covid19/paper_id#title>`
-- `covidpr:hasTitle <http://ns.inria.fr/covid19/paper_id#abstract>`
+- `covidpr:hasTitle <http://ns.inria.fr/covid19/paper_id#title>`
+- `dct:abstract     <http://ns.inria.fr/covid19/paper_id#abstract>`
 - `covidpr:hasBody  <http://ns.inria.fr/covid19/paper_id#body_text>`.
 
 Here is an example of article metadata:
