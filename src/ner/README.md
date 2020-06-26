@@ -24,4 +24,4 @@ To build and install the package:
 - or python3 setup.py develop
 
 Then run the command to extract the named entities:
-- python3 main_threading.py
+- python3 ner/script/main_threading.py
