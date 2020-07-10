@@ -16,3 +16,9 @@ class Config(object):
     covidOnTheWeb_endpoint = "https://covid19.i3s.unice.fr/sparql"
     wikidata_endpoint = "https://query.wikidata.org/sparql"
     dbpedia_endpoint = "http://dbpedia.org/sparql"
+
+
+    umls_namespace = "https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/"
+
+    # API key of NCBO Bioportal
+    ncbo_api_key = '###-###-###-###-###'

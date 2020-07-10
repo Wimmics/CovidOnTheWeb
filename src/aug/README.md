@@ -3,7 +3,7 @@
 Command to launch Corese-server ([documentation](https://github.com/Wimmics/corese/wiki/CORESE-server) and [compiled versions](https://project.inria.fr/corese/download/)):
 - java -Xmx{size}m -jar corese-server-{version}.jar -p 2500
 
-To configure the paths and endpoints, edit the file:
+To configure the paths, endpoints and API keys edit the file:
 - covidontheweb_aug/utils/config.py
 
 To create a virtual environment under Anaconda 3 and run it:

@@ -4,8 +4,6 @@ import pathlib
 
 
 class Output(object):
-    def __init__(self):
-        pass
 
     @staticmethod
     def save_rdf(data, path):

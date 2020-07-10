@@ -12,10 +12,10 @@ class Install(_install):
 setup(
     name='CovidOnTheWeb-Augmentation',
     packages=["covidontheweb_aug"],
-    version='0.0.3',
+    version='0.0.5',
     author='Raphaël GAZZOTTI',
     author_email='raphael.gazzotti@inria.fr',
     cmdclass={'install': Install},
-    install_requires=['rdflib', 'SPARQLWrapper'],
+    install_requires=['tqdm', 'rdflib', 'SPARQLWrapper', 'requests'],
     setup_requires=[]
 )

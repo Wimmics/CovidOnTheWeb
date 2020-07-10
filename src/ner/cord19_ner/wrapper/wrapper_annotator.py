@@ -15,7 +15,7 @@ class WrapperAnnotator(object):
     def request_dbpedia_spotlight(self, text, confidence=0.15, support=10):
         """
         Wrapper around DBpedia Spotlight
-        :param text: string, text to be annotated
+        :param text: String, text to be annotated
         :param confidence: float, confidence score for disambiguation / linking
         :param support: integer, how prominent is this entity in Lucene Model, i.e. number of inlinks in Wikipedia
         :return: annotations in an Json array
@@ -70,8 +70,8 @@ class WrapperAnnotator(object):
         """
         Wrapper around the API of the Bioportal Annotator
         API link: http://data.bioontology.org/documentation
-        :param text: string, text to br annotated
-        :param api_key: string, API key to access the NCBO API Services
+        :param text: String, text to br annotated
+        :param api_key: String, API key to access the NCBO API Web Service
         :return: annotations in JSON
         """
         try:
@@ -89,8 +89,8 @@ class WrapperAnnotator(object):
         """
         Wrapper around the API of the Bioportal AnnotatorPlus
         API link: http://data.bioontology.org/documentation
-        :param text: string, text to be annotated
-        :param api_key: string, API key to access the NCBO API Services
+        :param text: String, text to be annotated
+        :param api_key: String, API key to access the NCBO API Web Service
         :return: annotations in JSON
         """
         try:

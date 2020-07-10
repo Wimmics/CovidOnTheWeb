@@ -1,8 +1,8 @@
 import urllib.parse
 
 from rdflib import Graph, ConjunctiveGraph, URIRef, BNode, Literal
-from rdflib.namespace import VOID, RDF, OWL, FOAF, RDFS, SKOS
-from rdflib import Namespace, void
+from rdflib.namespace import VOID, RDF, OWL, FOAF, RDFS, SKOS, DCTERMS, DCAT
+from rdflib import Namespace
 
 from covidontheweb_aug.utils.config import Config
 
@@ -21,7 +21,7 @@ class RDFTranscript(object):
         :param source: The URI of the Dataset from which resources come from
         :return g: a Graph with the different Linksets and Datasets
         """
-        g = Graph(identifier=URIRef("http://ns.inria.fr/covid19/graph/linkset"))
+        g = Graph()
 
         # Linkset between Covid Database and Wikidata
         cotw2dbpedia_linkset = URIRef(self.covid + "cotw2Wikidata")
@@ -52,7 +52,7 @@ class RDFTranscript(object):
         for d in datasets_names:
             temp_uri = URIRef(source + "2" + d)
             g.add((temp_uri, RDF.type, VOID.Linkset))
-            g.add((temp_uri, VOID.target, self.dbpedia_uri))
+            g.add((temp_uri, VOID.target, source))
             g.add((temp_uri, VOID.target, URIRef(self.covid + d)))
             g.add((temp_uri, VOID.linkPredicate, SKOS.closeMatch))
 
@@ -470,6 +470,215 @@ class RDFTranscript(object):
 
         return g
 
+    def generate_linksets_ncbo(self, source, g=None):
+        """
+        Generate a Graph (rdflib) containing the datasets and linksets (VOID ontology) of BioPortal.
+        :param source: The URI of the Dataset from which resources come from
+        :return g: a Graph with the different Linksets and Datasets
+        """
+        if not g:
+            g = Graph()
+
+        datasets_names = ["NDF-RT", "MDRFRE", "MEDRA", "ICD10CM", "OCHV", "DOID", "SNOMEDCT", "SCTSPA", "NANDO", "PDO",
+                          "SNMI", "CST", "CRISP", "WHO-ART", "RCTV2", "WHOFRE", "OMIM", "RADLEX", "ICPC2P", "MESH",
+                          "GAMUTS", "CHEBI", "RXNORM", "DrugBank", "JGLOBAL", "ADO", "VANDF", "IOBC", "ATC", "NDDF",
+                          "DRON", "ICPC2P", "NCIT", "MP", "SYMP", "EFO"]
+
+        for d in datasets_names:
+            temp_uri = URIRef(source + "2" + d)
+            g.add((temp_uri, RDF.type, VOID.Linkset))
+            g.add((temp_uri, VOID.target, source))
+            g.add((temp_uri, VOID.target, URIRef(self.covid + d)))
+            g.add((temp_uri, VOID.linkPredicate, SKOS.closeMatch))
+
+        g.add((URIRef(self.covid + "NDF-RT"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "NDF-RT"), FOAF.homepage, URIRef("https://evs.nci.nih.gov/ftp1/NDF-RT/")))
+        g.add((URIRef(self.covid + "NDF-RT"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/NDFRT")))
+        g.add((URIRef(self.covid + "NDF-RT"), DCTERMS.hasVersion, Literal("05.07.2018-2018AA")))
+
+        g.add((URIRef(self.covid + "MDRFRE"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "MDRFRE"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/MDRFRE")))
+        g.add((URIRef(self.covid + "MDRFRE"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "MDRFRE"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/MDRFRE/submissions/15/download")))
+
+        g.add((URIRef(self.covid + "MEDRA"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "MEDRA"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/MEDDRA")))
+        g.add((URIRef(self.covid + "MEDRA"), FOAF.homepage, URIRef("https://www.meddra.org/")))
+        g.add((URIRef(self.covid + "MEDRA"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "ICD10CM"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "ICD10CM"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/ICD10CM")))
+        g.add((URIRef(self.covid + "ICD10CM"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "ICD10CM"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/ICD10CM/submissions/17/download")))
+
+        g.add((URIRef(self.covid + "OCHV"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "OCHV"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/OCHV")))
+        g.add((URIRef(self.covid + "OCHV"), DCTERMS.hasVersion, Literal("01.21.2016-1")))
+        g.add((URIRef(self.covid + "OCHV"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/OCHV/submissions/2/download")))
+
+        g.add((URIRef(self.covid + "DOID"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "DOID"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/DOID")))
+        g.add((URIRef(self.covid + "DOID"), DCTERMS.hasVersion, Literal("03.02.2018-releases/2018-03-02")))
+        g.add((URIRef(self.covid + "DOID"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/DOID/download")))
+
+        g.add((URIRef(self.covid + "RCD"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "RCD"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/RCD")))
+        g.add((URIRef(self.covid + "RCD"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "SNOMEDCT"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "SNOMEDCT"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/SNOMEDCT")))
+        g.add((URIRef(self.covid + "SNOMEDCT"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "SCTSPA"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "SCTSPA"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/SCTSPA")))
+        g.add((URIRef(self.covid + "SCTSPA"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "NANDO"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "NANDO"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/NANDO")))
+        g.add((URIRef(self.covid + "NANDO"), FOAF.homepage, URIRef("http://nanbyodata.jp/ontology/nando")))
+        g.add((URIRef(self.covid + "NANDO"), DCTERMS.hasVersion, Literal("07.01.2020-0.4.0")))
+        g.add((URIRef(self.covid + "NANDO"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/NANDO/submissions/10/download")))
+
+        g.add((URIRef(self.covid + "PDO"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "PDO"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/PDO")))
+        g.add((URIRef(self.covid + "PDO"), DCTERMS.hasVersion, Literal("03.31.2016-Version 0.7")))
+        g.add((URIRef(self.covid + "PDO"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/PDO/submissions/6/download")))
+
+        g.add((URIRef(self.covid + "SNMI"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "SNMI"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/SNMI")))
+        g.add((URIRef(self.covid + "SNMI"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "SNMI"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/SNMI/submissions/15/download")))
+
+        g.add((URIRef(self.covid + "CST"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "CST"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/CST")))
+        g.add((URIRef(self.covid + "CST"), DCTERMS.hasVersion, Literal("05.13.2018-unknown")))
+        g.add((URIRef(self.covid + "CST"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/CST/submissions/1/download")))
+
+        # CSP
+        g.add((URIRef(self.covid + "CRISP"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "CRISP"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/CRISP")))
+        g.add((URIRef(self.covid + "CRISP"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "CRISP"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/CRISP/submissions/15/download")))
+
+        g.add((URIRef(self.covid + "WHO-ART"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "WHO-ART"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/WHO-ART")))
+        g.add((URIRef(self.covid + "WHO-ART"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "RCTV2"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "RCTV2"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/RCTV2")))
+        g.add((URIRef(self.covid + "RCTV2"), DCTERMS.hasVersion, Literal("04.11.2016-2015")))
+        g.add((URIRef(self.covid + "RCTV2"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/RCTV2/submissions/1/download")))
+
+        g.add((URIRef(self.covid + "WHOFRE"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "WHOFRE"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/WHOFRE")))
+        g.add((URIRef(self.covid + "WHOFRE"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "WHOFRE"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/WHOFRE/submissions/15/download")))
+
+        g.add((URIRef(self.covid + "OMIM"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "OMIM"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/OMIM")))
+        g.add((URIRef(self.covid + "OMIM"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "OMIM"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/OMIM/submissions/17/download")))
+
+        g.add((URIRef(self.covid + "RADLEX"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "RADLEX"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/RADLEX")))
+        g.add((URIRef(self.covid + "RADLEX"), FOAF.homepage, URIRef("http://radlex.org/")))
+        g.add((URIRef(self.covid + "RADLEX"), DCTERMS.hasVersion, Literal("03.20.2018-4.0")))
+        g.add((URIRef(self.covid + "RADLEX"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/RADLEX/submissions/39/download")))
+
+        g.add((URIRef(self.covid + "ICPC2P"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "ICPC2P"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/ICPC2P")))
+        g.add((URIRef(self.covid + "ICPC2P"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "MESH"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "MESH"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/ICPC2P")))
+        g.add((URIRef(self.covid + "MESH"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "MESH"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/MESH/submissions/19/download")))
+
+        g.add((URIRef(self.covid + "GAMUTS"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "GAMUTS"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/GAMUTS")))
+        g.add((URIRef(self.covid + "GAMUTS"), DCTERMS.hasVersion, Literal("10.15.2018-0.91")))
+        g.add((URIRef(self.covid + "GAMUTS"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/GAMUTS/submissions/23/download")))
+
+        g.add((URIRef(self.covid + "CHEBI"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "CHEBI"), FOAF.homepage, URIRef("https://www.ebi.ac.uk/chebi/")))
+        g.add((URIRef(self.covid + "CHEBI"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/CHEBI")))
+        g.add((URIRef(self.covid + "CHEBI"), DCTERMS.hasVersion, Literal("06.30.2020-189")))
+        g.add((URIRef(self.covid + "CHEBI"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/CHEBI/download&download_format=rdf")))
+
+        g.add((URIRef(self.covid + "RXNORM"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "RXNORM"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/RXNORM")))
+        g.add((URIRef(self.covid + "RXNORM"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "RXNORM"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/RXNORM/submissions/18/download")))
+
+        g.add((URIRef(self.covid + "DrugBank"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "DrugBank"), FOAF.homepage, URIRef("https://www.drugbank.ca/")))
+        g.add((URIRef(self.covid + "DrugBank"), VOID.sparqlEndpoint, URIRef("hhttp://wifo5-04.informatik.uni-mannheim.de/drugbank/sparql")))
+        g.add((URIRef(self.covid + "DrugBank"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1122544")))
+
+        # Veterans Health Administration National Drug File
+        g.add((URIRef(self.covid + "VANDF"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "VANDF"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/VANDF")))
+        g.add((URIRef(self.covid + "VANDF"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "VANDF"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/VANDF/submissions/15/download")))
+
+        # Alzheimer's disease ontology
+        g.add((URIRef(self.covid + "ADO"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "ADO"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/ADO")))
+        g.add((URIRef(self.covid + "ADO"), DCTERMS.hasVersion, Literal("07.23.2013-1.1.1")))
+        g.add((URIRef(self.covid + "ADO"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/ADO/submissions/3/download")))
+
+        g.add((URIRef(self.covid + "JGLOBAL"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "JGLOBAL"), FOAF.homepage, URIRef("https://jglobal.jst.go.jp/en")))
+
+        # Interlinking Ontology for Biological Concepts
+        g.add((URIRef(self.covid + "IOBC"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "IOBC"), FOAF.homepage, URIRef("https://github.com/kushidat/IOBC")))
+        g.add((URIRef(self.covid + "IOBC"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/IOBC")))
+        g.add((URIRef(self.covid + "IOBC"), DCTERMS.hasVersion, Literal("09.02.2019-version 1.4.0")))
+        g.add((URIRef(self.covid + "IOBC"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/IOBC/submissions/23/download")))
+
+        g.add((URIRef(self.covid + "ATC"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "ATC"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/ATC")))
+        g.add((URIRef(self.covid + "ATC"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+        g.add((URIRef(self.covid + "ATC"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/ATC/submissions/12/download")))
+
+        g.add((URIRef(self.covid + "NDDF"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "NDDF"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/NDDF")))
+        g.add((URIRef(self.covid + "NDDF"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "DRON"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "DRON"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/DRON")))
+        g.add((URIRef(self.covid + "DRON"), DCTERMS.hasVersion, Literal("07.04.2020-2020-06-01")))
+        g.add((URIRef(self.covid + "DRON"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/DRON/submissions/12/download")))
+
+        g.add((URIRef(self.covid + "ICPC2P"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "ICPC2P"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/DRON")))
+        g.add((URIRef(self.covid + "ICPC2P"), DCTERMS.hasVersion, Literal("11.04.2019-2019AB")))
+
+        g.add((URIRef(self.covid + "NCIT"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "NCIT"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/NCIT")))
+        g.add((URIRef(self.covid + "NCIT"), DCTERMS.hasVersion, Literal("06.29.2020-20.06e")))
+        g.add((URIRef(self.covid + "NCIT"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/NCIT/submissions/93/download")))
+
+        # Mammalian Phenotype Ontology
+        g.add((URIRef(self.covid + "MP"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "MP"), FOAF.homepage, URIRef("http://www.ontobee.org/ontology/MP")))
+
+        g.add((URIRef(self.covid + "SYMP"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "SYMP"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/SYMP")))
+        g.add((URIRef(self.covid + "SYMP"), FOAF.homepage, URIRef("http://www.ontobee.org/ontology/SYMP")))
+        g.add((URIRef(self.covid + "SYMP"), DCTERMS.hasVersion, Literal("02.26.2020-unknown")))
+        g.add((URIRef(self.covid + "SYMP"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/SYMP/submissions/22/download")))
+
+        # Experimental Factor Ontology
+        g.add((URIRef(self.covid + "EFO"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "EFO"), FOAF.homepage, URIRef("https://bioportal.bioontology.org/ontologies/EFO")))
+        g.add((URIRef(self.covid + "EFO"), FOAF.homepage, URIRef("https://www.ebi.ac.uk/ols/ontologies/efo")))
+        g.add((URIRef(self.covid + "EFO"), DCTERMS.hasVersion, Literal("02.26.2020-unknown")))
+        g.add((URIRef(self.covid + "EFO"), DCAT.downloadURL, URIRef("http://data.bioontology.org/ontologies/SYMP/submissions/22/download")))
+
+        return g
+
     def generate_closematch_relations(self, linkset, source, g=None):
         """
         Generate a Graph (rdflib) with skos:closeMatch relations from a set containing links
@@ -484,6 +693,6 @@ class RDFTranscript(object):
             # Attach an entity to a Dataset
             g.add((URIRef(key), VOID.inDataset, URIRef(source)))
             for v in value:
-                # Handle owl:sameAs relations
+                # Handle SKOS.closeMatch relations
                 g.add((URIRef(key), SKOS.closeMatch, URIRef(urllib.parse.quote(v, safe=",:?!/_#=&()%\'"))))
         return g
