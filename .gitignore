@@ -7,5 +7,3 @@ log/
 .settings/
 .metadata/
 deploy/apache.conf
-src/dump-wikidata/wikidata-ne-dump_*.zip
-src/dump-wikidata/wikidata-ne-uris.txt
