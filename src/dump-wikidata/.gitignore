@@ -1,2 +1,3 @@
-wikidata-ne-dump_*.zip
+*.zip
+dump.ttl
 wikidata-ne-uris.txt
