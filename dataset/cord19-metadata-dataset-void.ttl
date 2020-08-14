@@ -26,7 +26,7 @@ covid:covidontheweb-1-1
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "674351000"^^xsd:integer;
-    void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
+    void:sparqlEndpoint <https://covidontheweb.inria.fr/sparql>;
     void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
 
     void:vocabulary     <http://purl.org/ontology/bibo/>;

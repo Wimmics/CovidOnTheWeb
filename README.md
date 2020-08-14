@@ -2,7 +2,7 @@
 
 *Covid-on-the-Web Dataset* is an RDF dataset that provides two main knowledge graphs produced by analyzing the scholarly articles of the [COVID-19 Open Research Dataset (CORD-19)](https://www.semanticscholar.org/cord19) [1], a resource of articles about COVID-19 and the coronavirus family of viruses:
 - the *CORD-19 Named Entities Knowledge Graph* describes named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. 
-- the *CORD-19 Argumentative Knowledge Graph* describes argumentative components and PICO elements extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
+- the *CORD-19 Argumentative Knowledge Graph* describes argumentative components and PICO elements (Patient/Population/Problem, Intervention, Comparison, Outcome) extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).
 
 A description of the dataset, in the Turtle format, as well as examples are provided in the [dataset](dataset) directory.
 
@@ -58,9 +58,9 @@ Parts of an article (title, abstract and body) are also identified by URIs so th
 
 The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
 
-It can also be queried through our Virtuoso OS SPARQL endpoint https://covid19.i3s.unice.fr/sparql.
+It can also be queried through our Virtuoso OS SPARQL endpoint https://covidontheweb.inria.fr/sparql.
 
-You may use the [Faceted Browser](http://covid19.i3s.unice.fr:8890/fct/) to look up text or URIs.
+You may use the [Faceted Browser](http://covidontheweb.inria.fr/fct/) to look up text or URIs.
 As an example, you can look up article [http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f).
 Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
