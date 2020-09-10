@@ -37,6 +37,7 @@ class RDFTranscript(object):
         g.add((wikidata2dbpedia_linkset, VOID.target, self.dbpedia_uri))
         g.add((wikidata2dbpedia_linkset, VOID.linkPredicate, SKOS.closeMatch))
 
+        # ADD CaLiGraph
         datasets_names = ["MAG", "YAGO", "Freebase_dump", "EOL", "MESH", "Google_KG", "Geonames",
                           "GBIF", "Semantic_Scholar", "UniProt", "IRMNG", "JSTOR", "Wikimedia_Commons", "VIAF",
                           "BNF", "ScOT", "ChemSpider", "EMBL-EBI", "ChemIDplus", "FDA", "NDL", "LOC", "MassBank",
@@ -47,7 +48,8 @@ class RDFTranscript(object):
                           "Iconclass", "Treccani", "Brockhaus", "Memory-alpha", "Nico_Nico_Pedia", "TA2",
                           "Enciclopedia", "IPNI", "Tropicos", "CJB", "Plants_Database", "PalDat", "Vikidia_ES",
                           "Vikidia_FR", "Vikidia_EU", "Vikidia_IT", "DBpedia_ES", "DBpedia_EU", "DBpedia_DE","DBpedia_IT",
-                          "DBpedia_JA", "DBpedia_KO", "DBpedia_NL", "DBpedia_PL", "DBpedia_PT", "DBpedia_CS", "DBpedia_EL"]
+                          "DBpedia_JA", "DBpedia_KO", "DBpedia_NL", "DBpedia_PL", "DBpedia_PT", "DBpedia_CS", "DBpedia_EL",
+                          "DBpedia_ID", "DBpedia_UK", "CaLiGraph", "Global_DBpedia"]
 
         for d in datasets_names:
             temp_uri = URIRef(source + "2" + d)
@@ -60,6 +62,13 @@ class RDFTranscript(object):
         g.add((URIRef(self.dbpedia_uri), RDF.type, VOID.Dataset))
         g.add((URIRef(self.dbpedia_uri), FOAF.homepage, URIRef("http://dbpedia.org")))
         g.add((URIRef(self.dbpedia_uri), VOID.sparqlEndpoint, URIRef(Config.dbpedia_endpoint)))
+
+        g.add((URIRef(self.covid + "CaLiGraph"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "CaLiGraph"), FOAF.homepage, URIRef("http://caligraph.org/")))
+        g.add((URIRef(self.covid + "CaLiGraph"), VOID.sparqlEndpoint, URIRef("http://caligraph.org/sparql")))
+
+        g.add((URIRef(self.covid + "Global_DBpedia"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "Global_DBpedia"), FOAF.homepage, URIRef("https://global.dbpedia.org/")))
 
         g.add((URIRef(self.covid + "DBpedia_FR"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "DBpedia_FR"), FOAF.homepage, URIRef("http://fr.dbpedia.org/")))
@@ -107,10 +116,17 @@ class RDFTranscript(object):
         g.add((URIRef(self.covid + "DBpedia_CS"), FOAF.homepage, URIRef("http://cs.dbpedia.org/")))
         g.add((URIRef(self.covid + "DBpedia_CS"), VOID.sparqlEndpoint, URIRef("https://cs.dbpedia.org/sparql")))
 
-        # Issue with this dataset
+        g.add((URIRef(self.covid + "DBpedia_ID"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "DBpedia_ID"), FOAF.homepage, URIRef("http://id.dbpedia.org/")))
+        g.add((URIRef(self.covid + "DBpedia_ID"), VOID.sparqlEndpoint, URIRef("http://id.dbpedia.org/sparql")))
+
+        g.add((URIRef(self.covid + "DBpedia_UK"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "DBpedia_UK"), FOAF.homepage, URIRef("http://uk.dbpedia.org/")))
+        g.add((URIRef(self.covid + "DBpedia_UK"), VOID.sparqlEndpoint, URIRef("http://uk.dbpedia.org/sparql")))
+
         g.add((URIRef(self.covid + "DBpedia_EL"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "DBpedia_EL"), FOAF.homepage, URIRef("http://el.dbpedia.org/")))
-        g.add((URIRef(self.covid + "DBpedia_EL"), VOID.sparqlEndpoint, URIRef("https://el.dbpedia.org/sparql")))
+        g.add((URIRef(self.covid + "DBpedia_EL"), VOID.sparqlEndpoint, URIRef("http://el.dbpedia.org/sparql")))
 
         g.add((URIRef(self.wikidata_uri), RDF.type, VOID.Dataset))
         g.add((URIRef(self.wikidata_uri), FOAF.homepage, URIRef("https://wikidata.org")))

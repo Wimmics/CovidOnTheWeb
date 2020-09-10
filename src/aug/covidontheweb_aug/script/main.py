@@ -9,6 +9,7 @@ if __name__ == '__main__':
     wrapper = Wrapper()
 
     rdf_translator = RDFTranscript()
+    Config.corpus_annotated = "/user/rgazzott/home/Music/test"
 
     print("Generation of links associated with Wikidata entities.")
     entities_wikidata = kg.get_wikidata_entities()

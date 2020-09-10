@@ -11,12 +11,13 @@ class Config(object):
     # Path where the annotated files will be saved
     corpus_annotated = "/data/CORD19-Annotation/"
 
+    PARALLELISM = True
+
     # Configuration of the different endpoints
-    corese_endpoint = "http://localhost:2500/sparql"
-    covidOnTheWeb_endpoint = "https://covid19.i3s.unice.fr/sparql"
+    covidOnTheWeb_endpoint = "https://covidontheweb.inria.fr/sparql"
+
     wikidata_endpoint = "https://query.wikidata.org/sparql"
     dbpedia_endpoint = "http://dbpedia.org/sparql"
-
 
     umls_namespace = "https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/"
 

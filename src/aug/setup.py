@@ -12,7 +12,7 @@ class Install(_install):
 setup(
     name='CovidOnTheWeb-Augmentation',
     packages=["covidontheweb_aug"],
-    version='0.0.5',
+    version='0.0.7',
     author='Raphaël GAZZOTTI',
     author_email='raphael.gazzotti@inria.fr',
     cmdclass={'install': Install},
