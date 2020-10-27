@@ -25,7 +25,7 @@ while [ "$offset" -lt "$size" ]
 do
     echo "Retrieving URIs starting at $offset..."
     curl -H "accept: text/csv" \
-        "http://covid19.i3s.unice.fr/sparql?query=${query}${offset}" \
+        "http://covidontheweb.inria.fr/sparql?query=${query}${offset}" \
         | grep -v '"uri"' | sed 's|"||g' >> $resulttmp
      offset=$(($offset + $limit))
 done
