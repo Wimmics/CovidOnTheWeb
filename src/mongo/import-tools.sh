@@ -5,37 +5,42 @@
 #
 # Variable $DB must be defined when calling functions of this file.
 
-# Max number of files to import at once into MongoDB
-MONGO_IMPORT_MAXFILE=1000
+# Max sie of JSON files to import at once into MongoDB (16MB)
+MONGO_IMPORT_MAXSIZE=16000000
+
 
 # Import, into a MongoDB collection, the JSON files listed in a file.
 # Files are imported by groups of a max number of files.
 #   $1: MongoDB collection name
 #   $2: file containing the list of JSON files to import
-#   $3: max number of files to import at once
 mongo_import_filelist() {
     _collection_a=$1
     _filelist_a=$2
-    _maxfiles_a=$3
-    
-    # Split the list of files into multiple pieces of $_maxfiles files
-    _prefix_a=/tmp/filelist-$$-
-    split -d -l $_maxfiles_a $_filelist_a $_prefix_a
     
     # Import the files by groups
     jsondump=jsondump-$$
-    for _filelist_a in `ls ${_prefix_a}*`; do
-        echo -n '' > $jsondump
-        
-        for jsonfile in `cat $_filelist_a`; do
-            echo "Importing document $jsonfile"
-            cat $jsonfile >> $jsondump
-        done
-        echo "Importing documents from $jsondump"
-        mongoimport --type=json -d $DB -c $_collection_a $jsondump
+    echo -n '' > $jsondump
+
+    for jsonfile in `cat $_filelist_a`; do
+    
+        filesize=$(stat --format=%s $jsonfile)
+        if [ $filesize -ge $MONGO_IMPORT_MAXSIZE ]; then
+            echo "WARNING - Ignoring oversized document $jsonfile ($filesize bytes)"
+        else
+            currentsize=$(stat --format=%s $jsondump)
+            newsize=$(($currentsize + $filesize))
+            if [ $newsize -lt $MONGO_IMPORT_MAXSIZE ]; then
+                echo "Appending to $jsondump document $jsonfile"
+                cat $jsonfile >> $jsondump
+            else
+                echo "Importing documents from $jsondump"
+                mongoimport --type=json -d $DB -c $_collection_a $jsondump
+                echo -n '' > $jsondump
+            fi
+        fi
     done
     
-    rm -f $jsondump ${_prefix_a}*    
+    rm -f $jsondump
 }
 
 
@@ -49,8 +54,9 @@ mongo_import_dir() {
     # Get the list of files to import into MongoDB
     _filelist_b=/tmp/filelist-$$.txt
     find $_dir_b -type f -name '*.json' > $_filelist_b
+    echo "Importing $(wc -l $_filelist_b | cut -d' ' -f1) files..."
 
-    mongo_import_filelist $_collection_b $_filelist_b $MONGO_IMPORT_MAXFILE
+    mongo_import_filelist $_collection_b $_filelist_b
     rm -f $_filelist_b
 }
 
@@ -71,7 +77,7 @@ mongo_drop_import_dir() {
 #   $1: directory where to find the JSON files
 #   $2: prefix of the collection names: prefix_0, prefix_1, ...
 #   $3: max number of files per collection
-mongo_drop_import_dir_split(){
+mongo_drop_import_dir_split() {
     _dir_c=$1
     _collection_c=$2
     _maxfilesPerCollection=$3
@@ -79,6 +85,7 @@ mongo_drop_import_dir_split(){
     # Get the whole list of files to import into MongoDB
     _filelist_c=/tmp/filelist-collection-$$.txt
     find $_dir_c -type f -name '*.json' > $_filelist_c
+    echo "Importing $(wc -l $_filelist_c | cut -d' ' -f1) files..."
 
     # Split the list of files into multiple pieces of $_maxfilesPerCollection files
     _prefix_c=/tmp/filelist-collection-$$-
@@ -92,7 +99,7 @@ mongo_drop_import_dir_split(){
         col=${_collection_c}_${colIndex}
         echo "----- Creating collection $col"
         mongo --eval "db.${col}.drop()" localhost/$DB
-        mongo_import_filelist $col $_filelist_c $MONGO_IMPORT_MAXFILE
+        mongo_import_filelist $col $_filelist_c
 
         # Next collection
         colIndex=$(($colIndex + 1))
