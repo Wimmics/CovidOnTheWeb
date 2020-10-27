@@ -43,49 +43,49 @@ covid:{{dataset}}
     dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
     schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
 
-    schema:isBasedOn        covid:cord19v7;
+    schema:isBasedOn        covid:cord19v47;
     a prov:Entity;
-    prov:wasDerivedFrom     covid:cord19v7;
+    prov:wasDerivedFrom     covid:cord19v47;
     prov:wasGeneratedBy     covid:RdfGeneration;
     prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
     .
 
-covid:dataset-1-1   owl:sameAs  covid:{{dataset}}; "Covid-on-the-Web dataset".
-covid:{{dataset}}   owl:sameAs  covid:dataset-1-1.
+covid:dataset-1-2   owl:sameAs  covid:{{dataset}}; rdfs:label "Covid-on-the-Web dataset".
+covid:{{dataset}}   owl:sameAs  covid:dataset-1-2.
 
 <http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
 <https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
 <https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
 
 
-covid:cord19v7
+covid:cord19v47
     a               dcat:Dataset, schema:Dataset;
     dct:title       "COVID-19 Open Research Dataset (CORD-19)";
     schema:name     "COVID-19 Open Research Dataset (CORD-19)";
-    dct:issued      "2020-04-10"^^xsd:date; schema:datePublished "2020-04-10"^^xsd:date;
-    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7>;
-    owl:versionInfo "7".
+    dct:issued      "2020-09-01"^^xsd:date; schema:datePublished "2020-09-01"^^xsd:date;
+    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/47>;
+    owl:versionInfo "47".
 
 
 covid:ProvenanceEF
     a                       prov:Activity;
-    prov:used               covid:cord19v7;
+    prov:used               covid:cord19v47;
     prov:wasAssociatedWith  <https://github.com/kermitt2/entity-fishing>.
 
 covid:ProvenanceDBpSpotlight
     a                       prov:Activity;
     prov:wasAssociatedWith  <https://www.dbpedia-spotlight.org/>;
-    prov:used               covid:cord19v7.
+    prov:used               covid:cord19v47.
 
 covid:ProvenanceNCBOAnnotator
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
-    prov:used               covid:cord19v7.
+    prov:used               covid:cord19v47.
 
 covid:ProvenanceActa
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://ns.inria.fr/acta/>;
-    prov:used               covid:cord19v7.
+    prov:used               covid:cord19v47.
 
 
 covid:RdfGeneration

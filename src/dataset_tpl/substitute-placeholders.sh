@@ -2,9 +2,9 @@
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 
-dataset=covidontheweb-1-1
-version=1.1
-date=2020-05-19
+dataset=covidontheweb-1-2
+version=1.2
+date=2020-10-27
 triples=674351000
 
 temp=/tmp/temp_$$.ttl

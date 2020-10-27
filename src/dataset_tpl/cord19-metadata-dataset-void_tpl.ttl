@@ -93,4 +93,4 @@ covid:cotw2umls
    void:subjectsTarget covid:{{dataset}};
    void:objectsTarget covid:UMLS;
    void:triples "458800"^^xsd:integer;
-
+   .

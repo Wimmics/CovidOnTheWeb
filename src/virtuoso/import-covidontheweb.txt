@@ -1,8 +1,10 @@
 #!/bin/bash
 # Commands to be run from the virtuoso directory
 
+DIR=cord19-dataset-1.2
+
 CURRENT_DIR=$(pwd)
-DATASET_DIR=$CURRENT_DIR/../xR2RML/cord19-dataset-1.1
+DATASET_DIR=$CURRENT_DIR/../xR2RML/$DIR
 
 # Metadata graph
 graph="http://ns.inria.fr/covid19/graph/metadata"
@@ -19,16 +21,7 @@ graph="http://ns.inria.fr/covid19/graph/articles"
     --cleargraph \
     --graph $graph \
     --path $DATASET_DIR \
-    cord19-metadata-articles-authors.ttl cord19-metadata-articles-pmcid.ttl cord19-metadata-articles-sha.ttl
-
-
-# DBpedia Spotlight graph
-graph="http://ns.inria.fr/covid19/graph/dbpedia-spotlight"
-./virtuoso-import.sh \
-    --cleargraph \
-    --graph $graph \
-    --path $DATASET_DIR \
-    cord19-nekg-spotlight-title.ttl cord19-nekg-spotlight-abstract.ttl
+    cord19-articles-metadata-authors.ttl cord19-articles-metadata-pmcid.ttl cord19-articles-metadata-sha.ttl
 
 
 # Entity-fishing graph
@@ -38,6 +31,24 @@ graph="http://ns.inria.fr/covid19/graph/entityfishing"
     --graph $graph \
     --path $DATASET_DIR \
     cord19-nekg-entityfishing-title.ttl cord19-nekg-entityfishing-abstract.ttl
+
+
+# Entity-fishing graph - articles bodies
+graph="http://ns.inria.fr/covid19/graph/entityfishing/body"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path $DATASET_DIR \
+    'cord19-nekg-entityfishing-body.ttl.*'
+
+
+# DBpedia Spotlight graph
+graph="http://ns.inria.fr/covid19/graph/dbpedia-spotlight"
+./virtuoso-import.sh \
+    --cleargraph \
+    --graph $graph \
+    --path $DATASET_DIR \
+    cord19-nekg-spotlight-title.ttl cord19-nekg-spotlight-abstract.ttl
 
 
 # Bioportal Annotator graph
@@ -51,79 +62,6 @@ graph="http://ns.inria.fr/covid19/graph/bioportal-annotator"
     cord19-nekg-ncbo-abstract.ttl.3  cord19-nekg-ncbo-abstract.ttl.4  cord19-nekg-ncbo-abstract.ttl.5 \
     cord19-nekg-ncbo-abstract.ttl.6  cord19-nekg-ncbo-abstract.ttl.7 \
     cord19-nekg-ncbo-abstract.ttl.8 cord19-nekg-ncbo-abstract.ttl.9
-
-
-# Entity-fishing graph - articles bodies
-graph="http://ns.inria.fr/covid19/graph/entityfishing/body"
-./virtuoso-import.sh \
-    --cleargraph \
-    --graph $graph \
-    --path $DATASET_DIR \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.0 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.1 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.10 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.11 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.12 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.13 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.14 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.15 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.16 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.17 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.18 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.19 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.2 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.20 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.21 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.22 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.23 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.24 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.25 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.26 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.27 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.28 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.29 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.3 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.30 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.31 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.32 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.33 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.34 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.35 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.36 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.37 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.38 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.39
-    cord19-nekg-entityfishing-body-ann-sel.ttl.4 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.40 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.41 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.42 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.43 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.44 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.45 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.46 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.47 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.48 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.49 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.5 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.50 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.51 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.6 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.7 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.8 \
-    cord19-nekg-entityfishing-body-ann-sel.ttl.9 \
-    cord19-nekg-entityfishing-body-categ.ttl \
-    cord19-nekg-entityfishing-body-target.ttl.0 \
-    cord19-nekg-entityfishing-body-target.ttl.1 \
-    cord19-nekg-entityfishing-body-target.ttl.10 \
-    cord19-nekg-entityfishing-body-target.ttl.11 \
-    cord19-nekg-entityfishing-body-target.ttl.2 \
-    cord19-nekg-entityfishing-body-target.ttl.3 \
-    cord19-nekg-entityfishing-body-target.ttl.4 \
-    cord19-nekg-entityfishing-body-target.ttl.5 \
-    cord19-nekg-entityfishing-body-target.ttl.6 \
-    cord19-nekg-entityfishing-body-target.ttl.7 \
-    cord19-nekg-entityfishing-body-target.ttl.8 \
-    cord19-nekg-entityfishing-body-target.ttl.9
 
 # ACTA graph
 graph="http://ns.inria.fr/covid19/graph/acta"

@@ -45,6 +45,7 @@ tempfile=temp.${$}.isql
 echo -n "" > $tempfile
 
 if [ ! -z "$cleargraph" ]; then
+    echo "log_enable(3,1);" >> $tempfile
     echo "SPARQL CLEAR GRAPH  <${graph}>;" >> $tempfile
 fi
 
