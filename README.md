@@ -101,9 +101,9 @@ See the [LICENSE file](LICENSE).
 
 ## Cite this work
 
-When including Covid-on-the-Web data in a publication or redistribution, please cite the dataset as follows:
+When including Covid-on-the-Web data in a publication or redistribution, please cite this paper:
 
-*Wimmics Research Team. Covid-on-the-Web Dataset. University Côte d'Azur, Inria, CNRS. 2020. Retrieved from https://github.com/Wimmics/CovidOnTheWeb.*
+Franck Michel, Fabien Gandon, Valentin Ah-Kane, Anna Bobasheva, Elena Cabrio, Olivier Corby, Raphaël Gazzotti, Alain Giboin, Santiago Marro, Tobias Mayer, Mathieu Simon, Serena Villata, Marco Winckler. Covid-on-the-Web: Knowledge Graph and Services to Advance COVID-19 Research. International Semantic Web Conference (ISWC), Nov 2020, Athens, Greece. [PDF](https://hal.archives-ouvertes.fr/hal-02939363/file/article-cam-ready.pdf)
 
 
 ## References

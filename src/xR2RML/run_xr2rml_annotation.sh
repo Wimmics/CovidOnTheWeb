@@ -58,7 +58,7 @@ cat $mappingFile >> $log
 
 echo "--------------------------------------------------------------------------------------" >> $log
 date  >> $log
-java -Xmx20g \
+java -Xmx24g \
      -Dlog4j.configuration=file:$XR2RML/log4j.properties \
      -jar "$JAR" \
      --configDir $XR2RML \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=cord19-dataset-1.1
+DIR=cord19-dataset-1.2
 
 # Articles metadata
 mv output_cord19_json_light_authors.ttl          $DIR/cord19-articles-metadata-authors.ttl
@@ -16,22 +16,16 @@ mv output_entityfishing_abstract_title.ttl       $DIR/cord19-nekg-entityfishing-
 mv output_entityfishing_abstract_abstract.ttl    $DIR/cord19-nekg-entityfishing-abstract.ttl
 
 # Entity-fishing body annotations
-mv output_entityfishing_body_body_text_categ.ttl $DIR/cord19-nekg-entityfishing-body-categ.ttl
 index=0
-for file in `ls output_entityfishing_body_body_text.ttl.*`; do
-    mv $file $DIR/cord19-nekg-entityfishing-body-ann-sel.ttl.${index}
-    index=$(($index + 1))
-done
-index=0
-for file in `ls output_entityfishing_body_body_text_target.ttl.*`; do
-    mv $file $DIR/cord19-nekg-entityfishing-body-target.ttl.${index}
+for file in `ls output_entityfishing_*_body_body_text.ttl.*`; do
+    mv $file $DIR/cord19-nekg-entityfishing-body.ttl.${index}
     index=$(($index + 1))
 done
 
 # NCBO annotations
 mv output_ncbo_title.ttl       $DIR/cord19-nekg-ncbo-title.ttl
 index=0
-for file in `ls output_ncbo_*_abstract.ttl`; do
+for file in `ls output_ncbo_${index}_abstract.ttl`; do
     mv $file $DIR/cord19-nekg-ncbo-abstract.ttl.${index}
     index=$(($index + 1))
 done

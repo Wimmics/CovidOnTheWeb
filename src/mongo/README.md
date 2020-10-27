@@ -1,6 +1,6 @@
 This folder provides tools to import three different datasets into MongoDB, that are involved in the the generation the Covid-On-The-Web RDF dataset.
 
-- CORD-19 (metadat.csv + per-article JSON files)
+- CORD-19 (metadata.csv + per-article JSON files)
 - Named entities computed by DBpedia Spotlight, Entity-fishing and NCBO Bioportal Annotator
 - Arguments extracted by the [ACTA](http://ns.inria.fr/acta/) platform.
 

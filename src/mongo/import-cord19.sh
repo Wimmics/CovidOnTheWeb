@@ -8,8 +8,8 @@
 . ./import-tools.sh
 
 # CORD19 dataset
-VERSION=7
-ARCHIVE=$HOME/public_html/CORD-19-V${VERSION}
+VERSION=47
+ARCHIVE=/appli/cord19/CORD-19-V${VERSION}
 
 # MongoDB database
 DB=cord19v${VERSION}
@@ -52,8 +52,26 @@ import_entityfishing_single() {
     collection=entityfishing
     mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing ${collection}
 
-    # Create collection entityfishing_light
-    mongo localhost/$DB lighten_entityfishing.js
+    # Create lightened collection
+    mongo localhost/$DB lighten_entityfishing_abstract.js
+}
+
+
+# Import CORD19 Entity-fishing annotations in a multiple collections
+import_entityfishing_multiple() {
+    collection=entityfishing
+    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/entity-fishing ${collection} 30000
+
+    # List the imported collections
+    collections=$(mongo --eval "db.getCollectionNames()" cord19v47 | sed 's|[",[:space:]]||g' | egrep "entityfishing_[[:digit:]]+")
+
+    # Create lightened collection for each imported collection
+    for collection in $collections; do
+        echo "----- Lightening collection $collection"
+        sed "s|COLLECTION|$collection|g" lighten_entityfishing_body.js > lighten_entityfishing_body_tmp.js
+        mongo localhost/$DB lighten_entityfishing_body_tmp.js
+    done
+    rm -f lighten_entityfishing_body_tmp.js
 }
 
 
@@ -68,7 +86,7 @@ import_ncbo() {
 # Import CORD19 ACTA annotations in a multiple collection
 import_acta() {
     collection=acta
-    mongo_drop_import_dir ${ARCHIVE}-ACTA/output ${collection}
+    mongo_drop_import_dir ${ARCHIVE}-ACTA ${collection}
 
     # Create collection acta_claim & acta_evid
     mongo localhost/$DB filter-acta.js
@@ -81,6 +99,7 @@ import_acta() {
 #import_cord_metadata
 #import_cord_json
 #import_entityfishing_single
+#import_entityfishing_multiple
 #import_spotlight_single
 #import_ncbo
 #import_acta

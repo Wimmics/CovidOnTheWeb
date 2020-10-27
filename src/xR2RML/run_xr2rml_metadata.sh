@@ -5,7 +5,7 @@
 # Input argument:
 # - arg1: RDF dataset name e.g. "dataset-1-0"
 # - arg2: the MongoDB collection to query, e.g. cord19_csv
-# - arg3: filed used as the paper_id: one of pmcid or sha
+# - arg3: field used as the paper_id: one of pmcid or sha
 # - arg4: xR2RML template mapping file
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
