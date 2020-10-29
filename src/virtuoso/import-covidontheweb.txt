@@ -57,11 +57,7 @@ graph="http://ns.inria.fr/covid19/graph/bioportal-annotator"
     --cleargraph \
     --graph $graph \
     --path $DATASET_DIR \
-    cord19-nekg-ncbo-title.ttl       cord19-nekg-ncbo-abstract.ttl.0  cord19-nekg-ncbo-abstract.ttl.1 \
-    cord19-nekg-ncbo-abstract.ttl.10 cord19-nekg-ncbo-abstract.ttl.11 cord19-nekg-ncbo-abstract.ttl.2 \
-    cord19-nekg-ncbo-abstract.ttl.3  cord19-nekg-ncbo-abstract.ttl.4  cord19-nekg-ncbo-abstract.ttl.5 \
-    cord19-nekg-ncbo-abstract.ttl.6  cord19-nekg-ncbo-abstract.ttl.7 \
-    cord19-nekg-ncbo-abstract.ttl.8 cord19-nekg-ncbo-abstract.ttl.9
+    cord19-nekg-ncbo-title.ttl  'cord19-nekg-ncbo-abstract.ttl.*'
 
 # ACTA graph
 graph="http://ns.inria.fr/covid19/graph/acta"

@@ -13,9 +13,11 @@ dataset=dataset-1-2
 ./run_xr2rml_annotation.sh       $dataset title     spotlight_abstract     xr2rml_spotlight_tpl.ttl
 ./run_xr2rml_annotation.sh       $dataset abstract  spotlight_abstract     xr2rml_spotlight_tpl.ttl
 
-# Generate annotations for Entity-fishing
+# Generate annotations for Entity-fishing (title and abstract)
 ./run_xr2rml_annotation.sh       $dataset title     entityfishing_abstract xr2rml_entityfishing_tpl.ttl
 ./run_xr2rml_annotation.sh       $dataset abstract  entityfishing_abstract xr2rml_entityfishing_tpl.ttl
+
+# Generate annotations for Entity-fishing (body)
 ./run_xr2rml_annotation_split.sh $dataset body_text entityfishing_0_body   xr2rml_entityfishing_tpl.ttl 10000000
 ./run_xr2rml_annotation_split.sh $dataset body_text entityfishing_1_body   xr2rml_entityfishing_tpl.ttl 10000000
 ./run_xr2rml_annotation_split.sh $dataset body_text entityfishing_2_body   xr2rml_entityfishing_tpl.ttl 10000000

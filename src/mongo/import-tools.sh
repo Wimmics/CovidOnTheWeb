@@ -10,7 +10,30 @@ MONGO_IMPORT_MAXSIZE=16000000
 
 
 # Import, into a MongoDB collection, the JSON files listed in a file.
-# Files are imported by groups of a max number of files.
+# Files are imported one by one.
+#   $1: MongoDB collection name
+#   $2: file containing the list of JSON files to import
+mongo_import_filelist_onebyone() {
+    _collection_a=$1
+    _filelist_a=$2
+    index=0
+
+    for jsonfile in `cat $_filelist_a`; do
+    
+        filesize=$(stat --format=%s $jsonfile)
+        if [ $filesize -ge $MONGO_IMPORT_MAXSIZE ]; then
+            echo "WARNING - Ignoring oversized document $jsonfile ($filesize bytes)"
+        else
+            echo "Importing file $index: $jsonfile"
+            mongoimport --type=json -d $DB -c $_collection_a $jsonfile
+        fi
+        index=$(($index + 1))
+    done
+}
+
+
+# Import, into a MongoDB collection, the JSON files listed in a file.
+# Files are grouped until a max size limit (see $MONGO_IMPORT_MAXSIZE)
 #   $1: MongoDB collection name
 #   $2: file containing the list of JSON files to import
 mongo_import_filelist() {

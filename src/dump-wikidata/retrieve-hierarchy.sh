@@ -1,5 +1,11 @@
 #!/bin/bash
-# Query Wikidata for each of the URIs to retrieve the hierarchy of classes of each URI.
+# Query Wikidata to retrieve the hierarchy of classes of each URI in file wikidata-ne-uris.txt
+
+# List of URIs to query
+urilist=wikidata-ne-uris.txt
+
+# Max number of URIs to query at once
+MAXURIS=10
 
 # Initialize the result file with the prefixes
 result_file=dump.ttl
@@ -18,13 +24,7 @@ subquery_pattern='
     UNION
     {?uri wdt:P171* ?uriParent.}
   }
- '
-
-# List of URIs to query
-urilist=wikidata-ne-uris.txt
-
-# Max number of URIs to query at once
-MAXURIS=10
+'
 
 # Split the list of URIs into multiple files of $MAXURIS URIs
 uri_split=/tmp/uri_list-$$-
@@ -62,10 +62,10 @@ rm -f $result_tmp
 # -----------------------
 
 # Upload the graph to Virtuoso
-CURRENT_DIR=$(pwd)
-graph="http://ns.inria.fr/covid19/graph/wikidata-named-entities-full"
-../virtuoso/virtuoso-import.sh \
-    --cleargraph \
-    --graph $graph \
-    --path $CURRENT_DIR \
-    $result_file
+#CURRENT_DIR=$(pwd)
+#graph="http://ns.inria.fr/covid19/graph/wikidata-named-entities-full"
+#../virtuoso/virtuoso-import.sh \
+#    --cleargraph \
+#    --graph $graph \
+#    --path $CURRENT_DIR \
+#    $result_file

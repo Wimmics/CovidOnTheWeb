@@ -1,14 +1,14 @@
 #!/bin/bash
 # Query DBpedia for each of the URIs to retrieve the hierarchy of classes of each URI.
 
-# SPARQL query pattern
-query_pattern=`cat query-hierarchy.sparql`
-
 # List of URIs to query
-urilist=dbpedia-ne-uris.ttl
+urilist=dbpedia-ne-uris.txt
 
 # Max number of URIs to query at once
 MAXURIS=50
+
+# SPARQL query pattern
+query_pattern=`cat query-hierarchy.sparql`
 
 # Split the list of URIs into multiple files of $MAXURIS URIs
 urilist_split=/tmp/urilist-$$-
@@ -19,6 +19,8 @@ split -d -l $MAXURIS $urilist $urilist_split
 nbfiles=$(ls -l ${urilist_split}* | wc -l)
 nbfiles=$(($nbfiles - 1))
 _fileIndex=0
+mkdir -p dumps
+
 for _uri_file_list in `ls ${urilist_split}*`; do
     echo ""
     echo "--- Processing file $_uri_file_list (${_fileIndex}/$nbfiles)"

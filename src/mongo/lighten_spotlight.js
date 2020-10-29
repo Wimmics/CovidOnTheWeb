@@ -25,13 +25,13 @@ db.spotlight.aggregate([
         'title': { $filter: { input: "$title",  cond: { $and: [
             { $ne: ["$$this.URI", undefined] },
             { $gte: ["$$this.similarityScore", 0.75] },
-            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 3] }
+            { $gte: [{$strLenCP: { $convert: { input: "$$this.surfaceForm", to: "string"}}}, 3] }
         ]}}},
         
         'abstract': { $filter: { input: "$abstract",  cond: { $and: [
             { $ne: ["$$this.URI", undefined] },
             { $gte: ["$$this.similarityScore", 0.75] },
-            { $gte: [{$strLenCP: "$$this.surfaceForm"}, 3] }
+            { $gte: [{$strLenCP: { $convert: { input: "$$this.surfaceForm", to: "string"}}}, 3] }
         ]}}}
     }},
 
