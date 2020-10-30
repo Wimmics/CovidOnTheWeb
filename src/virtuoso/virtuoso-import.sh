@@ -59,6 +59,6 @@ echo "rdf_loader_run();"  >> $tempfile
 cat $tempfile
 
 #--- Run file against isql
-cat $tempfile | /appli/virtuoso/bin/isql -H localhost -U dba -P 'zEshCn5_xaz=jIo3olmz'
+cat $tempfile | /appli/virtuoso/bin/isql -H localhost -U dba -P 'your password'
 
 rm -f $tempfile

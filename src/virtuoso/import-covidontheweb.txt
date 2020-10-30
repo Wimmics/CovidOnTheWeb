@@ -1,5 +1,6 @@
 #!/bin/bash
-# Commands to be run from the virtuoso directory
+#
+# WARNING - Commands to be run from the virtuoso directory
 
 DIR=cord19-dataset-1.2
 
