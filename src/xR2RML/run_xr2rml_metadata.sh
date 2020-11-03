@@ -59,7 +59,7 @@ java -Xmx4g \
      -Dlog4j.configuration=file:$XR2RML/log4j.properties \
      -jar "$JAR" \
      --configDir $XR2RML \
-     --configFile xr2rml.properties \
+     --configFile xr2rml_uriencode.properties \
      --mappingFile $mappingFile \
      --output $XR2RML/output_${collection}_${type}.ttl \
      >> $log
