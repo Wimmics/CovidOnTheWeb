@@ -61,6 +61,7 @@
 
     # link to the ULMS concept id (CUI) and semantic type id (TUI)
     oa:hasBody          [ umls:cui "C0026565"; umls:tui "T81" ];
+    oa:hasBody          <https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/C0026565>;
     oa:hasTarget [
         # the source is the claim/evidence
         oa:hasSource    <http://ns.inria.fr/covid19/arg/4f8d24c531d2c334969e09e4b5aed66dcc925c4b/6>;

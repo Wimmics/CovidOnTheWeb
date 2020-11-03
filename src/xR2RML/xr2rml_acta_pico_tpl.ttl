@@ -65,6 +65,15 @@
     rr:predicateObjectMap [
         rr:predicate    oa:hasBody;
         rr:objectMap [
+            rr:template "https://uts-ws.nlm.nih.gov/rest/semantic-network/2015AB/CUI/{$.concept_id}";
+            rr:termType rr:IRI;
+        ];
+    ];
+
+    # Annotation body
+    rr:predicateObjectMap [
+        rr:predicate    oa:hasBody;
+        rr:objectMap [
             rr:template "body_{$.paper_id}_{$.id}_{$.pico_text}_{$.concept_id}";
             rr:termType rr:BlankNode;
         ];
