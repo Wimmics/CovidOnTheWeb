@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DIR=cord19-dataset-1.2
+DIR=dataset-1.2
+mkdir -p $DIR
+
 
 # Articles metadata
 mv output_cord19_json_light_authors.ttl          $DIR/cord19-articles-metadata-authors.ttl

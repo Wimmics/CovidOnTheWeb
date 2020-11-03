@@ -2,10 +2,10 @@
 #
 # WARNING - Commands to be run from the virtuoso directory
 
-DIR=cord19-dataset-1.2
-
+DIR=dataset-1.2
 CURRENT_DIR=$(pwd)
 DATASET_DIR=$CURRENT_DIR/../xR2RML/$DIR
+
 
 # Metadata graph
 graph="http://ns.inria.fr/covid19/graph/metadata"
