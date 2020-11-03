@@ -65,7 +65,7 @@ import_entityfishing_multiple() {
     # List the imported collections
     collections=$(mongo --eval "db.getCollectionNames()" cord19v47 | sed 's|[",[:space:]]||g' | egrep "entityfishing_[[:digit:]]+")
 
-    # Create lightened collection for each imported collection
+    # Create a lightened collection for each collection just created
     for collection in $collections; do
         echo "----- Lightening collection $collection"
         sed "s|COLLECTION|$collection|g" lighten_entityfishing_body.js > lighten_entityfishing_body_tmp.js
@@ -95,33 +95,13 @@ import_acta() {
 # ------------------------------------------------------------------------------
 
 # -- Uncomment the following lines as needed to import datasets --
+#    All of them must be run once.
 
 #import_cord_metadata
 #import_cord_json
+
 #import_entityfishing_single
 #import_entityfishing_multiple
 #import_spotlight_single
 #import_ncbo
 #import_acta
-
-
-
-# -----------------------------------------------------------
-# For information - Number of JSON files in the CORD19 v6 dataset
-# ll biorxiv_medrxiv/pdf_json/ | wc -l
-# ll comm_use_subset/pdf_json/ | wc -l
-# ll comm_use_subset/pmc_json/ | wc -l
-# ll custom_license/pdf_json/ | wc -l
-# ll custom_license/pmc_json/ | wc -l
-# ll noncomm_use_subset/pdf_json/| wc -l
-# ll noncomm_use_subset/pmc_json/| wc -l
-#
-# biorxiv_medrxiv/pdf_json      1343
-# comm_use_subset/pdf_json      9366
-# comm_use_subset/pmc_json      8996
-# custom_license/pdf_json       23153
-# custom_license/pmc_json       4774
-# noncomm_use_subset/pdf_json   2378
-# noncomm_use_subset/pmc_json   2094
-# ==> 52097
-# -----------------------------------------------------------
