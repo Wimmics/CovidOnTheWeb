@@ -48,10 +48,10 @@ exit
 # -----------------------
 
 # Upload the graph to Virtuoso
-DIR=$(pwd)/dumps
-graph="http://ns.inria.fr/covid19/graph/dbpedia-named-entities"
-../virtuoso/virtuoso-import.sh \
-    --cleargraph \
-    --graph $graph \
-    --path $DIR \
-     'dump_*.ttl'
+#DIR=$(pwd)/dumps
+#graph="http://ns.inria.fr/covid19/graph/dbpedia-named-entities"
+#../virtuoso/virtuoso-import.sh \
+#    --cleargraph \
+#    --graph $graph \
+#    --path $DIR \
+#     'dump_*.ttl'

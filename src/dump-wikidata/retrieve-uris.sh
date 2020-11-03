@@ -31,3 +31,4 @@ do
 done
 
 cat $resulttmp | sort | uniq > $result
+rm $resulttmp
