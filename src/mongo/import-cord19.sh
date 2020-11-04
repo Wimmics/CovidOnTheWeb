@@ -75,10 +75,10 @@ import_entityfishing_multiple() {
 }
 
 
-# Import CORD19 NCBO Annotator annotations in a multiple collections
+# Import CORD19 NCBO Annotator annotations in multiple collections
 import_ncbo() {
     collection=ncbo
-    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/ncbo-light ${collection} 5000
+    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/ncbo ${collection} 5000
 }
 
 # ------------------------------------------------------------------------------
