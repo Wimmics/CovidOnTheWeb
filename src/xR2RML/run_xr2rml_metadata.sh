@@ -4,7 +4,7 @@
 #
 # Input argument:
 # - arg1: RDF dataset name e.g. "dataset-1-0"
-# - arg2: the MongoDB collection to query, e.g. cord19_csv
+# - arg2: the MongoDB collection to query, e.g. cord19_metadata
 # - arg3: field used as the paper_id: one of pmcid or sha
 # - arg4: xR2RML template mapping file
 #

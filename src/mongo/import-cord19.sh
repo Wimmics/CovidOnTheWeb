@@ -3,16 +3,11 @@
 #
 # Licensed under the Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
+# CORD19 and Covid-on-the-Web environment definitions
+. ../env.sh
 
 # Functions definitions
 . ./import-tools.sh
-
-# CORD19 dataset
-VERSION=47
-ARCHIVE=/appli/cord19/CORD-19-V${VERSION}
-
-# MongoDB database
-DB=cord19v${VERSION}
 
 
 # ------------------------------------------------------------------------------
@@ -21,7 +16,7 @@ DB=cord19v${VERSION}
 import_cord_metadata() {
     # Metadata of all articles in the CORD19 dataset
     collection=cord19_metadata
-    mongoimport --drop --type=csv --headerline --ignoreBlanks -d $DB -c $collection $ARCHIVE/metadata_fixed.csv
+    mongoimport --drop --type=csv --headerline --ignoreBlanks -d $DB -c $collection $CORD19_DIR/metadata_fixed.csv
     mongo --eval "db.${collection}.createIndex({paper_id: 1})" localhost/$DB
 }
 
@@ -29,7 +24,7 @@ import_cord_metadata() {
 # Import the CORD19 JSON files
 import_cord_json() {
     collection=cord19_json
-    mongo_drop_import_dir ${ARCHIVE} ${collection}
+    mongo_drop_import_dir ${CORD19_DIR} ${collection}
 
     # Create collection cord19_json_light
     mongo localhost/$DB lighten_cord19json.js
@@ -40,7 +35,7 @@ import_cord_json() {
 # Import CORD19 DBpedia-Spotlight annotations in a single collection
 import_spotlight_single() {
     collection=spotlight
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/dbpedia-spotlight ${collection}
+    mongo_drop_import_dir ${CORD19_SPOTLIGHT} ${collection}
 
     # Create collection spotlight_light
     mongo localhost/$DB lighten_spotlight.js
@@ -50,7 +45,7 @@ import_spotlight_single() {
 # Import CORD19 Entity-fishing annotations in a single collection
 import_entityfishing_single() {
     collection=entityfishing
-    mongo_drop_import_dir ${ARCHIVE}-Annotation/entity-fishing ${collection}
+    mongo_drop_import_dir ${CORD19_EF} ${collection}
 
     # Create lightened collection
     mongo localhost/$DB lighten_entityfishing_abstract.js
@@ -60,7 +55,7 @@ import_entityfishing_single() {
 # Import CORD19 Entity-fishing annotations in a multiple collections
 import_entityfishing_multiple() {
     collection=entityfishing
-    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/entity-fishing ${collection} 30000
+    mongo_drop_import_dir_split ${CORD19_EF} ${collection} 30000
 
     # List the imported collections
     collections=$(mongo --eval "db.getCollectionNames()" cord19v47 | sed 's|[",[:space:]]||g' | egrep "entityfishing_[[:digit:]]+")
@@ -78,7 +73,7 @@ import_entityfishing_multiple() {
 # Import CORD19 NCBO Annotator annotations in multiple collections
 import_ncbo() {
     collection=ncbo
-    mongo_drop_import_dir_split ${ARCHIVE}-Annotation/ncbo ${collection} 5000
+    mongo_drop_import_dir_split ${CORD19_NCBO} ${collection} 5000
 }
 
 # ------------------------------------------------------------------------------
@@ -86,7 +81,7 @@ import_ncbo() {
 # Import CORD19 ACTA annotations in a multiple collection
 import_acta() {
     collection=acta
-    mongo_drop_import_dir ${ARCHIVE}-ACTA ${collection}
+    mongo_drop_import_dir ${CORD19_ACTA} ${collection}
 
     # Create collection acta_claim & acta_evid
     mongo localhost/$DB filter-acta.js

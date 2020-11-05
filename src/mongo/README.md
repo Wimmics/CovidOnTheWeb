@@ -3,7 +3,7 @@ This folder provides tools to import three different datasets into MongoDB, that
 These are the MongoDB collections created:
 
 - Dataset CORD-19:
-    - `cord19_metadata`: metadata.csv
+    - `cord19_metadata`: metadata_fixed.csv (created from metadata.csv by metadata_fix.sh)
     - `cord19_json`: per-article JSON files
     - `cord19_json_light`: lightened and filterd version of `cord19_json`
 - Named entities:

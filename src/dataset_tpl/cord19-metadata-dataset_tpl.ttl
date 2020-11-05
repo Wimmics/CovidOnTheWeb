@@ -19,10 +19,12 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
-# Template file: replace placeholders
+# Template file placeholders:
 # - {{version}}: dataset version in dot notation, like "x.y" (used for owl:versionInfo)
-# - {{dash-version}}: dataset version in dash notation, like "x-y" (used for URIs)
-# - {{date}}: date at which the dataset is generated
+# - {{dash-version}}: dataset version in dashed notation, like "x-y" (used for URIs)
+# - {{date}}: date at which the Covid-on-the-Web dataset is generated
+# - {{cord19version}}: the CORD19 version
+# - {{cord19date}}: CORD19 issue date, like "2020-09-01"
 
 covid:covidontheweb-{{dash-version}}
     a               dcat:Dataset, schema:Dataset;
@@ -43,9 +45,9 @@ covid:covidontheweb-{{dash-version}}
     dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
     schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
 
-    schema:isBasedOn        covid:cord19v47;
     a prov:Entity;
-    prov:wasDerivedFrom     covid:cord19v47;
+    schema:isBasedOn        covid:cord19v{{cord19version}};
+    prov:wasDerivedFrom     covid:cord19v{{cord19version}};
     prov:wasGeneratedBy     covid:RdfGeneration;
     prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
     .
@@ -58,34 +60,34 @@ covid:covidontheweb-{{dash-version}}   owl:sameAs  covid:dataset-{{dash-version}
 <https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
 
 
-covid:cord19v47
+covid:cord19v{{cord19version}}
     a               dcat:Dataset, schema:Dataset;
     dct:title       "COVID-19 Open Research Dataset (CORD-19)";
     schema:name     "COVID-19 Open Research Dataset (CORD-19)";
-    dct:issued      "2020-09-01"^^xsd:date; schema:datePublished "2020-09-01"^^xsd:date;
-    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/47>;
-    owl:versionInfo "47".
+    dct:issued      "{{cord19date}}"^^xsd:date; schema:datePublished "{{cord19date}}"^^xsd:date;
+    schema:url      <https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/{{cord19version}}>;
+    owl:versionInfo "{{cord19version}}".
 
 
 covid:ProvenanceEF
     a                       prov:Activity;
-    prov:used               covid:cord19v47;
+    prov:used               covid:cord19v{{cord19version}};
     prov:wasAssociatedWith  <https://github.com/kermitt2/entity-fishing>.
 
 covid:ProvenanceDBpSpotlight
     a                       prov:Activity;
     prov:wasAssociatedWith  <https://www.dbpedia-spotlight.org/>;
-    prov:used               covid:cord19v47.
+    prov:used               covid:cord19v{{cord19version}}.
 
 covid:ProvenanceNCBOAnnotator
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://bioportal.bioontology.org/annotator>;
-    prov:used               covid:cord19v47.
+    prov:used               covid:cord19v{{cord19version}}.
 
 covid:ProvenanceActa
     a                       prov:Activity;
     prov:wasAssociatedWith  <http://ns.inria.fr/acta/>;
-    prov:used               covid:cord19v47.
+    prov:used               covid:cord19v{{cord19version}}.
 
 
 covid:RdfGeneration
@@ -101,7 +103,7 @@ covid:xR2RML
     dct:description "Implementation of the xR2RML mapping language for MongoDB";
     dce:creator     "Franck Michel"; schema:author "Franck Michel";
     dct:licence     <http://www.apache.org/licenses/LICENSE-2.0>;
-    owl:versionInfo "1.1-RC2";
+    owl:versionInfo "1.3";
     schema:subjectOf covid:hal01207828.
 
 covid:hal01207828 

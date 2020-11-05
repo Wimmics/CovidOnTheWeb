@@ -1,10 +1,14 @@
 #!/bin/bash
 #
-# WARNING - Commands to be run from the virtuoso directory
+# WARNING - Run the commands below from directory 'virtuoso'
 
-DIR=dataset-1.2
+# CORD19 and Covid-on-the-Web environment definitions
+. ../env.sh
+
 CURRENT_DIR=$(pwd)
-DATASET_DIR=$CURRENT_DIR/../xR2RML/$DIR
+
+# Directory where the ttl files are stored
+DATASET_DIR=$CURRENT_DIR/../xR2RML/$COTW_DATASET
 
 
 # Metadata graph

@@ -21,13 +21,14 @@
 # Template file: replace placeholders
 # - {{dash-version}}: dataset version in dash notation, like "x-y" (used for URIs)
 # - {{triples}}: number of triples
+# - {{doi}}: DOI of the Covid-on-the-Web dataset
 
 covid:covidontheweb-{{dash-version}}
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "{{triples}}"^^xsd:integer;
-    void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
-    void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
+    void:sparqlEndpoint <https://covidontheweb.inria.fr/sparql>;
+    void:dataDump       <https://doi.org/{{doi}}>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
@@ -45,7 +46,6 @@ covid:covidontheweb-{{dash-version}}
     void:vocabulary     <http://purl.org/spar/amo>;          # Argument Model Ontology (Toulmin)
     void:vocabulary     <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
- 
 
 # --- Linksets
 

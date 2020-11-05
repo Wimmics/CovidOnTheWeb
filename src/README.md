@@ -29,6 +29,8 @@ The translation in RDF of the three sources (CORD-19, named entities, arguments)
 
 The scripts, configuration and mapping files are provided in directory [xR2RML](xR2RML).
 
+Additionally, directory [dataset_tpl](dataset_tpl) provides templates for the generation of the dataset metadata.
+
 
 ## RDF files import into Virtuoso
 
