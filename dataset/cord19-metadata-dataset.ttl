@@ -19,11 +19,6 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
-# Template file: replace placeholders
-# - 1.2: dataset version in dot notation, like "x.y" (used for owl:versionInfo)
-# - 1-2: dataset version in dash notation, like "x-y" (used for URIs)
-# - 2020-11-05: date at which the dataset is generated
-
 covid:covidontheweb-1-2
     a               dcat:Dataset, schema:Dataset;
     dct:title       "Covid-on-the-Web dataset";
@@ -43,8 +38,8 @@ covid:covidontheweb-1-2
     dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
     schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
 
-    schema:isBasedOn        covid:cord19v47;
     a prov:Entity;
+    schema:isBasedOn        covid:cord19v47;
     prov:wasDerivedFrom     covid:cord19v47;
     prov:wasGeneratedBy     covid:RdfGeneration;
     prov:wasGeneratedAtTime "2020-11-05"^^xsd:date;
@@ -101,7 +96,7 @@ covid:xR2RML
     dct:description "Implementation of the xR2RML mapping language for MongoDB";
     dce:creator     "Franck Michel"; schema:author "Franck Michel";
     dct:licence     <http://www.apache.org/licenses/LICENSE-2.0>;
-    owl:versionInfo "1.1-RC2";
+    owl:versionInfo "1.3";
     schema:subjectOf covid:hal01207828.
 
 covid:hal01207828 

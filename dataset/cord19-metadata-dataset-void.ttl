@@ -18,16 +18,12 @@
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
-# Template file: replace placeholders
-# - 1-2: dataset version in dash notation, like "x-y" (used for URIs)
-# - 1372643149: number of triples
-
 covid:covidontheweb-1-2
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "1372643149"^^xsd:integer;
-    void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
-    void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
+    void:sparqlEndpoint <https://covidontheweb.inria.fr/sparql>;
+    void:dataDump       <https://doi.org/10.5281/zenodo.4247134>;
     
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
@@ -45,7 +41,6 @@ covid:covidontheweb-1-2
     void:vocabulary     <http://purl.org/spar/amo>;          # Argument Model Ontology (Toulmin)
     void:vocabulary     <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
- 
 
 # --- Linksets
 
