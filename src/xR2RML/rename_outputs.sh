@@ -25,9 +25,13 @@ for file in `ls output_entityfishing_*_body_body_text.ttl.*`; do
 done
 
 # NCBO annotations
-mv output_ncbo_title.ttl       $DIR/cord19-nekg-ncbo-title.ttl
 index=0
-for file in `ls output_ncbo_${index}_abstract.ttl`; do
+for file in `ls output_ncbo_*_title.ttl`; do
+    mv $file $DIR/cord19-nekg-ncbo-title.ttl.${index}
+    index=$(($index + 1))
+done
+index=0
+for file in `ls output_ncbo_*_abstract.ttl`; do
     mv $file $DIR/cord19-nekg-ncbo-abstract.ttl.${index}
     index=$(($index + 1))
 done

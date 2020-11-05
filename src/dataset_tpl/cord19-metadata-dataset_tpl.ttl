@@ -20,11 +20,11 @@
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
 # Template file: replace placeholders
-# - {{dataset}}: dataset name like "covidontheweb-1-1"
-# - {{version}}: dataset version
+# - {{version}}: dataset version in dot notation, like "x.y" (used for owl:versionInfo)
+# - {{dash-version}}: dataset version in dash notation, like "x-y" (used for URIs)
 # - {{date}}: date at which the dataset is generated
 
-covid:{{dataset}}
+covid:covidontheweb-{{dash-version}}
     a               dcat:Dataset, schema:Dataset;
     dct:title       "Covid-on-the-Web dataset";
     schema:name     "Covid-on-the-Web dataset";
@@ -50,8 +50,8 @@ covid:{{dataset}}
     prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
     .
 
-covid:dataset-1-2   owl:sameAs  covid:{{dataset}}; rdfs:label "Covid-on-the-Web dataset".
-covid:{{dataset}}   owl:sameAs  covid:dataset-1-2.
+covid:dataset-{{dash-version}}         owl:sameAs  covid:covidontheweb-{{dash-version}}; rdfs:label "Covid-on-the-Web dataset".
+covid:covidontheweb-{{dash-version}}   owl:sameAs  covid:dataset-{{dash-version}}.
 
 <http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
 <https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".

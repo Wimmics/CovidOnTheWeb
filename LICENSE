@@ -5,5 +5,5 @@ It consists of three subsets:
 - the result of text mining process meant to extract argumentative components: CORD-19 Argumentative Knowledge Graph dataset (CORD19-AKG)
 
 The Covid-on-the-Web dataset is therefore licensed under two licenses, each applying to the aforementioned subsets:
-- The CORD-19 license (see license on page https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7) applies to the CORD-19 dataset that is contained in the Covid-on-the-Web dataset (as a subset translated into the Turtle RDF syntax).   
+- The CORD-19 license (see license on page https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/47) applies to the CORD-19 dataset that is contained in the Covid-on-the-Web dataset (as a subset translated into the Turtle RDF syntax).   
 - The Open Data Commons Attribution License (http://opendatacommons.org/licenses/by/1.0) applies to the subsets of the Covid-on-the-Web dataset that results of a text mining process ((CORD19-NEKG and CORD19-AKG), that do not contain the aforementioned CORD-19 subset.

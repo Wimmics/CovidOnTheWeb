@@ -25,7 +25,7 @@ graph="http://ns.inria.fr/covid19/graph/articles"
     cord19-articles-metadata-authors.ttl cord19-articles-metadata-pmcid.ttl cord19-articles-metadata-sha.ttl
 
 
-# Entity-fishing graph
+# Entity-fishing graph - article titles and abstracts
 graph="http://ns.inria.fr/covid19/graph/entityfishing"
 ./virtuoso-import.sh \
     --cleargraph \
@@ -58,7 +58,8 @@ graph="http://ns.inria.fr/covid19/graph/bioportal-annotator"
     --cleargraph \
     --graph $graph \
     --path $DATASET_DIR \
-    cord19-nekg-ncbo-title.ttl  'cord19-nekg-ncbo-abstract.ttl.*'
+    'cord19-nekg-ncbo-title.ttl.*' 'cord19-nekg-ncbo-abstract.ttl.*'
+
 
 # ACTA graph
 graph="http://ns.inria.fr/covid19/graph/acta"

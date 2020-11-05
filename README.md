@@ -8,9 +8,9 @@ A description of the dataset, in the Turtle format, as well as examples are prov
 
 Covid-on-the-Web Dataset is an initiative of the [Wimmics team](https://team.inria.fr/wimmics/), [I3S laboratory](http://www.i3s.unice.fr/), University Côte d'Azur, Inria, CNRS.
 
-Covid-on-the-Web Dataset **v1.1** is based on [CORD-19 v7](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/7). 
+Covid-on-the-Web Dataset **v1.2** is based on [CORD-19 v47](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/47). 
  
-#### I want it now: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
+#### I want it now! [Download from Zenodo](https://doi.org/10.5281/zenodo.4247134).
 
 
 ### Documentation
@@ -25,9 +25,13 @@ To identify and disambiguate named entities, we used [DBpedia Spotlight](https:/
 
 Named entities were identified primarily in the articles' titles and abstracts. Entity-fishing was also used to process the articles' bodies.
 
-- Nb. of named entities linked to DBpedia resources:  1,792,748
-- Nb. of named entities linked to Wikidata resources: 30,863,349
-- Nb. of named entities linked to BioPortal ontologies: 21,874,798
+In the table below shows the total number of named entities extracted by each tool, as well as the corresponding number of unique URIs.
+
+
+|                    | DBpedia    | Wikidata      | Bioportal   | Total |
+| :-------------     | --: | --: | --: | --: |
+| No. named entities |  4,084,979 |    66,098,777 |  42,972,551 |   113,156,307 |
+| No. unique URIs    |     63,750 |       252,150 |     429,755 |       745,655 |
 
 
 ## CORD-19 Argumentative Knowledge Graph (CORD19-AKG)
@@ -36,15 +40,19 @@ To extract argumentative components (claims and evidences) and PICO elements, we
 
 Argumentative components and PICO elements were extracted from the articles' abstracts.
 
-- Nb. of argumentative components: 53,871
-- Nb. of PICO elements linked to UMLS concept IDs: 229,408
+| | ACTA |
+| ------------- | ---------- |
+| No. argumentative components | 119,053 |
+| No. PICO elements linked to UMLS concepts | 515,590 |
+| No. unique UMLS concepts | 31,841 |
+
 
 
 ## URIs naming scheme
 
 Covid-on-the-Web namespace is `http://ns.inria.fr/covid19/`. All URIs are dereferenceable.
 
-The dataset itslef is identified by URI [`http://ns.inria.fr/covid19/covidontheweb-1-1`](http://ns.inria.fr/covid19/covidontheweb-1-1). It comes with DCAT and VOID descriptions.
+The dataset itslef is identified by URI [`http://ns.inria.fr/covid19/covidontheweb-1-2`](http://ns.inria.fr/covid19/covidontheweb-1-2). It comes with DCAT and VOID descriptions.
 All articles, annotations and arguments are linked back to the dataset with property `rdfs:isDefinedBy`.
 
 Article URIs are formatted as `http://ns.inria.fr/covid19/paper_id` where paper_id may be either the article SHA hash or its PCM identifier.
@@ -61,17 +69,21 @@ The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo
 It can also be queried through our Virtuoso OS SPARQL endpoint https://covidontheweb.inria.fr/sparql.
 
 You may use the [Faceted Browser](http://covidontheweb.inria.fr/fct/) to look up text or URIs.
-As an example, you can look up article [http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f](http://ns.inria.fr/covid19/f74923b3ce82c984a7ae3e0c2754c9e33c60554f).
+As an example, you can look up article [http://ns.inria.fr/covid19/d53508d43264f59007fd5e4aa8b4af026edf0bfe](http://ns.inria.fr/covid19/d53508d43264f59007fd5e4aa8b4af026edf0bfe).
 Further details about how named entities are represented in RDF are given in the [Data Modeling](doc/01-data-modeling.md) section.
 
 The following **named graphs** can be queried from our SPARQL endpoint:
-- `http://ns.inria.fr/covid19/graph/metadata`: dataset description + definition of a few properties
-- `http://ns.inria.fr/covid19/graph/articles`: articles metadata (title, authors, DOIs, journal etc.)
-- `http://ns.inria.fr/covid19/graph/dbpedia-spotlight`: named entities identified by DBpedia Spotlight in articles titles/abstracts
-- `http://ns.inria.fr/covid19/graph/entityfishing`: named entities identified by Entity-fishing in articles titles/abstracts
-- `http://ns.inria.fr/covid19/graph/entityfishing/body`: named entities identified by Entity-fishing in articles bodies
-- `http://ns.inria.fr/covid19/graph/bioportal-annotator`: named entities identified by Bioportal Annotator in articles titles/abstracts
-- `http://ns.inria.fr/covid19/graph/acta`: argumentative components and PICO elements extracted by ACTA from articles titles/abstracts
+
+| Named graph    | Description | No. RDF triples |
+| -------------  | ---- | ----: |
+| http://ns.inria.fr/covid19/graph/metadata | dataset description + definition of a few properties | 170 |
+| http://ns.inria.fr/covid19/graph/articles | articles metadata (title, authors, DOIs, journal etc.) | 3,722,381 |
+| http://ns.inria.fr/covid19/graph/entityfishing | named entities identified by Entity-fishing in articles titles/abstracts | 35,049,832 |
+| http://ns.inria.fr/covid19/graph/entityfishing/body | named entities identified by Entity-fishing in articles bodies | 1,156,611,321 |
+| http://ns.inria.fr/covid19/graph/bioportal-annotator | named entities identified by Bioportal Annotator in articles titles/abstracts | 104,430,547 |
+| http://ns.inria.fr/covid19/graph/dbpedia-spotlight | named entities identified by DBpedia Spotlight in articles titles/abstracts | 65,359,664 |
+| http://ns.inria.fr/covid19/graph/acta | argumentative components and PICO elements extracted by ACTA from articles titles/abstracts | 7,469,234 |
+| Total | | 1,361,451,364 | 
 
 The example query below retrieves two articles that have been annotated with at least one common Wikidata entity.
 ```sparql

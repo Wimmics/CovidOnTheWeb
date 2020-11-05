@@ -19,16 +19,16 @@
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
 
 # Template file: replace placeholders
-# - covidontheweb-1-1: dataset name like "covidontheweb-1-1"
-# - 674351000: number of triples
+# - 1-2: dataset version in dash notation, like "x-y" (used for URIs)
+# - 1372643149: number of triples
 
-covid:covidontheweb-1-1
+covid:covidontheweb-1-2
     a                   void:Dataset;
     void:uriSpace       "http://ns.inria.fr/covid19/";
-    void:triples        "674351000"^^xsd:integer;
-    void:sparqlEndpoint <https://covidontheweb.inria.fr/sparql>;
+    void:triples        "1372643149"^^xsd:integer;
+    void:sparqlEndpoint <https://covid19.i3s.unice.fr/sparql>;
     void:dataDump       <https://doi.org/10.5281/zenodo.3833753>;
-
+    
     void:vocabulary     <http://purl.org/ontology/bibo/>;
     void:vocabulary     <http://www.w3.org/ns/dcat#>;
     void:vocabulary     <http://purl.org/dc/elements/1.1/>;
@@ -45,14 +45,7 @@ covid:covidontheweb-1-1
     void:vocabulary     <http://purl.org/spar/amo>;          # Argument Model Ontology (Toulmin)
     void:vocabulary     <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
-
-# === Size in triples - v1.1:
-# CORD19 articles metadata:   1,276,421
-# Entity-fishing:            17,050,003
-# Entity-fishing bodies:    571,395,000
-# DBpedia Spotlight:         28,683,968
-# NCBO Annotator:            52,856,923
-# ACTA:                       3,072,426
+ 
 
 # --- Linksets
 
@@ -64,9 +57,9 @@ covid:Wikidata
 covid:cotw2wikidata
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:covidontheweb-1-1;
+   void:subjectsTarget covid:covidontheweb-1-2;
    void:objectsTarget covid:Wikidata;
-   void:triples "30863349"^^xsd:integer;
+   void:triples "66098777"^^xsd:integer;
    .
 
 covid:DBpedia
@@ -77,9 +70,9 @@ covid:DBpedia
 covid:cotw2dbpedia
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:covidontheweb-1-1;
+   void:subjectsTarget covid:covidontheweb-1-2;
    void:objectsTarget covid:DBpedia;
-   void:triples "1792748"^^xsd:integer;
+   void:triples "4084979"^^xsd:integer;
    .
 
 covid:UMLS
@@ -90,7 +83,7 @@ covid:UMLS
 covid:cotw2umls
    a void:Linkset;
    void:linkPredicate oa:hasBody;
-   void:subjectsTarget covid:covidontheweb-1-1;
+   void:subjectsTarget covid:covidontheweb-1-2;
    void:objectsTarget covid:UMLS;
-   void:triples "458800"^^xsd:integer;
-
+   void:triples "42972551"^^xsd:integer;
+   .
