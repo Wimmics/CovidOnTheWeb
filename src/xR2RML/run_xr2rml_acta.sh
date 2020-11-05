@@ -7,6 +7,7 @@
 # - arg1: RDF dataset name e.g. "dataset-1-1"
 # - arg2: MongoDB collection to read data from
 # - arg3: xR2RML template mapping file
+# - arg4: output file name
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 #
@@ -19,9 +20,9 @@ JAR=$XR2RML/morph-xr2rml-dist-1.3-SNAPSHOT-jar-with-dependencies.jar
 help()
 {
   exe=$(basename $0)
-  echo "Usage: $exe <dataset name> <collection> <xR2RML mapping template>"
+  echo "Usage: $exe <dataset name> <collection> <xR2RML mapping template> <output file name>"
   echo "Example:"
-  echo "   $exe  dataset-1-1  acta_components_outcomes  xr2rml_acta_pico_tpl.ttl"
+  echo "   $exe  dataset-1-1  acta_components_outcomes  xr2rml_acta_pico_tpl.ttl  cord19-akg-outcome.ttl"
   exit 1
 }
 
@@ -34,6 +35,9 @@ if [[ -z "$collection" ]] ; then help; fi
 
 mappingTemplate=$3
 if [[ -z "$mappingTemplate" ]] ; then help; fi
+
+output=$4
+if [[ -z "$output" ]] ; then help; fi
 
 
 # --- Init log file
@@ -60,7 +64,7 @@ java -Xmx20g \
      --configDir $XR2RML \
      --configFile xr2rml.properties \
      --mappingFile $mappingFile \
-     --output $XR2RML/output_${collection}.ttl \
+     --output $output \
      >> $log
 date >> $log
 

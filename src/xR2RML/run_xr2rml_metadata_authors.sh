@@ -5,6 +5,7 @@
 # Input argument:
 # - arg1: the MongoDB collection to query, e.g. cord19_csv
 # - arg2: xR2RML template mapping file
+# - arg3: output file name
 #
 # Author: F. Michel, UCA, CNRS, Inria
 
@@ -14,9 +15,9 @@ JAR=$XR2RML/morph-xr2rml-dist-1.3-SNAPSHOT-jar-with-dependencies.jar
 help()
 {
   exe=$(basename $0)
-  echo "Usage: $exe <MongoDB collection name> <xR2RML mapping template>"
+  echo "Usage: $exe <MongoDB collection name> <xR2RML mapping template> <output file name>"
   echo "Example:"
-  echo "   $exe  cord19_json_light  xr2rml_metadata_authors_tpl.ttl"
+  echo "   $exe  cord19_json_light  xr2rml_metadata_authors_tpl.ttl  cord19-articles-metadata-authors.ttl"
   exit 1
 }
 
@@ -26,6 +27,9 @@ if [[ -z "$collection" ]] ; then help; fi
 
 mappingTemplate=$2
 if [[ -z "$mappingTemplate" ]] ; then help; fi
+
+output=$3
+if [[ -z "$output" ]] ; then help; fi
 
 
 # --- Init log file
@@ -50,7 +54,7 @@ java -Xmx4g \
      --configDir $XR2RML \
      --configFile xr2rml.properties \
      --mappingFile $mappingFile \
-     --output $XR2RML/output_${collection}_authors.ttl \
+     --output $output \
      >> $log
 date >> $log
 

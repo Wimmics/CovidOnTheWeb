@@ -7,6 +7,7 @@
 # - arg2: the MongoDB collection to query, e.g. cord19_metadata
 # - arg3: field used as the paper_id: one of pmcid or sha
 # - arg4: xR2RML template mapping file
+# - arg5: output file name
 #
 # Author: Franck MICHEL, University Cote d'Azur, CNRS, Inria
 #
@@ -18,9 +19,9 @@ JAR=$XR2RML/morph-xr2rml-dist-1.3-SNAPSHOT-jar-with-dependencies.jar
 help()
 {
   exe=$(basename $0)
-  echo "Usage: $exe <dataset name> <MongoDB collection name> <pmcid|sha> <xR2RML mapping template>"
+  echo "Usage: $exe <dataset name> <MongoDB collection name> <pmcid|sha> <xR2RML mapping template> <output file name>"
   echo "Example:"
-  echo "   $exe  dataset-1-0  cord19_metadata  sha  xr2rml_metadata_sha_tpl.ttl"
+  echo "   $exe  dataset-1-0  cord19_metadata  sha  xr2rml_metadata_sha_tpl.ttl  cord19-articles-metadata-sha.ttl"
   exit 1
 }
 
@@ -36,6 +37,9 @@ if [[ -z "$type" ]] ; then help; fi
 
 mappingTemplate=$4
 if [[ -z "$mappingTemplate" ]] ; then help; fi
+
+output=$5
+if [[ -z "$output" ]] ; then help; fi
 
 
 # --- Init log file
@@ -61,7 +65,7 @@ java -Xmx4g \
      --configDir $XR2RML \
      --configFile xr2rml_uriencode.properties \
      --mappingFile $mappingFile \
-     --output $XR2RML/output_${collection}_${type}.ttl \
+     --output $output \
      >> $log
 date >> $log
 
