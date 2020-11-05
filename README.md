@@ -10,10 +10,8 @@ Covid-on-the-Web Dataset is an initiative of the [Wimmics team](https://team.inr
 
 Covid-on-the-Web Dataset **v1.2** is based on [CORD-19 v47](https://www.kaggle.com/dataset/08dd9ead3afd4f61ef246bfd6aee098765a19d9f6dbf514f0142965748be859b/version/47). 
  
-#### I want it now! [Download from Zenodo](https://doi.org/10.5281/zenodo.4247134).
 
-
-### Documentation
+## Documentation
 
 - [RDF data modeling](doc/01-data-modeling.md)
 - [Generation pipeline](src/README.md)
@@ -25,7 +23,7 @@ To identify and disambiguate named entities, we used [DBpedia Spotlight](https:/
 
 Named entities were identified primarily in the articles' titles and abstracts. Entity-fishing was also used to process the articles' bodies.
 
-In the table below shows the total number of named entities extracted by each tool, as well as the corresponding number of unique URIs.
+The table below shows the total number of named entities extracted by each tool, as well as the corresponding number of unique URIs.
 
 
 |                    | DBpedia    | Wikidata      | Bioportal   | Total |
@@ -41,7 +39,7 @@ To extract argumentative components (claims and evidences) and PICO elements, we
 Argumentative components and PICO elements were extracted from the articles' abstracts.
 
 | | ACTA |
-| ------------- | ---------- |
+| ------------- | ---------: |
 | No. argumentative components | 119,053 |
 | No. PICO elements linked to UMLS concepts | 515,590 |
 | No. unique UMLS concepts | 31,841 |
@@ -64,7 +62,7 @@ Parts of an article (title, abstract and body) are also identified by URIs so th
 
 ## Downloading and SPARQL Querying
 
-The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3833753.svg)](https://doi.org/10.5281/zenodo.3833753)
+The dataset is downloadable as a set of RDF dumps (in Turtle syntax) from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4247134.svg)](https://doi.org/10.5281/zenodo.4247134)
 
 It can also be queried through our Virtuoso OS SPARQL endpoint https://covidontheweb.inria.fr/sparql.
 
