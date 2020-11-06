@@ -19,4 +19,3 @@ class Converter(object):
                 if isinstance(value, list):
                     value = str(value)
                 return value
-

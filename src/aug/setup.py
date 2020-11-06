@@ -9,6 +9,7 @@ class Install(_install):
     def run(self):
         _install.do_egg_install(self)
 
+
 setup(
     name='CovidOnTheWeb-Augmentation',
     packages=["covidontheweb_aug"],

@@ -9,13 +9,14 @@ class Install(_install):
     def run(self):
         _install.do_egg_install(self)
 
+
 setup(
     name='CORD19-NER',
     packages=["cord19_ner"],
-    version='0.0.4',
+    version='0.0.5',
     author='Raphaël GAZZOTTI',
     author_email='raphael.gazzotti@inria.fr',
     cmdclass={'install': Install},
-    install_requires=['tqdm', 'requests', 'cord-19-tools'],
+    install_requires=['tqdm', 'requests', 'cord-19-tools', 'pycld2'],
     setup_requires=[]
 )

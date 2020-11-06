@@ -6,6 +6,7 @@ from rdflib import Namespace
 
 from covidontheweb_aug.utils.config import Config
 
+
 class RDFTranscript(object):
     def __init__(self):
         self.covid = Namespace("http://ns.inria.fr/covid19/")
@@ -28,14 +29,14 @@ class RDFTranscript(object):
         g.add((cotw2dbpedia_linkset, RDF.type, VOID.Linkset))
         g.add((cotw2dbpedia_linkset, VOID.target, self.coviddb_uri))
         g.add((cotw2dbpedia_linkset, VOID.target, self.wikidata_uri))
-        g.add((cotw2dbpedia_linkset, VOID.linkPredicate, SKOS.closeMatch))
+        g.add((cotw2dbpedia_linkset, VOID.linkPredicate, OWL.sameAs))
 
         # Linkset between DBpedia and Wikidata
         wikidata2dbpedia_linkset = URIRef(self.covid + "Wikidata2DBpedia")
         g.add((wikidata2dbpedia_linkset, RDF.type, VOID.Linkset))
         g.add((wikidata2dbpedia_linkset, VOID.target, self.wikidata_uri))
         g.add((wikidata2dbpedia_linkset, VOID.target, self.dbpedia_uri))
-        g.add((wikidata2dbpedia_linkset, VOID.linkPredicate, SKOS.closeMatch))
+        g.add((wikidata2dbpedia_linkset, VOID.linkPredicate, OWL.sameAs))
 
         # ADD CaLiGraph
         datasets_names = ["MAG", "YAGO", "Freebase_dump", "EOL", "MESH", "Google_KG", "Geonames",
@@ -56,7 +57,7 @@ class RDFTranscript(object):
             g.add((temp_uri, RDF.type, VOID.Linkset))
             g.add((temp_uri, VOID.target, source))
             g.add((temp_uri, VOID.target, URIRef(self.covid + d)))
-            g.add((temp_uri, VOID.linkPredicate, SKOS.closeMatch))
+            g.add((temp_uri, VOID.linkPredicate, OWL.sameAs))
 
         # DBpedia EN
         g.add((URIRef(self.dbpedia_uri), RDF.type, VOID.Dataset))
@@ -142,12 +143,12 @@ class RDFTranscript(object):
         g.add((URIRef(self.covid + "MAG"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "MAG"), FOAF.homepage, URIRef("https://academic.microsoft.com/home")))
         g.add((URIRef(self.covid + "MAG"), VOID.sparqlEndpoint, URIRef("http://ma-graph.org/sparql")))
-        g.add((URIRef(self.covid + "MAG"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q60683589")))
+        g.add((URIRef(self.covid + "MAG"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q60683589")))
 
         # YAGO
         g.add((URIRef(self.covid + "YAGO"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "YAGO"), VOID.sparqlEndpoint, URIRef("https://yago-knowledge.org/sparql")))
-        g.add((URIRef(self.covid + "YAGO"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q8045810")))
+        g.add((URIRef(self.covid + "YAGO"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q8045810")))
 
         # Freebase Dump
         g.add((URIRef(self.covid + "Freebase_Dump"), RDF.type, VOID.Dataset))
@@ -162,10 +163,10 @@ class RDFTranscript(object):
         # Encyclopedia of Life
         g.add((URIRef(self.covid + "EOL"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "EOL"), FOAF.homepage, URIRef("https://eol.org/")))
-        g.add((URIRef(self.covid + "EOL"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q82486")))
+        g.add((URIRef(self.covid + "EOL"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q82486")))
 
         # MESH
-        g.add((URIRef(self.covid + "MESH"), RDF.type, VOID.Dataset))
+        g.add((URIRef(self.covid + "MESH"), RDF.type, VOID.Dataset))h
         g.add((URIRef(self.covid + "MESH"), FOAF.homepage, URIRef("https://id.nlm.nih.gov/mesh/")))
         g.add((URIRef(self.covid + "MESH"), VOID.sparqlEndpoint, URIRef("https://id.nlm.nih.gov/mesh/query")))
 
@@ -177,94 +178,94 @@ class RDFTranscript(object):
         # Geonames
         g.add((URIRef(self.covid + "Geonames"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Geonames"), FOAF.homepage, URIRef("http://www.geonames.org/")))
-        g.add((URIRef(self.covid + "Geonames"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q830106")))
+        g.add((URIRef(self.covid + "Geonames"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q830106")))
 
         # Global Biodiversity Information Facility
         g.add((URIRef(self.covid + "GBIF"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "GBIF"), FOAF.homepage, URIRef("https://www.gbif.org/")))
         g.add((URIRef(self.covid + "GBIF"), VOID.uriLookupEndpoint, URIRef("https://api.gbif.org/v1/")))
-        g.add((URIRef(self.covid + "GBIF"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1531570")))
+        g.add((URIRef(self.covid + "GBIF"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1531570")))
 
         # Semantic Scholar
         g.add((URIRef(self.covid + "Semantic_Scholar"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Semantic_Scholar"), FOAF.homepage, URIRef("https://www.semanticscholar.org/")))
         g.add((URIRef(self.covid + "Semantic_Scholar"), VOID.uriLookupEndpoint, URIRef("https://api.semanticscholar.org/v1/")))
-        g.add((URIRef(self.covid + "Semantic_Scholar"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q22908627")))
+        g.add((URIRef(self.covid + "Semantic_Scholar"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q22908627")))
 
         # UniProt
         g.add((URIRef(self.covid + "UniProt"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "UniProt"), FOAF.homepage, URIRef("https://www.uniprot.org/")))
         g.add((URIRef(self.covid + "UniProt"), VOID.sparqlEndpoint, URIRef("https://sparql.uniprot.org/sparql")))
-        g.add((URIRef(self.covid + "UniProt"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q905695")))
+        g.add((URIRef(self.covid + "UniProt"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q905695")))
 
         # IRMNG
         g.add((URIRef(self.covid + "IRMNG"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "IRMNG"), FOAF.homepage, URIRef("https://www.irmng.org/")))
         g.add((URIRef(self.covid + "IRMNG"), VOID.uriLookupEndpoint, URIRef("https://www.irmng.org/rest/")))
-        g.add((URIRef(self.covid + "IRMNG"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q51885189")))
+        g.add((URIRef(self.covid + "IRMNG"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q51885189")))
 
         # JSTOR
         g.add((URIRef(self.covid + "JSTOR"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "JSTOR"), FOAF.homepage, URIRef("https://www.jstor.org/")))
-        g.add((URIRef(self.covid + "JSTOR"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1420342")))
+        g.add((URIRef(self.covid + "JSTOR"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1420342")))
 
         # Wikimedia Commons
         g.add((URIRef(self.covid + "Wikimedia_Commons"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Wikimedia_Commons"), FOAF.homepage, URIRef("https://commons.wikimedia.org/wiki/Main_Page")))
-        g.add((URIRef(self.covid + "Wikimedia_Commons"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q565")))
+        g.add((URIRef(self.covid + "Wikimedia_Commons"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q565")))
 
         # VIAF
         g.add((URIRef(self.covid + "VIAF"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "VIAF"), FOAF.homepage, URIRef("https://viaf.org/")))
-        g.add((URIRef(self.covid + "VIAF"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q54919")))
+        g.add((URIRef(self.covid + "VIAF"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q54919")))
 
         # BNF
         g.add((URIRef(self.covid + "BNF"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "BNF"), FOAF.homepage, URIRef("https://www.bnf.fr/")))
         g.add((URIRef(self.covid + "BNF"), VOID.sparqlEndpoint, URIRef("https://data.bnf.fr/sparql")))
-        g.add((URIRef(self.covid + "BNF"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q193563")))
+        g.add((URIRef(self.covid + "BNF"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q193563")))
 
         # ScOT Vocabulary Curriculum
         g.add((URIRef(self.covid + "ScOT"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ScOT"), FOAF.homepage, URIRef("http://scot.curriculum.edu.au/")))
         g.add((URIRef(self.covid + "ScOT"), VOID.sparqlEndpoint, URIRef("http://vocabulary.curriculum.edu.au/PoolParty/sparql/scot")))
-        g.add((URIRef(self.covid + "ScOT"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q65000093")))
+        g.add((URIRef(self.covid + "ScOT"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q65000093")))
 
         g.add((URIRef(self.covid + "ChemSpider"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ChemSpider"), FOAF.homepage, URIRef("http://www.chemspider.com/")))
-        g.add((URIRef(self.covid + "ChemSpider"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q2311683")))
+        g.add((URIRef(self.covid + "ChemSpider"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q2311683")))
 
         g.add((URIRef(self.covid + "EMBL-EBI"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "EMBL-EBI"), FOAF.homepage, URIRef("https://www.ebi.ac.uk/")))
         g.add((URIRef(self.covid + "EMBL-EBI"), VOID.sparqlEndpoint, URIRef("https://www.ebi.ac.uk/rdf/services/sparql")))
-        g.add((URIRef(self.covid + "EMBL-EBI"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1341845")))
+        g.add((URIRef(self.covid + "EMBL-EBI"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1341845")))
 
         g.add((URIRef(self.covid + "OSDB"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "OSDB"), FOAF.homepage, URIRef("http://www.osdb.info/")))
         g.add((URIRef(self.covid + "OSDB"), VOID.uriLookupEndpoint, URIRef("http://www.osdb.info/")))
-        g.add((URIRef(self.covid + "OSDB"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q27301274")))
+        g.add((URIRef(self.covid + "OSDB"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q27301274")))
 
         g.add((URIRef(self.covid + "ChemIDplus"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ChemIDplus"), FOAF.homepage, URIRef("https://chem.nlm.nih.gov/chemidplus/")))
         g.add((URIRef(self.covid + "ChemIDplus"), VOID.uriLookupEndpoint, URIRef("https://chem.nlm.nih.gov/api/data/")))
         g.add((URIRef(self.covid + "ChemIDplus"), VOID.uriLookupEndpoint, URIRef("https://chem.nlm.nih.gov/api/data/")))
-        g.add((URIRef(self.covid + "ChemIDplus"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q20593")))
+        g.add((URIRef(self.covid + "ChemIDplus"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q20593")))
 
         g.add((URIRef(self.covid + "FDA"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "FDA"), FOAF.homepage, URIRef("https://fdasis.nlm.nih.gov/srs/")))
 
         g.add((URIRef(self.covid + "NDL"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "NDL"), FOAF.homepage, URIRef("https://www.ndl.go.jp/")))
-        g.add((URIRef(self.covid + "NDL"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q477675")))
+        g.add((URIRef(self.covid + "NDL"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q477675")))
 
         g.add((URIRef(self.covid + "LOC"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "LOC"), FOAF.homepage, URIRef("https://www.loc.gov/")))
-        g.add((URIRef(self.covid + "LOC"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q131454")))
+        g.add((URIRef(self.covid + "LOC"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q131454")))
 
         g.add((URIRef(self.covid + "MassBank"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "MassBank"), FOAF.homepage, URIRef("https://massbank.eu/MassBank/")))
         g.add((URIRef(self.covid + "MassBank"), VOID.uriLookupEndpoint, URIRef("https://massbank.eu/MassBank/Result.jsp")))
-        g.add((URIRef(self.covid + "MassBank"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q24088019")))
+        g.add((URIRef(self.covid + "MassBank"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q24088019")))
 
         g.add((URIRef(self.covid + "MoNA"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "MoNA"), FOAF.homepage, URIRef("https://mona.fiehnlab.ucdavis.edu/")))
@@ -277,57 +278,57 @@ class RDFTranscript(object):
         g.add((URIRef(self.covid + "PDB"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "PDB"), FOAF.homepage, URIRef("https://www.wwpdb.org/")))
         g.add((URIRef(self.covid + "PDB"), VOID.uriLookupEndpoint, URIRef("https://integbio.jp/rdf/sparql")))
-        g.add((URIRef(self.covid + "MassBank"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q8036801")))
+        g.add((URIRef(self.covid + "MassBank"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q8036801")))
 
         g.add((URIRef(self.covid + "SML"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "SML"), FOAF.homepage, URIRef("https://sml.snl.no/")))
-        g.add((URIRef(self.covid + "SML"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q19378370")))
+        g.add((URIRef(self.covid + "SML"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q19378370")))
 
         g.add((URIRef(self.covid + "THES_BNCF"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "THES_BNCF"), FOAF.homepage, URIRef("https://thes.bncf.firenze.sbn.it/")))
-        g.add((URIRef(self.covid + "THES_BNCF"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q16583225")))
+        g.add((URIRef(self.covid + "THES_BNCF"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q16583225")))
 
         g.add((URIRef(self.covid + "DrugBank"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "DrugBank"), FOAF.homepage, URIRef("https://www.drugbank.ca/")))
         g.add((URIRef(self.covid + "DrugBank"), VOID.sparqlEndpoint, URIRef("hhttp://wifo5-04.informatik.uni-mannheim.de/drugbank/sparql")))
-        g.add((URIRef(self.covid + "DrugBank"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1122544")))
+        g.add((URIRef(self.covid + "DrugBank"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1122544")))
 
         g.add((URIRef(self.covid + "Quora"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Quora"), FOAF.homepage, URIRef("https://quora.com/")))
         g.add((URIRef(self.covid + "Quora"), VOID.uriLookupEndpoint, URIRef("https://api.quora.com/api")))
-        g.add((URIRef(self.covid + "Quora"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q51711")))
+        g.add((URIRef(self.covid + "Quora"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q51711")))
 
         g.add((URIRef(self.covid + "RCSB_PDB"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "RCSB_PDB"), FOAF.homepage, URIRef("https://www.rcsb.org/")))
         g.add((URIRef(self.covid + "RCSB_PDB"), VOID.uriLookupEndpoint, URIRef("https://data.rcsb.org/rest/v1/core/")))
-        g.add((URIRef(self.covid + "RCSB_PDB"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q55823721")))
+        g.add((URIRef(self.covid + "RCSB_PDB"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q55823721")))
 
         g.add((URIRef(self.covid + "WikiSkripta"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "WikiSkripta"), FOAF.homepage, URIRef("https://www.wikiskripta.eu/w/Home")))
-        g.add((URIRef(self.covid + "WikiSkripta"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q9049250")))
+        g.add((URIRef(self.covid + "WikiSkripta"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q9049250")))
 
         g.add((URIRef(self.covid + "Britannica"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Britannica"), FOAF.homepage, URIRef("https://www.britannica.com/")))
-        g.add((URIRef(self.covid + "Britannica"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q455")))
+        g.add((URIRef(self.covid + "Britannica"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q455")))
 
         g.add((URIRef(self.covid + "BabelNet"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "BabelNet"), FOAF.homepage, URIRef("https://babelnet.org/")))
         g.add((URIRef(self.covid + "BabelNet"), VOID.sparqlEndpoint, URIRef("https://babelnet.org/sparql/")))
-        g.add((URIRef(self.covid + "BabelNet"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q4837690")))
+        g.add((URIRef(self.covid + "BabelNet"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q4837690")))
 
         g.add((URIRef(self.covid + "Finto"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Finto"), FOAF.homepage, URIRef("http://finto.fi/fi/#maincontent")))
         g.add((URIRef(self.covid + "Finto"), VOID.uriLookupEndpoint, URIRef("http://api.finto.fi/rest/v1/")))
-        g.add((URIRef(self.covid + "Finto"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q61677804")))
+        g.add((URIRef(self.covid + "Finto"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q61677804")))
 
         g.add((URIRef(self.covid + "European_Commission"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "European_Commission"), FOAF.homepage, URIRef("https://ec.europa.eu/info/index_en")))
         g.add((URIRef(self.covid + "European_Commission"), VOID.sparqlEndpoint, URIRef("https://data.europa.eu/euodp/en/sparqlep")))
-        g.add((URIRef(self.covid + "European_Commission"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q8880")))
+        g.add((URIRef(self.covid + "European_Commission"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q8880")))
 
         g.add((URIRef(self.covid + "Universalis"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Universalis"), FOAF.homepage, URIRef("https://www.universalis.fr/")))
-        g.add((URIRef(self.covid + "Universalis"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1340194")))
+        g.add((URIRef(self.covid + "Universalis"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1340194")))
 
         g.add((URIRef(self.covid + "ZTH"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ZTH"), FOAF.homepage, URIRef("https://zthiztegia.elhuyar.eus/")))
@@ -337,7 +338,7 @@ class RDFTranscript(object):
 
         g.add((URIRef(self.covid + "OmegaWiki"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "OmegaWiki"), FOAF.homepage, URIRef("http://www.omegawiki.org/Meta:Main_Page")))
-        g.add((URIRef(self.covid + "OmegaWiki"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q154436")))
+        g.add((URIRef(self.covid + "OmegaWiki"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q154436")))
 
         g.add((URIRef(self.covid + "FAST"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "FAST"), FOAF.homepage, URIRef("http://experimental.worldcat.org/fast/")))
@@ -350,22 +351,22 @@ class RDFTranscript(object):
         # Cultureel Woordenboek
         g.add((URIRef(self.covid + "Cultureel_Woordenboek"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Cultureel_Woordenboek"), FOAF.homepage, URIRef("https://www.cultureelwoordenboek.nl/")))
-        g.add((URIRef(self.covid + "Cultureel_Woordenboek"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q3010887")))
+        g.add((URIRef(self.covid + "Cultureel_Woordenboek"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q3010887")))
 
         # FMA Browser
         g.add((URIRef(self.covid + "FMA"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "FMA"), FOAF.homepage, URIRef("http://fma.si.washington.edu/browser/#/")))
-        g.add((URIRef(self.covid + "FMA"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1406710")))
+        g.add((URIRef(self.covid + "FMA"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1406710")))
 
         g.add((URIRef(self.covid + "Ontobee"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Ontobee"), FOAF.homepage, URIRef("http://www.ontobee.org/")))
         g.add((URIRef(self.covid + "Ontobee"), VOID.sparqlEndpoint, URIRef("http://www.ontobee.org/sparql")))
-        g.add((URIRef(self.covid + "Ontobee"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q47069651")))
+        g.add((URIRef(self.covid + "Ontobee"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q47069651")))
 
         g.add((URIRef(self.covid + "Getty"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Getty"), FOAF.homepage, URIRef("http://vocab.getty.edu/")))
         g.add((URIRef(self.covid + "Getty"), VOID.sparqlEndpoint, URIRef("http://vocab.getty.edu/sparql")))
-        g.add((URIRef(self.covid + "Getty"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q5554720")))
+        g.add((URIRef(self.covid + "Getty"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q5554720")))
 
         g.add((URIRef(self.covid + "ICD9Data"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ICD9Data"), FOAF.homepage, URIRef("http://www.icd9data.com/")))
@@ -373,7 +374,7 @@ class RDFTranscript(object):
         # ECY Encyclopedia of Modern UKraine
         g.add((URIRef(self.covid + "ECY"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ECY"), FOAF.homepage, URIRef("http://esu.com.ua/")))
-        g.add((URIRef(self.covid + "ECY"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q4532152")))
+        g.add((URIRef(self.covid + "ECY"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q4532152")))
 
         # HPO Human Phenotype Ontology
         g.add((URIRef(self.covid + "HPO"), RDF.type, VOID.Dataset))
@@ -382,17 +383,17 @@ class RDFTranscript(object):
         g.add((URIRef(self.covid + "uBio"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "uBio"), FOAF.homepage, URIRef("http://www.ubio.org/")))
         g.add((URIRef(self.covid + "uBio"), VOID.uriLookupEndpoint, URIRef("http://ubio.org/webservices/service.php?function=")))
-        g.add((URIRef(self.covid + "uBio"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q3551271")))
+        g.add((URIRef(self.covid + "uBio"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q3551271")))
 
         g.add((URIRef(self.covid + "iNaturalist"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "iNaturalist"), FOAF.homepage, URIRef("https://www.inaturalist.org/")))
         g.add((URIRef(self.covid + "iNaturalist"), VOID.uriLookupEndpoint, URIRef("https://www.inaturalist.org/")))
-        g.add((URIRef(self.covid + "iNaturalist"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q16958215")))
+        g.add((URIRef(self.covid + "iNaturalist"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q16958215")))
 
         g.add((URIRef(self.covid + "ITIS"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ITIS"), FOAF.homepage, URIRef("https://www.itis.gov/")))
         g.add((URIRef(self.covid + "ITIS"), VOID.uriLookupEndpoint, URIRef("https://www.itis.gov/ITISWebService/")))
-        g.add((URIRef(self.covid + "ITIS"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q82575")))
+        g.add((URIRef(self.covid + "ITIS"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q82575")))
 
         g.add((URIRef(self.covid + "EPPO"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "EPPO"), FOAF.homepage, URIRef("https://gd.eppo.int/")))
@@ -400,47 +401,47 @@ class RDFTranscript(object):
 
         g.add((URIRef(self.covid + "Bigenc"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Bigenc"), FOAF.homepage, URIRef("https://bigenc.ru/")))
-        g.add((URIRef(self.covid + "Bigenc"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1768199")))
+        g.add((URIRef(self.covid + "Bigenc"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1768199")))
 
         g.add((URIRef(self.covid + "ECHA"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "ECHA"), FOAF.homepage, URIRef("https://echa.europa.eu/")))
-        g.add((URIRef(self.covid + "ECHA"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q59911453")))
+        g.add((URIRef(self.covid + "ECHA"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q59911453")))
 
         # National Agricultural Library's Agricultural Thesaurus
         g.add((URIRef(self.covid + "NALT"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "NALT"), FOAF.homepage, URIRef("https://agclass.nal.usda.gov/")))
-        g.add((URIRef(self.covid + "NALT"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q17364107")))
+        g.add((URIRef(self.covid + "NALT"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q17364107")))
 
         # STW Thesaurus for Economics
         g.add((URIRef(self.covid + "STW"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "STW"), FOAF.homepage, URIRef("https://zbw.eu/stw/version/latest/about")))
-        g.add((URIRef(self.covid + "STW"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q26903352")))
+        g.add((URIRef(self.covid + "STW"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q26903352")))
 
         # AUT Databáze národních autorit NK ČR
         g.add((URIRef(self.covid + "AUT"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "AUT"), FOAF.homepage, URIRef("https://aleph.nkp.cz/F/?func=find-c&local_base=aut")))
-        g.add((URIRef(self.covid + "AUT"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q13550863")))
+        g.add((URIRef(self.covid + "AUT"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q13550863")))
 
         g.add((URIRef(self.covid + "Iconclass"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Iconclass"), FOAF.homepage, URIRef("http://iconclass.org/")))
         g.add((URIRef(self.covid + "Iconclass"), VOID.uriLookupEndpoint, URIRef("http://iconclass.org/json/?notation=")))
-        g.add((URIRef(self.covid + "Iconclass"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q13550863")))
+        g.add((URIRef(self.covid + "Iconclass"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q13550863")))
 
         g.add((URIRef(self.covid + "Treccani"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Treccani"), FOAF.homepage, URIRef("http://www.treccani.it/")))
-        g.add((URIRef(self.covid + "Treccani"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q731361")))
+        g.add((URIRef(self.covid + "Treccani"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q731361")))
 
         g.add((URIRef(self.covid + "Brockhaus"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Brockhaus"), FOAF.homepage, URIRef("https://brockhaus.de/info/")))
-        g.add((URIRef(self.covid + "Brockhaus"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q237227")))
+        g.add((URIRef(self.covid + "Brockhaus"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q237227")))
 
         g.add((URIRef(self.covid + "Memory-alpha"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Memory-alpha"), FOAF.homepage, URIRef("https://memory-alpha.fandom.com/wiki/Portal:Main")))
-        g.add((URIRef(self.covid + "Memory-alpha"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q498824")))
+        g.add((URIRef(self.covid + "Memory-alpha"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q498824")))
 
         g.add((URIRef(self.covid + "Nico_Nico_Pedia"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Nico_Nico_Pedia"), FOAF.homepage, URIRef("https://dic.nicovideo.jp/?from=header")))
-        g.add((URIRef(self.covid + "Nico_Nico_Pedia"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q10856286")))
+        g.add((URIRef(self.covid + "Nico_Nico_Pedia"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q10856286")))
 
         g.add((URIRef(self.covid + "TA2"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "TA2"), FOAF.homepage, URIRef("https://ta2viewer.openanatomy.org/")))
@@ -452,16 +453,16 @@ class RDFTranscript(object):
         # Intenational Plant Names Index
         g.add((URIRef(self.covid + "IPNI"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "IPNI"), FOAF.homepage, URIRef("https://ipni.org/")))
-        g.add((URIRef(self.covid + "IPNI"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q922063")))
+        g.add((URIRef(self.covid + "IPNI"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q922063")))
 
         g.add((URIRef(self.covid + "Tropicos"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Tropicos"), FOAF.homepage, URIRef("http://legacy.tropicos.org/Home.aspx")))
-        g.add((URIRef(self.covid + "Tropicos"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q2578548")))
+        g.add((URIRef(self.covid + "Tropicos"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q2578548")))
 
         # CJB Conservatory and Botanical Garden of the City of Geneva
         g.add((URIRef(self.covid + "CJB"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "CJB"), FOAF.homepage, URIRef("http://www.ville-ge.ch/cjb/")))
-        g.add((URIRef(self.covid + "CJB"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q677516")))
+        g.add((URIRef(self.covid + "CJB"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q677516")))
 
         # Plants Database
         g.add((URIRef(self.covid + "Plants_Database"), RDF.type, VOID.Dataset))
@@ -470,7 +471,7 @@ class RDFTranscript(object):
         # Palynological Database
         g.add((URIRef(self.covid + "PalDat"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "PalDat"), FOAF.homepage, URIRef("https://www.paldat.org/")))
-        g.add((URIRef(self.covid + "PalDat"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q59786289")))
+        g.add((URIRef(self.covid + "PalDat"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q59786289")))
 
         g.add((URIRef(self.covid + "Vikidia_ES"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "Vikidia_ES"), FOAF.homepage, URIRef("https://es.vikidia.org/wiki/Vikidia:Portada")))
@@ -505,7 +506,7 @@ class RDFTranscript(object):
             g.add((temp_uri, RDF.type, VOID.Linkset))
             g.add((temp_uri, VOID.target, source))
             g.add((temp_uri, VOID.target, URIRef(self.covid + d)))
-            g.add((temp_uri, VOID.linkPredicate, SKOS.closeMatch))
+            g.add((temp_uri, VOID.linkPredicate, OWL.sameAs))
 
         g.add((URIRef(self.covid + "NDF-RT"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "NDF-RT"), FOAF.homepage, URIRef("https://evs.nci.nih.gov/ftp1/NDF-RT/")))
@@ -629,7 +630,7 @@ class RDFTranscript(object):
         g.add((URIRef(self.covid + "DrugBank"), RDF.type, VOID.Dataset))
         g.add((URIRef(self.covid + "DrugBank"), FOAF.homepage, URIRef("https://www.drugbank.ca/")))
         g.add((URIRef(self.covid + "DrugBank"), VOID.sparqlEndpoint, URIRef("hhttp://wifo5-04.informatik.uni-mannheim.de/drugbank/sparql")))
-        g.add((URIRef(self.covid + "DrugBank"), SKOS.closeMatch, URIRef("http://www.wikidata.org/entity/Q1122544")))
+        g.add((URIRef(self.covid + "DrugBank"), OWL.sameAs, URIRef("http://www.wikidata.org/entity/Q1122544")))
 
         # Veterans Health Administration National Drug File
         g.add((URIRef(self.covid + "VANDF"), RDF.type, VOID.Dataset))
@@ -695,13 +696,13 @@ class RDFTranscript(object):
 
         return g
 
-    def generate_closematch_relations(self, linkset, source, g=None):
+    def generate_sameas_relations(self, linkset, source, g=None):
         """
-        Generate a Graph (rdflib) with skos:closeMatch relations from a set containing links
+        Generate a Graph (rdflib) with owl:sameAs relations from a set containing links
         :param linkset: set with a key as resource and a list with the associated links as value
         :param source: The URI of the Dataset from which resources come from
         :param g: An existing Graph (rdflib)
-        :return g: Graph with skos:closeMatch relations
+        :return g: Graph with owl:sameAs relations
         """
         if not g:
             g = Graph()
@@ -709,6 +710,6 @@ class RDFTranscript(object):
             # Attach an entity to a Dataset
             g.add((URIRef(key), VOID.inDataset, URIRef(source)))
             for v in value:
-                # Handle SKOS.closeMatch relations
-                g.add((URIRef(key), SKOS.closeMatch, URIRef(urllib.parse.quote(v, safe=",:?!/_#=&()%\'"))))
+                # Handle OWL.sameAs relations
+                g.add((URIRef(key), OWL.sameAs, URIRef(urllib.parse.quote(v, safe=",:?!/_#=&()%\'"))))
         return g

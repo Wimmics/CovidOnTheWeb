@@ -10,6 +10,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 
 from covidontheweb_aug.utils.config import Config
 
+
 class KnowledgeGraphRequest(object):
     # TODO handle BioPortal entities
     def __init__(self):

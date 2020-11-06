@@ -3,6 +3,7 @@ import os
 import pathlib
 import pickle
 
+
 class Output(object):
 
     @staticmethod
@@ -28,6 +29,7 @@ class Output(object):
         output_stream = io.open(path, 'wb+')
         pickle.dump(data, output_stream)
         output_stream.close()
+
 
 class Input(object):
 
