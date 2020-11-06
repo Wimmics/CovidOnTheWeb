@@ -1,12 +1,10 @@
 #!/bin/bash
-
-# set DOWNLOAD_MODEL to true to download DBpedia Spotlight models
-DOWNLOAD_MODELS=false
+# install DBpedia Spotlight nightly build https://sourceforge.net/projects/dbpedia-spotlight/files/spotlight/dbpedia-spotlight-nightly-build.ja$
 
 # path to DBpedia Spotlight
-# install DBpedia Spotlight nightly build https://sourceforge.net/projects/dbpedia-spotlight/files/spotlight/dbpedia-spotlight-nightly-build.ja$
 cd $1
 
+# check if second argument is true to install th different models
 if [[ $2 = true ]] ;
 then
     wget https://downloads.dbpedia.org/repo/dbpedia/spotlight/spotlight-model/2020.03.11/spotlight-model_lang%3den.tar.gz
