@@ -80,7 +80,7 @@ covid:covidontheweb-{{dash-version}}
 
 
 # --- SPARQL Service Description and DCAT DataService
-covid:sparql-service:
+covid:sparql-service
     a                    sd:Service, dcat:DataService;
     sd:supportedLanguage sd:SPARQL10Query, sd:SPARQL11Query;
     sd:endpoint          <{{sparql_endpoint}}>;

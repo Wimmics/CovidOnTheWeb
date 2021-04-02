@@ -43,8 +43,8 @@ covid:covidontheweb-1-2
     
     dct:creator      <https://team.inria.fr/wimmics/>;
     schema:author    <https://team.inria.fr/wimmics/>;
-    dct:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
-    schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
+    dct:publisher    <https://ror.org/0496p8026>, <https://ror.org/02kvxyf05>, <https://ror.org/02feahw73>;
+    schema:publisher <https://ror.org/0496p8026>, <https://ror.org/02kvxyf05>, <https://ror.org/02feahw73>;
 
     a prov:Entity;
     schema:isBasedOn        covid:cord19v47;
@@ -64,13 +64,17 @@ covid:covidontheweb-1-2
     .
 
 
-<http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
-<https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
-<https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
+<https://ror.org/0496p8026> a foaf:Organization; foaf:name "University Côte d'Azur";
+    foaf:homepage <http://univ-cotedazur.fr>.
+<https://ror.org/02kvxyf05> a foaf:Organization; foaf:name "Inria";
+    foaf:homepage <https://www.inria.fr>.
+<https://ror.org/02feahw73> a foaf:Organization; foaf:name "CNRS";
+    foaf:homepage <https://www.cnrs.fr>.
+<https://team.inria.fr/wimmics/> a foaf:Organization; foaf:name "Wimmics research team";
 
 
 # --- SPARQL Service Description and DCAT DataService
-covid:sparql-service:
+covid:sparql-service
     a                    sd:Service, dcat:DataService;
     sd:supportedLanguage sd:SPARQL10Query, sd:SPARQL11Query;
     sd:endpoint          <https://covidontheweb.inria.fr/sparql>;
