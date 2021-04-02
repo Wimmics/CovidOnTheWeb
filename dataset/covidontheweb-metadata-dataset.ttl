@@ -70,7 +70,7 @@ covid:covidontheweb-1-2
     foaf:homepage <https://www.inria.fr>.
 <https://ror.org/02feahw73> a foaf:Organization; foaf:name "CNRS";
     foaf:homepage <https://www.cnrs.fr>.
-<https://team.inria.fr/wimmics/> a foaf:Organization; foaf:name "Wimmics research team";
+<https://team.inria.fr/wimmics/> a foaf:Organization; foaf:name "Wimmics research team".
 
 
 # --- SPARQL Service Description and DCAT DataService

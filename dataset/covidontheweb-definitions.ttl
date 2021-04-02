@@ -5,6 +5,7 @@
 @prefix dct:    <http://purl.org/dc/terms/>.
 @prefix fabio:  <http://purl.org/spar/fabio/> .
 @prefix frbr:   <http://purl.org/vocab/frbr/core#>.
+@prefix wdt:    <http://www.wikidata.org/prop/direct/> .
 
 @prefix covid:  <http://ns.inria.fr/covid19/>.
 @prefix covidpr:<http://ns.inria.fr/covid19/property/>.
