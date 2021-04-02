@@ -16,7 +16,7 @@ graph="http://ns.inria.fr/covid19/graph/metadata"
 ./virtuoso-import.sh \
     --cleargraph \
     --graph $graph \
-    --path $CURRENT_DIR/../dataset_tpl \
+    --path $CURRENT_DIR/../../dataset \
     covidontheweb-metadata-dataset.ttl covidontheweb-definitions.ttl
 
 
