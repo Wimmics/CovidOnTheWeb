@@ -1,0 +1,49 @@
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:    <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix dct:    <http://purl.org/dc/terms/>.
+@prefix fabio:  <http://purl.org/spar/fabio/> .
+@prefix frbr:   <http://purl.org/vocab/frbr/core#>.
+
+@prefix covid:  <http://ns.inria.fr/covid19/>.
+@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+
+
+covid:DocumentBody
+    a               owl:Class;
+    rdfs:subClassOf fabio:Work;
+    rdfs:label      "document body";
+    dct:description "A work's body, e.g. the main part of a research article";
+    .
+
+covidpr:confidence
+    a               owl:DatatypeProperty;
+    rdfs:label      "entity confidence score";
+    dct:description "Confidence score obtained during the named entity recognition process";
+    .
+
+covidpr:hasTitle
+    a               owl:ObjectProperty;
+    rdfs:subPropertyOf frbr:part;
+    rdfs:label      "resource representing a document's title";
+    dct:description "Links a work to its title";
+    .
+
+covidpr:hasBody
+    a               owl:ObjectProperty;
+    rdfs:subPropertyOf frbr:part;
+    rdfs:label      "resource representing a document's body";
+    dct:description "Links a work to its body, e.g. the main part of a research article";
+    .
+
+covidpr:noDeathsEphad
+    a               owl:DatatypeProperty;
+    rdfs:subPropertyOf wdt:P1120; # P1120 number of deaths
+    rdfs:label      "number of deaths of Covid19 in Ephad";
+    .
+
+covidpr:noCasesIntensiveCare
+    a               owl:DatatypeProperty;
+    rdfs:label      "number of patients in intensive care units";
+    .

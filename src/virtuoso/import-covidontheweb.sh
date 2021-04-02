@@ -17,7 +17,7 @@ graph="http://ns.inria.fr/covid19/graph/metadata"
     --cleargraph \
     --graph $graph \
     --path $CURRENT_DIR/../dataset_tpl \
-    cord19-metadata-dataset.ttl cord19-metadata-dataset-void.ttl
+    covidontheweb-metadata-dataset.ttl covidontheweb-definitions.ttl
 
 
 # Articles metadata graph - generated from the CORD19 metadata.csv and json files

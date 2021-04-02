@@ -1,23 +1,24 @@
-@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#>.
-@prefix owl:    <http://www.w3.org/2002/07/owl#>.
-@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl:        <http://www.w3.org/2002/07/owl#>.
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
 
-@prefix bibo:   <http://purl.org/ontology/bibo/> .
-@prefix dcat:   <http://www.w3.org/ns/dcat#>.
-@prefix dce:    <http://purl.org/dc/elements/1.1/>.
-@prefix dct:    <http://purl.org/dc/terms/>.
-@prefix fabio:  <http://purl.org/spar/fabio/> .
-@prefix foaf:   <http://xmlns.com/foaf/0.1/>.
-@prefix frbr:   <http://purl.org/vocab/frbr/core#>.
-@prefix oa:     <http://www.w3.org/ns/oa#>.
-@prefix prov:   <http://www.w3.org/ns/prov#>.
-@prefix schema: <http://schema.org/>.
-@prefix void:   <http://rdfs.org/ns/void#>.
-@prefix wd:     <http://www.wikidata.org/entity/>.
-@prefix wdt:    <http://www.wikidata.org/prop/direct/> .
+@prefix bibo:       <http://purl.org/ontology/bibo/> .
+@prefix dcat:       <http://www.w3.org/ns/dcat#>.
+@prefix dce:        <http://purl.org/dc/elements/1.1/>.
+@prefix dct:        <http://purl.org/dc/terms/>.
+@prefix fabio:      <http://purl.org/spar/fabio/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/>.
+@prefix frbr:       <http://purl.org/vocab/frbr/core#>.
+@prefix oa:         <http://www.w3.org/ns/oa#>.
+@prefix prov:       <http://www.w3.org/ns/prov#>.
+@prefix schema:		<http://schema.org/>.
+@prefix sd:     	<http://www.w3.org/ns/sparql-service-description#>
+@prefix void:       <http://rdfs.org/ns/void#>.
+@prefix wd:         <http://www.wikidata.org/entity/>.
+@prefix wdt:        <http://www.wikidata.org/prop/direct/> .
 
-@prefix covid:  <http://ns.inria.fr/covid19/>.
-@prefix covidpr:<http://ns.inria.fr/covid19/property/>.
+@prefix covid:      <http://ns.inria.fr/covid19/>.
+@prefix covidpr:    <http://ns.inria.fr/covid19/property/>.
 
 # Template file placeholders:
 # - {{version}}: dataset version in dot notation, like "x.y" (used for owl:versionInfo)
@@ -25,9 +26,17 @@
 # - {{date}}: date at which the Covid-on-the-Web dataset is generated
 # - {{cord19version}}: the CORD19 version
 # - {{cord19date}}: CORD19 issue date, like "2020-09-01"
+# - {{triples}}: number of triples
+# - {{doi}}: DOI of the Covid-on-the-Web dataset
+# - {{sparql_endpoint}}: URL of the SPARQL endpoint
+
+
+covid:covidontheweb-{{dash-version}}   owl:sameAs  covid:dataset-{{dash-version}}.
+covid:dataset-{{dash-version}}         owl:sameAs  covid:covidontheweb-{{dash-version}}; rdfs:label "Covid-on-the-Web dataset".
+
 
 covid:covidontheweb-{{dash-version}}
-    a               dcat:Dataset, schema:Dataset;
+    a               dcat:Dataset, void:Dataset, schema:Dataset;
     dct:title       "Covid-on-the-Web dataset";
     schema:name     "Covid-on-the-Web dataset";
     dct:description "This RDF dataset provides two main knowledge graphs produced by processing the Covid-19 Open Research Dataset (CORD-19). The CORD-19 Named Entities Knowledge Graph provides named entities identified and disambiguated by NCBO BioPortal annotator, Entity-fishing and DBpedia Spotlight. The CORD-19 Argumentative Knowledge Graph provides argumentative components extracted from the articles by the Argumentative Clinical Trial Analysis platform (ACTA).";
@@ -37,12 +46,14 @@ covid:covidontheweb-{{dash-version}}
     owl:versionInfo "{{version}}";
     dct:issued      "{{date}}"^^xsd:date; schema:datePublished "{{date}}"^^xsd:date;
     
-    dct:subject     "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
-    schema:keywords "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity", "named entity recognition", "NER", "argumentation theory", "argument mining";
+    dct:subject     "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity",
+                    "named entity recognition", "NER", "argumentation theory", "argument mining";
+    schema:keywords "covid19", "coronavirus", "cord19", "literature", "annotation", "named entity",
+                    "named entity recognition", "NER", "argumentation theory", "argument mining";
     
     dct:creator      <https://team.inria.fr/wimmics/>;
     schema:author    <https://team.inria.fr/wimmics/>;
-    dce:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
+    dct:publisher    <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
     schema:publisher <http://univ-cotedazur.fr>, <https://www.inria.fr>, <https://www.cnrs.fr>;
 
     a prov:Entity;
@@ -50,15 +61,46 @@ covid:covidontheweb-{{dash-version}}
     prov:wasDerivedFrom     covid:cord19v{{cord19version}};
     prov:wasGeneratedBy     covid:RdfGeneration;
     prov:wasGeneratedAtTime "{{date}}"^^xsd:date;
+    
+    void:uriSpace       "http://ns.inria.fr/covid19/";
+    void:triples        "{{triples}}"^^xsd:integer;
+    void:sparqlEndpoint <{{sparql_endpoint}}>;
+    void:dataDump       <https://doi.org/{{doi}}>;
+    void:vocabulary
+        bibo:, dcat:, dce:, dct:, fabio:, foaf:, frbr:, oa:, prov:, schema:, void:, 
+        <http://www.arg.dundee.ac.uk/aif#>,  # Argument Interchange Format
+        <http://purl.org/spar/amo>,          # Argument Model Ontology (Toulmin)
+        <http://rdfs.org/sioc/argument#>;    # SIOC Argumentation Module
     .
 
-covid:dataset-{{dash-version}}         owl:sameAs  covid:covidontheweb-{{dash-version}}; rdfs:label "Covid-on-the-Web dataset".
-covid:covidontheweb-{{dash-version}}   owl:sameAs  covid:dataset-{{dash-version}}.
 
 <http://univ-cotedazur.fr>  foaf:name "University Côte d'Azur"; schema:name "University Côte d'Azur".
 <https://www.inria.fr>      foaf:name "Inria"; schema:name "Inria".
 <https://www.cnrs.fr>       foaf:name "CNRS"; schema:name "CNRS".
 
+
+# --- SPARQL Service Description and DCAT DataService
+covid:sparql-service:
+    a                    sd:Service, dcat:DataService;
+    sd:supportedLanguage sd:SPARQL10Query, sd:SPARQL11Query;
+    sd:endpoint          <{{sparql_endpoint}}>;
+    dcat:endpointURL     <{{sparql_endpoint}}>;
+    dcat:servesDataset   covid:covidontheweb-{{dash-version}};
+    rdfs:label           "SPARQL endpoint serving the Covid-on-the-Web dataset";
+    sd:availableGraphs [
+        a                sd:GraphCollection;
+        sd:namedGraph 
+            <http://ns.inria.fr/covid19/graph/metadata>,
+            <http://ns.inria.fr/covid19/graph/articles>,
+            <http://ns.inria.fr/covid19/graph/entityfishing>,
+            <http://ns.inria.fr/covid19/graph/entityfishing/body>,
+            <http://ns.inria.fr/covid19/graph/bioportal-annotator>,
+            <http://ns.inria.fr/covid19/graph/dbpedia-spotlight>,
+            <http://ns.inria.fr/covid19/graph/acta>
+    ].
+
+
+# --- CORD-19 dataset and provenance information
 
 covid:cord19v{{cord19version}}
     a               dcat:Dataset, schema:Dataset;
@@ -119,43 +161,44 @@ covid:hal01207828
     schema:about    covid:xR2RML.
 
 
-# Properties definition
+# --- VOID Linksets
 
-covidpr:confidence
-    a               owl:DataProperty;
-    rdfs:label      "entity confidence score";
-    dct:description "Confidence score obtained during the named entity recognition process";
-    .
+covid:Wikidata
+   dct:title "Wikidata"@en;
+   a void:Dataset;
+   foaf:homepage <https://wikidata.org>.
 
-covidpr:hasTitle
-    a               owl:ObjectProperty;
-    rdfs:subPropertyOf frbr:part;
-    rdfs:label      "resource representing a document's title";
-    dct:description "Links a work to its title";
-    .
+covid:cotw2wikidata
+   a void:Linkset;
+   void:linkPredicate oa:hasBody;
+   void:subjectsTarget covid:covidontheweb-{{dash-version}};
+   void:objectsTarget covid:Wikidata;
+   void:triples "66098777"^^xsd:integer;
+   .
 
-covidpr:hasBody
-    a               owl:ObjectProperty;
-    rdfs:subPropertyOf frbr:part;
-    rdfs:label      "resource representing a document's body";
-    dct:description "Links a work to its body, e.g. the main part of a research article";
-    .
+covid:DBpedia
+   dct:title "DBpedia"@en;
+   a void:Dataset;
+   foaf:homepage <http://dbpedia.org>.
 
-covidpr:noDeathsEphad
-    a               owl:DataProperty;
-    rdfs:subPropertyOf wdt:P1120; # P1120 number of deaths
-    rdfs:label      "number of deaths of Covid19 in Ephad";
-    .
+covid:cotw2dbpedia
+   a void:Linkset;
+   void:linkPredicate oa:hasBody;
+   void:subjectsTarget covid:covidontheweb-{{dash-version}};
+   void:objectsTarget covid:DBpedia;
+   void:triples "4084979"^^xsd:integer;
+   .
 
-covidpr:noCasesIntensiveCare
-    a               owl:DataProperty;
-    rdfs:label      "number of patients in intensive care units";
-    .
+covid:UMLS
+   dct:title "UMLS"@en;
+   a void:Dataset;
+   foaf:homepage <https://www.nlm.nih.gov/research/umls/>.
 
-
-covid:DocumentBody
-    a               owl:Class;
-    rdfs:subClassOf fabio:Work;
-    rdfs:label      "document body";
-    dct:description "A work's body, e.g. the main part of a research article";
-    .
+covid:cotw2umls
+   a void:Linkset;
+   void:linkPredicate oa:hasBody;
+   void:subjectsTarget covid:covidontheweb-{{dash-version}};
+   void:objectsTarget covid:UMLS;
+   void:triples "42972551"^^xsd:integer;
+   .
+   

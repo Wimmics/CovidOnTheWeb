@@ -7,4 +7,4 @@ log/
 .project
 .settings/
 .metadata/
-deploy/apache.conf
+deploy/
