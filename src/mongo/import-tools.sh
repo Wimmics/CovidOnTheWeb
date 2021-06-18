@@ -63,6 +63,13 @@ mongo_import_filelist() {
         fi
     done
     
+    # Import the last group that could be less than $MONGO_IMPORT_MAXSIZE
+    if [ -s $jsondump ]; then 
+    echo "Importing last documents from $jsondump"
+        mongoimport --type=json -d $DB -c $_collection_a $jsondump
+        echo -n '' > $jsondump
+    fi
+    
     rm -f $jsondump
 }
 
