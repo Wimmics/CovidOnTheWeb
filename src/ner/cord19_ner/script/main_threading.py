@@ -60,10 +60,8 @@ def func_entity_fishing(d):
                 d_json["back_matter"].append(text)
 
     Output().save_json(d_json, path_output + '/entity-fishing/' + folder + '/' + d["paper_id"] +  '.json')
-    #print(d_json)
     pbar.update()
     return d_json
-    #return d_json
 
 
 def func_dbpedia_spotlight(d):
@@ -139,7 +137,7 @@ def func_ncbo(d):
         isreliable, textbytesfound, details, vectors = pycld2.detect(body_text, returnVectors=True)
         lang = vectors[0][3]
     # None or out of range
-    except:
+    except Exception:
         lang = 'en'
 
     if os.path.isfile('/data/CORD19-Annotation-multi/entity-fishing/' + folder + '/' + paper_id + '.json'):
@@ -151,7 +149,7 @@ def func_ncbo(d):
         abstract = cotools.abstract(d)
         d_json["abstract"] = wa.request_ncbo_plus(abstract, lang)
     # no abstract
-    except:
+    except Exception:
         pass
 
     body_text = cotools.text(d)
@@ -169,7 +167,6 @@ def func_ncbo(d):
             if key == 'text':
                 text = {'text': wa.request_ncbo_plus(value)}
                 d_json["back_matter"].append(text)
-    #"""
     pbar.update()
     Output().save_json(d_json, path_output + '/ncbo/' + folder + '/' + d["paper_id"] + '.json')
     return d_json

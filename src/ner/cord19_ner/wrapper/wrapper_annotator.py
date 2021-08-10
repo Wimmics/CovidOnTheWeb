@@ -12,7 +12,7 @@ class WrapperAnnotator(object):
         self.entity_fishing_endpoint = Config.entity_fishing_endpoint
         self.ncbo_enpoint_annotatorplus = Config.ncbo_annotatorplus
 
-    def request_dbpedia_spotlight(self, text, lang='en', confidence=0.15, support=10):
+    def request_dbpedia_spotlight(self, text: str, lang: str = 'en', confidence: float = 0.15, support: int = 10) -> list:
         """
         Wrapper around DBpedia Spotlight
         :param text: String, text to be annotated
@@ -41,7 +41,7 @@ class WrapperAnnotator(object):
         except json.decoder.JSONDecodeError:
             return None
 
-    def request_entity_fishing(self, text, lang='en'):
+    def request_entity_fishing(self, text: str, lang: str = 'en'):
         """
         Wrapper around Entity-fishing (language set in English)
         :param text: string, text to be annotated
@@ -64,7 +64,7 @@ class WrapperAnnotator(object):
         except json.decoder.JSONDecodeError:
             return None
 
-    def request_ncbo_plus(self, text, lang='en', ncbo_api=Config.ncbo_annotatorplus):
+    def request_ncbo_plus(self, text: str, lang: str = 'en', ncbo_api: dict = Config.ncbo_annotatorplus):
         """
         Wrapper around the API of the Bioportal AnnotatorPlus
         API link: http://data.bioontology.org/documentation
