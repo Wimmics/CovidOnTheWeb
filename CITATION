@@ -1,0 +1,31 @@
+@InProceedings{10.1007/978-3-030-62466-8_19,
+author="Michel, Franck
+and Gandon, Fabien
+and Ah-Kane, Valentin
+and Bobasheva, Anna
+and Cabrio, Elena
+and Corby, Olivier
+and Gazzotti, Rapha{\"e}l
+and Giboin, Alain
+and Marro, Santiago
+and Mayer, Tobias
+and Simon, Mathieu
+and Villata, Serena
+and Winckler, Marco",
+editor="Pan, Jeff Z.
+and Tamma, Valentina
+and d'Amato, Claudia
+and Janowicz, Krzysztof
+and Fu, Bo
+and Polleres, Axel
+and Seneviratne, Oshani
+and Kagal, Lalana",
+title="Covid-on-the-Web: Knowledge Graph and Services to Advance COVID-19 Research",
+booktitle="The Semantic Web -- ISWC 2020",
+year="2020",
+publisher="Springer International Publishing",
+address="Cham",
+pages="294--310",
+abstract="Scientists are harnessing their multi-disciplinary expertise and resources to fight the COVID-19 pandemic. Aligned with this mindset, the Covid-on-the-Web project aims to allow biomedical researchers to access, query and make sense of COVID-19 related literature. To do so, it adapts, combines and extends tools to process, analyze and enrich the ``COVID-19 Open Research Dataset'' (CORD-19) that gathers 50,000+ full-text scientific articles related to the coronaviruses. We report on the RDF dataset and software resources produced in this project by leveraging skills in knowledge representation, text, data and argument mining, as well as data visualization and exploration. The dataset comprises two main knowledge graphs describing (1) named entities mentioned in the CORD-19 corpus and linked to DBpedia, Wikidata and other BioPortal vocabularies, and (2) arguments extracted using ACTA, a tool automating the extraction and visualization of argumentative graphs, meant to help clinicians analyze clinical trials and make decisions. On top of this dataset, we provide several visualization and exploration tools based on the Corese Semantic Web platform, MGExplorer visualization library, as well as the Jupyter Notebook technology. All along this initiative, we have been engaged in discussions with healthcare and medical research institutes to align our approach with the actual needs of the biomedical community, and we have paid particular attention to comply with the open and reproducible science goals, and the FAIR principles.",
+isbn="978-3-030-62466-8"
+}
