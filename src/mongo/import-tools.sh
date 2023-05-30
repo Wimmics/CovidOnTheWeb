@@ -52,14 +52,13 @@ mongo_import_filelist() {
         else
             currentsize=$(stat --format=%s $jsondump)
             newsize=$(($currentsize + $filesize))
-            if [ $newsize -lt $MONGO_IMPORT_MAXSIZE ]; then
-                echo "Appending to $jsondump document $jsonfile"
-                cat $jsonfile >> $jsondump
-            else
+            if [ $newsize -gt $MONGO_IMPORT_MAXSIZE ]; then
                 echo "Importing documents from $jsondump"
                 mongoimport --type=json -d $DB -c $_collection_a $jsondump
                 echo -n '' > $jsondump
             fi
+            echo "Appending to $jsondump document $jsonfile"
+            cat $jsonfile >> $jsondump
         fi
     done
     
