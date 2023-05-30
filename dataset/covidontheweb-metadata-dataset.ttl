@@ -50,7 +50,7 @@ covid:covidontheweb-1-2
     schema:isBasedOn        covid:cord19v47;
     prov:wasDerivedFrom     covid:cord19v47;
     prov:wasGeneratedBy     covid:RdfGeneration;
-    prov:wasGeneratedAtTime "2020-11-05"^^xsd:date;
+    prov:generatedAtTime "2020-11-05"^^xsd:date;
     
     void:uriSpace       "http://ns.inria.fr/covid19/";
     void:triples        "1372643149"^^xsd:integer;
