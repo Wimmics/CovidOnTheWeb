@@ -12,7 +12,7 @@
 @prefix oa:         <http://www.w3.org/ns/oa#>.
 @prefix prov:       <http://www.w3.org/ns/prov#>.
 @prefix schema:		<http://schema.org/>.
-@prefix sd:     	<http://www.w3.org/ns/sparql-service-description#>
+@prefix sd:     	<http://www.w3.org/ns/sparql-service-description#>.
 @prefix void:       <http://rdfs.org/ns/void#>.
 @prefix wd:         <http://www.wikidata.org/entity/>.
 @prefix wdt:        <http://www.wikidata.org/prop/direct/> .
